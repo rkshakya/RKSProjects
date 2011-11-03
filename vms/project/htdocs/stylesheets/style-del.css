@@ -1,0 +1,74 @@
+img{ border: 0pt; }
+body{
+margin:0px;
+}
+
+#bottom_div{
+width: 520px;
+height: 150px;
+background-color: #b9d1ea;
+clear:both;
+}
+
+#vms_toolbar {
+float:left;
+font:normal 11px 'Arial','verdana';
+margin:0;
+padding:0;
+}
+
+#vms_toolbar ul {
+background-image:url(../images/bg.gif);
+background-repeat:repeat-x;
+float:left;
+line-height:32px;
+list-style:none;
+margin:0;
+padding:0 10px 0 10px;
+/*padding:0 10px 0 10px;
+width:500px;*/
+}
+
+#vms_toolbar li {
+display:inline;
+padding:0;
+}
+
+#vms_toolbar a {
+background: transparent url(../images/divider.gif) no-repeat center right;
+color:#000; /* need because it will use default link color */
+float:left;
+padding:0 3px 0 3px; /* left 3 px because of left.png image */ 
+text-decoration:none;
+
+}
+
+#vms_toolbar a span {
+display:block;
+float:none;
+padding:0 10px 0 7px;
+}
+
+#vms_toolbar divider{
+margin:0
+}
+
+#vms_toolbar a span img {
+border:none;
+margin:8px 4px 0 0;
+}
+
+/* show picture when mouse over link */
+#vms_toolbar a:hover{
+background: url(../images/left-new.gif) no-repeat left center;
+}
+
+#vms_toolbar a:hover span {
+background:url(../images/right-new.gif) no-repeat right center;
+}
+
+#vms_toolbar a.right {
+float:right; /* for help button - just add class "right" ->  <a class="right"... */
+
+}
+

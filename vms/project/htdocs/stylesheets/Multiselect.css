@@ -1,0 +1,6 @@
+.ux-mselect-valid { border: 1px solid #B5B8C8; overflow:auto; }
+.ux-mselect-invalid { border:0; overflow:auto; }
+.ux-mselect-pointer { cursor:pointer; margin:1px;}
+.ux-mselect-from {float:left;}
+.ux-mselect-icons {float:left;}
+.ux-mselect-to {float:left;}

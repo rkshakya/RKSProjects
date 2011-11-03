@@ -1,0 +1,8 @@
+# galileo log preference file
+
+# galileo installation root
+SYSTEM/com/stratify/datahub/installRoot=${DATAHUB_ROOT}
+
+
+# galileo log config file
+SYSTEM/com/stratify/util/logconf=${DATAHUB_ROOT}/conf/log4j.properties

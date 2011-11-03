@@ -1,0 +1,112 @@
+#tabmain {
+	border: 1px solid #666;
+	clear: both;
+	background: #FFF3B3;
+	padding-top: 20px;
+}
+
+#tabcontents {
+	padding: 5px;
+	background: #FFFFFF;
+	min-height: 300px;
+}
+
+#tabheader {
+	position: relative;
+	width: 95%;
+	height: 3em;
+}
+
+#tabheader ul#tabprimary {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	bottom: -1px;
+}
+
+* html #tabheader ul#tabprimary {
+	bottom: -2px;
+}
+
+#tabheader ul#tabprimary li  {
+	display: inline;
+	list-style: none;
+}
+
+#tabheader ul#tabprimary a,#tabheader ul#tabprimary span,#tabheader ul#tabprimary a.current {
+	width: 120px;
+	display: block;
+	float: left;
+	padding: 4px 0;
+	margin: 1px 2px 0 0;
+	text-align: center;
+	font-family: tahoma, verdana, sans-serif;
+	font-size: 85%;
+	text-decoration: none;
+	color: #333;
+}
+
+#tabheader ul#tabprimary span,#tabheader ul#tabprimary a.current,#tabheader ul#tabprimary a.current:hover {
+	border: 1px solid #666;
+	border-bottom: none;
+	background: #FFF3B3;
+	padding-bottom: 6px;
+	margin-top: 0;
+}
+
+#tabheader ul#tabprimary a {
+	background: #FFFAE1;
+	border: 1px solid #AAA;
+	border-bottom: none;
+}
+
+#tabheader ul#tabprimary a:hover {
+	margin-top: 0;
+	border-color: #666;
+	background: #FFF7CD;
+	padding-bottom: 5px;
+}
+
+#tabheader ul#tabsecondary {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	bottom: -1.4em;
+	left: 1px;
+	width: 600px;
+}
+
+#tabheader ul#tabsecondary li a,#tabheader ul#tabsecondary li span {
+	width: auto;
+	display: block;
+	float: left;
+	padding: 0 10px;
+	margin: 0;
+	text-align: auto;
+	border: none;
+	border-right: 1px dotted #AAA;
+	background: none;
+
+}
+
+#tabheader ul#tabsecondary li a {
+	color: #06C;
+	text-decoration: underline;
+}
+
+#tabheader ul#tabsecondary li a:hover {
+	color: #333;
+	background: transparent;
+	padding: 0 10px;
+	border: none;
+	border-right: 1px dotted #AAA;
+}
+
+#tabheader ul#tabsecondary li a:active {
+	color: #000;
+	background: transparent;
+}
+
+#tabheader ul#tabsecondary li:last-child a { border: none; }
+
+a:active, a:focus { outline: none; }

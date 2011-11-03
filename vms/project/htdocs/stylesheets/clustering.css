@@ -1,0 +1,63 @@
+#treeContainer #tree, #nodeDetails .contents {
+	padding: 5px;
+}
+
+.module {
+	border: 1px solid #000000;
+	margin-left:10px;
+	margin-right:10px;
+	}
+	.module h2 {
+		background: #31659C;
+		color: #FFFFFF;
+		margin: 0;
+		padding: 3px;
+	}
+	.module .contents {
+		padding:5px;
+		padding-top: 15px;
+	}
+
+#accordion_right {
+	margin: 10px;
+	border: 1px solid #000000;
+	border-top: 0;
+	}
+	#accordion_right .module {
+		margin: 0;
+		border: 0;
+		border-top: 1px solid #000000;
+	}
+	#accordion_right .module h2 {
+		cursor: pointer;
+	}
+	#accordion_right .module .contents {
+		overflow: auto;
+		height:270px;
+	}
+
+#treeContainer a {
+	font-size: 10px;
+	font-weight: normal;
+	color: #000000;
+}
+#treeContainer {
+	float:left;
+	width: 400px;
+	overflow: auto;
+}
+#treeContainer .module h2 {
+	cursor: pointer;
+}
+#nodeDetails {
+	float: left;
+	width: 510px;
+	height: 470px;
+	overflow: auto;
+}
+#nodeDetailsBlank {
+	float: left;
+	width: 510px;
+	height: 470px;
+	overflow: auto;
+}

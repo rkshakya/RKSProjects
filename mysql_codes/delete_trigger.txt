@@ -1,0 +1,5 @@
+create trigger vms_qa_trgr_vri_delete AFTER DELETE ON vms_rules_info
+for each row
+INSERT INTO vms_rules_info_history(RULE, NAME, DESCRIPTION, CREATED_BY, ACTION_GID)
+SELECT OLD.RULE, OLD.NAME, OLD.DESCRIPTION, OLD.CREATED_BY, A.GID FROM vms_action_info A
+WHERE LOWER(A.ACTION) = 'delete';

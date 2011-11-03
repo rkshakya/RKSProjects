@@ -1,0 +1,279 @@
+/*
+ * VMSFEComponentsStore.java
+ *
+ * Created on December 27, 2007, 3:03 AM
+ *
+ * Stratify Inc P Ltd
+ */
+
+package com.stratify.apps.vms.fe;
+
+import com.stratify.apps.vms.common.vos.VMSComponent;
+import com.stratify.apps.vms.dao.common.VMSConnectionFactory;
+import com.stratify.apps.vms.dao.common.VMSDAOQueries;
+import com.stratify.apps.vms.dao.common.VMSDAOUtils;
+import com.stratify.apps.vms.dao.common.VMSReadRegistry;
+import com.stratify.apps.vms.fe.VMSConfigurationParser;
+import com.stratify.apps.vms.common.VMSStaticParams;
+import com.stratify.common.logging.Logger;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author ravikishores
+ */
+public class VMSFEComponentsStore {
+    static Logger logger = Logger.getLogger(VMSFEComponentsStore.class.getName());
+    String caseName = null;
+    String serverName = null;
+    Connection conMSFE = null;
+
+    public ArrayList getComponents() {
+        ArrayList temp = new ArrayList();
+        PreparedStatement pstmtGetComponents = null;
+        PreparedStatement pstmtGetDBserver = null;
+        PreparedStatement pstmtGetDTSearch = null;
+        PreparedStatement pstmtGetRedactPDF = null;
+        ResultSet rsGetComponents = null;
+        ResultSet rsGetDBserver = null;
+        ResultSet rsGetDTSearch = null;
+        ResultSet rsGetRedactPDF = null;
+
+        try{
+            //for the Kopernik info obtd from DS_SERVER
+            //Query GET_BE_COMPONENTS can be used here instead of creating new query
+            pstmtGetComponents = conMSFE.prepareStatement(VMSDAOQueries.GET_BE_COMPONENTS);
+            rsGetComponents = pstmtGetComponents.executeQuery();
+            while(rsGetComponents.next()){
+                String serverType = null;
+                String version = null;
+                String serverURL = null;
+                int active = 0;
+                //component type is same as VMSComponent
+                VMSComponent fecompo = new VMSComponent();
+
+                serverType = rsGetComponents.getString("SERVER_TYPE");
+                version = rsGetComponents.getString("VERSION");
+                serverURL = rsGetComponents.getString("SERVER_URL");
+                active = rsGetComponents.getInt("ACTIVE");
+
+                fecompo.setServerType(serverType);
+                fecompo.setVersion(version);
+                fecompo.setServerURL(serverURL);
+                fecompo.setIsActive(active);
+
+                temp.add(fecompo);
+            }
+
+            //for FE DB server info obtd from DS_DB_PKG_BUILD
+            //for DS_DB_PKG_BUILD info
+            String serverType = "DatabaseServer_FE";
+            String major = null;
+            String minor = null;
+            String build_number = null;
+            String patch_number = null;
+            String schema_number = null;
+            //query is same for BE and FE DB
+            pstmtGetDBserver = conMSFE.prepareStatement(VMSDAOQueries.GET_DB_INFO);
+            rsGetDBserver = pstmtGetDBserver.executeQuery();
+            if(rsGetDBserver.next()){
+
+                VMSComponent becompo = new VMSComponent();
+
+                major = "" + rsGetDBserver.getInt("MAJOR");
+                minor = "" + rsGetDBserver.getInt("MINOR");
+                build_number = "" + rsGetDBserver.getInt("BUILD_NUMBER");
+                patch_number = "" + rsGetDBserver.getInt("PATCH_NUMBER");
+                schema_number = "" + rsGetDBserver.getInt("SCHEMA_NUMBER");
+
+
+                becompo.setServerType(serverType);
+                becompo.setVersion(major + "." + minor + "." + build_number +"." + patch_number );
+                becompo.setServerURL("http://" + serverName + ":1433");
+                becompo.setIsActive(1);
+
+                temp.add(becompo);
+                System.out.println("Kopernik and DB Compo added");
+                logger.info("Kopernik and DB Compo added");
+            }
+
+            //for the info obtd for DTSearch
+            if(Integer.parseInt(major) >= 8){
+                //lds/ftSearchServer
+                pstmtGetDTSearch = conMSFE.prepareStatement(VMSDAOQueries.GET_BE_DTSEARCH);
+                rsGetDTSearch = pstmtGetDTSearch.executeQuery();
+                String servURL = null;
+                String servVersion = null;
+                String serverDT = null;
+                String serverDTMod = null;
+                String numPart = null;
+                String subKey = null;
+                serverType = "SearchServer_FE";
+                VMSComponent dtSearch = new VMSComponent();
+
+                if(rsGetDTSearch.next()){
+                    servURL = rsGetDTSearch.getString("VALUE").trim();
+                }
+
+                //get server name part from DT search URL
+                serverDT = servURL.substring(servURL.indexOf(":") + 3, servURL.lastIndexOf(":"));
+                System.out.println("DTSEARCH SERVER NAME: " + serverDT);
+
+                //now read registry of search server for getting version
+                VMSReadRegistry registry = new VMSReadRegistry(serverDT);
+                System.out.println("Registry Initialized");
+
+                //search for subkey with PYFTS as prefix
+                servVersion = registry.searchValue(VMSStaticParams.SEARCH_SERVER_STRING);
+
+                System.out.println("DTS search version obtd: " + servVersion);
+
+                //set the component values
+                dtSearch.setIsActive(1);
+                dtSearch.setServerType(serverType);
+                dtSearch.setVersion(servVersion);
+                dtSearch.setServerURL(servURL);
+
+                temp.add(dtSearch);
+                System.out.println("DT SEARCH Compo added");
+                logger.info("DT SEARCH Compo added");
+
+            }
+
+            //now for Redact, PDF Servers
+            //redact/redactionSrv
+            //redact/pdfconMSFEvertSrv
+            pstmtGetRedactPDF = conMSFE.prepareStatement(VMSDAOQueries.GET_FE_REDACTPDF);
+            rsGetRedactPDF = pstmtGetRedactPDF.executeQuery();
+
+            while(rsGetRedactPDF.next()){
+                String servURL = null;
+                String servName = null;
+                String servVersion = null;
+                String serverDT = null;
+                serverType = null;
+                String subKey = null;
+
+                VMSComponent pdfRed = new VMSComponent();
+
+                servURL = rsGetRedactPDF.getString("VALUE").trim();
+                servName = rsGetRedactPDF.getString("NAME").trim();
+
+                //get server name part from URL
+                serverDT = servURL.substring(servURL.indexOf(":") + 3, servURL.lastIndexOf(":"));
+                System.out.println(" SERVER NAME: " + serverDT);
+                logger.info(" SERVER NAME: " + serverDT);
+
+                //now read registry of search server for getting version
+                VMSReadRegistry registry = new VMSReadRegistry(serverDT);
+                System.out.println("Registry Initialized");
+                logger.info("Registry Initialized");
+
+                if(servName.equalsIgnoreCase("redact/redactionSrv")){
+                    subKey = VMSStaticParams.REDACTION_SERVER_STRING;
+                    serverType = "RedactionServer";
+                }else if(servName.equalsIgnoreCase("redact/pdfconvertSrv")){
+                    subKey = VMSStaticParams.PDF_SERVER_STRING;
+                    serverType = "PDFServer";
+                }
+                servVersion = registry.searchValue(subKey);
+
+                System.out.println("Server version obtd: " + servVersion);
+                logger.info("Server version obtd: " + servVersion);
+
+                //set the component values
+                pdfRed.setIsActive(1);
+                pdfRed.setServerType(serverType);
+                pdfRed.setVersion(servVersion);
+                pdfRed.setServerURL(servURL);
+
+                temp.add(pdfRed);
+                System.out.println("PDF/RED component added");
+                logger.info("PDF/RED component added");
+            }
+
+            System.out.println("Entry Server Location is: " + VMSStaticParams.ENTRY_SERVER_FOLDER );
+            logger.info("Entry Server Location is: " + VMSStaticParams.ENTRY_SERVER_FOLDER );
+
+            //now getting LDSUI version info
+            //first get TS machine list for this case -- parsing entry server xml
+            VMSConfigurationParser parser = new VMSConfigurationParser(VMSStaticParams.ENTRY_SERVER_FOLDER + "\\" + caseName.toUpperCase() + ".xml");
+            ArrayList tsMachines = parser.getTS();
+
+            for(int m = 0; m < tsMachines.size(); m++){
+                String tsmachine = null;
+                tsmachine = ( (String)tsMachines.get(m) ).replaceAll(".stratify.com", "");
+                //08 Feb 2008 - commented to take care of IP addresses that can be present as TS name
+                //tsmachine = tsmachine.substring(0, tsmachine.indexOf(".") );
+                System.out.println("TS MACHINE" + tsmachine);
+
+                String servURL = null;
+                String servName = null;
+                String servVersion = null;
+                serverType = "LDSUI";
+                String subKey = VMSStaticParams.LDSUI_STRING;
+
+                VMSComponent ldsui = new VMSComponent();
+
+                //now read registry of search server for getting version
+                VMSReadRegistry registry = new VMSReadRegistry(tsmachine);
+                System.out.println("Registry Initialized");
+                logger.info("Registry Initialized");
+
+                servVersion = registry.searchValue(subKey);
+
+                System.out.println("Server version obtd: " + servVersion);
+                logger.info("Server version obtd: " + servVersion);
+
+                //set serverURL as TS machine url
+                servURL = tsmachine;
+
+                //set the component values
+                ldsui.setIsActive(1);
+                ldsui.setServerType(serverType);
+                ldsui.setVersion(servVersion);
+                ldsui.setServerURL(servURL);
+
+                temp.add(ldsui);
+                System.out.println("LDSUI information added");
+                logger.info("LDSUI information added");
+
+            }
+
+
+        }catch(SQLException sqle){
+            System.out.println("DB related error: " + sqle.getMessage());
+            sqle.printStackTrace();
+            logger.error("DB related error: " + sqle);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            VMSDAOUtils.freeUp(rsGetRedactPDF, pstmtGetRedactPDF);
+            VMSDAOUtils.freeUp(rsGetDBserver, pstmtGetDBserver);
+            VMSDAOUtils.freeUp(rsGetComponents, pstmtGetComponents);
+        }
+        return temp;
+    }
+
+    void clean() throws SQLException {
+        if(null != conMSFE){
+            conMSFE.close();
+            conMSFE = null;
+        }
+    }
+
+    /**
+     * Creates a new instance of VMSFEComponentsStore
+     */
+    public VMSFEComponentsStore(String caseName, String serverName) throws Exception {
+        this.caseName = caseName;
+        this.serverName = serverName;
+        this.conMSFE = VMSConnectionFactory.getMSConnection(serverName, caseName, "FE");
+    }
+
+}

@@ -1,0 +1,671 @@
+
+#header{
+background: url(../images/hd-sprite.gif);
+width:100%; height:42px;  top:0px; left:0px;
+}
+#logo{
+background-image: url(../images/Stratify.gif);
+position:absolute; 
+top:0px; left:0px;
+float:left;
+width:145px;
+height:22px;
+margin-top:10px;
+}
+#name{
+margin-left:250px;
+margin-top:10px;
+float:center;
+position:absolute; 
+color:white;
+font-size:17px;
+font-family:verdana;
+}
+#about{
+right:50px;
+margin-top:15px;
+position:absolute; 
+font-size:12px;
+color:#FFFAC1;
+font-family:verdana;
+}
+#about a{
+color:#FFFAC1;
+}
+.statusColor{
+	color:purple;
+}
+
+
+
+.subheader {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #F0F0F0 ;
+	font-size: 11px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: bold;
+	text-decoration: none;
+	font-variant: normal;
+}
+
+
+
+/*----------------------------------------GREG's classes -------------------------------------------------*/
+
+/*start--- Styles defined on basic elements */
+
+body {
+	margin: 0;
+}
+img {
+	border: 0;
+}
+h1 {
+	color: #cc0033;
+	font-size: 16px;
+	margin: 0;
+	padding: 5px 0px 0px 0px;
+}
+h2 {
+	color: #cc0033;
+	font-size: 14px;
+	margin-bottom: 0px;
+}
+h3 {
+	color: #cc0033;
+	font-size: 12px;
+	margin-bottom: 0px;
+}
+a:link, a:visited, a:hover, a:active {
+	color: #31659C;
+	text-decoration: underline;
+}
+form {
+	display: inline;
+	margin:0;
+}
+
+
+/*end ---Styles defined on basic elements */
+
+
+/*start--- table styles*/
+.tablenew {
+	border: 1px solid #DDDDDD;
+   border-collapse: collapse;
+   margin-left:10px;
+	empty-cells: show;
+	padding:1px;
+	}
+.tablenew th {
+background-image: url(/VMS/htdocs/images/title-light-bg.gif);
+height:23px;
+font-weight: bold;
+text-align:left;
+COLOR: #000;
+text-transform: capitalize;
+padding-left: 5px;
+border: 1px solid #D0D0D0;
+}
+
+.tablenew td{
+		padding: 2px;
+		height:20px;
+		padding-left:10px;
+		padding-right:10px;
+		border-bottom: 1px solid #EDEDED;
+	}
+
+
+.formTable {
+	border-collapse: collapse;
+	empty-cells: show;
+	}
+	.formTable td, .formTable th {
+		padding: 2px;
+		border-bottom: 1px solid #FFFFFF;
+	}
+	.formTable th {
+		background: #EEEEEE;
+		color: #666666;
+		font-weight: bold;
+		text-align: left;
+		padding-right: 5px;
+	}
+	.formTable th span.fieldhelp {
+		font-size: 10px;
+		font-weight: normal;
+		font-style: italic;
+	}
+
+.dataTable {        
+	border: 1px solid #808080;
+	border-collapse: collapse;
+	empty-cells: show;
+	}
+	.dataTable td, .dataTable th {
+		padding: 2px;
+		border: 1px solid #808080;
+	}
+	.dataTable th {
+		background: #EEEEEE;
+		color: #666666;
+		font-weight: bold;
+		padding-right: 5px;
+	}
+	.dataTable td.number {
+		text-align: right;
+	}
+
+.detailTable {
+	border: 1px solid #808080;
+	border-collapse: collapse;
+	}
+	.detailTable td {
+		padding: 2px;
+		padding-left: 4px;
+		vertical-align: top;
+	}
+	.detailTable td.label {
+		background: #EEEEEE;
+		color: #666666;
+		font-weight: bold;
+		border-left: 1px solid #808080;
+		border-right: 1px solid #CFCFCF;
+		padding-left: 2px;
+	}
+
+
+.subsectionTitle {
+	margin-top: 14px;
+	margin-bottom: 2px;
+	}
+	.subsectionTitle h2{
+		display: inline;
+		padding-right: 10px;
+	}
+	.subsectionTitle a:link, .subsectionTitle a:visited, .subsectionTitle a:hover, .subsectionTitle a:active {
+		color: #CC0033;
+		font-size: 10px;
+	}
+
+
+/*end--- table Styles*/
+
+
+/* start of peWizard*/
+.peWizard {
+	margin-left:1%;
+	margin-right:1%;
+	}
+	.peWizard fieldset {
+		margin-bottom: 10px;
+	}
+	.peWizard fieldset .contents {
+		padding: 5px 10px;
+		}
+		.peWizard fieldset .contents ul {
+			padding: 0 0 0 10px;
+			margin: 0 0 0 10px;
+		}
+	.peWizard div.indent {
+		padding-left: 40px;
+		margin-bottom: 10px;
+	}
+
+.peReportTable {
+	border: 2px solid #CFCFCF;
+	border-collapse: collapse;
+	}
+	.peReportTable td {
+		padding: 2px;
+		padding-left: 4px;
+		vertical-align: top;
+		border: 1px solid #CFCFCF;
+	}
+	.peReportTable td.label {
+		background: #EEEEEE;
+		color: #666666;
+		font-weight: bold;
+		padding-left: 2px;
+	}
+
+/* end of PE wizard */
+
+/* AJAX log viewer */
+
+#logFileContents {
+	word-break: break-all; 
+}
+
+
+/* Navigation Elements and Page Structure */
+#titleBar {
+	background: #C0AB7F;
+	width: 100%;
+	color: #FFFFFF;
+	}
+	#titleBar a:link, #titleBar a:visited, #titleBar a:hover, #titleBar a:active {
+		color: #FFFFFF;
+		font-weight: bold;
+		text-decoration: none;
+	}
+	#titleBar td.title {
+		text-align: center;
+		font-weight: normal;
+		font-size: 30px;
+		color: #FFFFFF;
+	}
+	#titleBar td.links {
+		text-align: right;
+		padding-right: 10px;
+		line-height:20px;
+		color: #FFFFFF;
+	}
+	#titleBar .userName {
+		color: #000000;
+		font-weight: bold;
+	}
+	
+#primaryNav {
+	list-style: none;
+	background: #31659C;
+	margin: 0;
+	padding: 7px 0;
+	}
+	#primaryNav li {
+		display: inline;
+		padding-left: 10px;
+		padding-right: 40px;
+		margin: 0;
+	}
+	#primaryNav li a:link, #primaryNav li a:visited {
+		color: #A8BCCF;
+		font-weight: bold;
+		text-decoration: none;
+	}
+	#primaryNav li a:hover, #primaryNav li a:active {
+		color: #A8BCCF;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+
+	#primaryNav li a.active:link, #primaryNav li a.active:visited, #primaryNav li a.active:hover, #primaryNav li a.active:active {
+		color: #FFFFFF;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+#breadcrumb {
+	padding: 0px 0px 5px 0px;
+	}
+	#breadcrumb a:link, #breadcrumb a:visited {
+		text-decoration: none;
+		color: #31659C;
+		 
+	}
+	#breadcrumb a:hover, #breadcrumb a:active {
+		text-decoration: underline;
+		color: #31659C;
+		 font-weight:bold;
+	}
+
+/*-------End of navigation elements--------*/
+
+
+/*start----buttons*/
+
+.buttons {
+
+	margin-top: 10px;
+	text-align: center;
+
+
+  }
+	.buttons .button {
+		color: #333333;
+		border: 3px double #999999;
+		border-top-color: #CCCCCC;
+		border-left-color: #CCCCCC;
+		margin-right: 10px;
+		background-color: #EEEEEE;
+		font-weight: bold;
+		width:140px;
+	}
+
+	.buttons .largeButton {
+		color: #333333;
+		border: 3px double #999999;
+		border-top-color: #CCCCCC;
+		border-left-color: #CCCCCC;
+		margin-right: 10px;
+		background-color: #EEEEEE;
+		font-weight: bold;
+		width:160px;
+	}
+
+	.buttons .mappingButton {
+		color: #333333;
+		border: 3px double #999999;
+		border-top-color: #CCCCCC;
+		border-left-color: #CCCCCC;
+		margin-right: 10px;
+		background-color: #EEEEEE;
+		font-weight: bold;
+		width:200px;
+	}
+
+	.buttons .addMoreButton {
+		color: #333333;
+		border: 3px double #999999;
+		border-top-color: #CCCCCC;
+		border-left-color: #CCCCCC;
+		margin-right: 10px;
+		background-color: #EEEEEE;
+		font-weight: bold;
+		width:200px;
+	}
+
+	.buttons .reportsButton {
+		color: #333333;
+		border: 3px double #999999;
+		border-top-color: #CCCCCC;
+		border-left-color: #CCCCCC;
+		margin-right: 10px;
+		background-color: #EEEEEE;
+		font-weight: bold;
+		width:70px;
+	}
+
+	.buttons .verficationButton {
+		color: #333333;
+		border: 3px double #999999;
+		border-top-color: #CCCCCC;
+		border-left-color: #CCCCCC;
+		margin-right: 10px;
+		background-color: #EEEEEE;
+		font-weight: bold;
+		width:135px;
+	}
+
+	.buttons .addButton {
+		color: #333333;
+		border: 3px double #999999;
+		border-top-color: #CCCCCC;
+		border-left-color: #CCCCCC;
+		margin-right: 0px;
+		background-color: #EEEEEE;
+		font-weight: bold;
+		width:35px;
+	}
+
+	.buttons .deleteButton {
+		color: #333333;
+		border: 3px double #999999;
+		border-top-color: #CCCCCC;
+		border-left-color: #CCCCCC;
+		margin-right: 10px;
+		background-color: #EEEEEE;
+		font-weight: bold;
+		width:60px;
+	}
+
+/*end-----buttons*/
+
+
+/*start--- Setup base font and font size */
+body,td,th,div,input,textarea,select,option {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+/*end--- Setup base font and font size */
+
+.reportTable {
+	border: 1px solid #808080;
+	border-collapse: collapse;
+	empty-cells: show;
+	}
+	.reportTable td, .reportTable th {
+		padding: 2px;
+		border: 1px solid #808080;
+		vertical-align: top;
+	}
+	.reportTable th {
+		background: #CFCFCF;
+		color: #666666;
+		font-weight: bold;
+		padding-right: 5px;
+	}
+	.reportTable td.number {
+		text-align: right;
+	}
+	.reportTable tr.odd {
+		background: #EEEEEE;
+	}
+	.reportTable tr.footer {
+		background: #CFCFCF;
+		font-weight: bold;
+	}
+
+.required {
+	color: red;
+	font-weight: bold;
+}
+
+#pageContents {
+	padding: 5px 10px;
+}
+
+.number {
+	text-align: right;
+
+}
+
+.centered {
+	text-align: center;
+}
+
+/* Misc */	
+
+div.note {
+	padding: 10px;
+	margin: 10px;
+	background-color: #FFF4BF;
+	font-style: italic;
+}
+
+/*--------------------End of Greg's Classes-----------------------------------*/
+
+.hdr {
+	color: #CC0033;
+	font-size: 14px;
+	margin-bottom: 0px;
+	font-weight:600;
+}
+
+.heading2 {
+	color: #CC0033;
+	font-size: 14px;
+	margin-bottom: 0px;
+	font-weight:600;
+}
+
+
+.tableHeader{
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 14px;
+   font-weight:bold;
+   color: black;
+   background-color:#C5C4C4;
+
+}
+
+.error {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	text-decoration: none;
+	color: #990000;
+	
+}
+
+
+.hide {
+	visibility: hidden; display: none;
+}
+
+
+
+.label { font: bold 11px Verdana, Arial, Helvetica, sans-serif; }
+
+
+.shadedOptions{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #D0D0D0;
+	font-size: 11px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: bold;
+	font-variant: normal;
+}
+
+div.taskContainer {
+	border: 1px solid #808080;
+	border-bottom: 0;
+	text-align: center;
+	width: 100%;
+	}
+	div.taskList {
+		background: #C5C4C4;
+		font-weight: bold;
+		text-align: left;
+		font-size: 14px;
+		border-bottom: 1px solid #808080;
+	}
+	div.taskContainer table {
+		margin: 3px auto;
+		width: 98%;
+	}
+
+div.summaryContainer{
+	border: 1px solid #808080;
+	border-bottom: 0;
+	text-align: center;
+	width: 100%;
+	}
+	div.summaryList {
+		background: #C5C4C4;
+		font-weight: bold;
+		text-align: left;
+		font-size: 14px;
+		border-bottom: 1px solid #808080;
+	}
+
+	div.summaryContainer table {
+		margin: 3px auto;
+		width: 98%;
+	}
+
+.homeMenu { 
+	width: 400px;
+	margin: auto;
+	margin-top: 40px;
+	text-align: left;
+}
+.homeMenu hr {
+	margin: 10px auto;
+	width: 75%;
+	text-align: center;
+	height: 1px;
+	border-top: 1px solid #EFEFEF;
+}
+.homeMenu a {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.inactive {
+        color: #AFAFAF;
+}
+.success {
+        color: #009900;
+}
+
+.pbar {
+        float:left;
+        border:1px solid #000000;
+        width:200px;
+        height:10px;
+        font-size:2px;
+        margin-right: 5px;
+}
+
+.pbar div {
+        background:url(../../../workbench/htdocs/images/gradient.gif);
+        height:10px;
+        font-size:2px;
+}
+
+
+.info{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	
+	text-decoration: none;
+	color: #333FFF;
+}
+
+.warnings {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	text-decoration: none;
+	color: #FF7200;
+	
+}
+
+.errorText {
+	color: red;
+}
+
+.red { 
+        background: red; 
+        color: #FFFFFF; 
+        } 
+        .red a:link, .red a:visited, .red a:hover, .red a:active { 
+                color: #FFFFFF; 
+                text-decoration: underline; 
+                
+        } 
+        
+.dataLoadingMsg {
+	background:#CC0033;
+	color:#FFFFFF;
+	padding:2px 4px;
+}
+
+#processingMsg {
+	border:1px solid #999999;
+	background-color:#FFFFFF;
+	width:330;
+	z-index:100;
+	}
+	#processingMsg td {
+		padding-right: 30px;
+	}
+
+#logFileContents {
+	height:440px;overflow:auto;
+}
+
+@media print {
+    #logFileContents {height: auto; }
+}
+
+body#components a#components,
+body#rules a#rules,
+body#servers a#servers,
+body#cases a#cases,
+{color:FFFFFF;} 

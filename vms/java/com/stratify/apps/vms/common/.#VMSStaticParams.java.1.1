@@ -1,0 +1,94 @@
+/*
+ * VMSStaticParams.java
+ *
+ * Created on November 21, 2007, 4:30 AM
+ *
+ * Stratify Inc P Ltd
+ */
+
+package com.stratify.apps.vms.common;
+
+/**
+ *
+ * @author ravikishores
+ */
+public class VMSStaticParams {
+
+    /**
+     * Creates a new instance of VMSStaticParams
+     */
+    public VMSStaticParams() {
+    }
+
+      public static final String CONNECTION_STRING = "net.sourceforge.jtds.jdbc.Driver";
+
+    public static final String DB_URL_PREFIX = "jdbc:jtds:sqlserver://";
+
+    public static final String MSSQL_USERNAME = "karthik";
+
+    public static final String MSSQL_PASSWORD = "smertin1";
+
+    public static final String MSSQL_BE_USERNAME = "DBADMIN";
+
+    public static final String MSSQL_BE_PASSWORD = "DBADMIN";
+
+    public static final int MSSQL_PORT = 1433;
+
+    //MySQL server related constants
+    //source MySQL DB (DBLM DB)
+    public static final String MYSQL_DB_SERVER = "sos.sdp.stratify.com";
+
+    public static final String MYSQL_DATABASE = "dblm";
+
+    public static final String MYSQL_CONNECTION_STRING = "com.mysql.jdbc.Driver";
+
+    public static final String MYSQL_DB_URL_PREFIX = "jdbc:mysql://";
+
+    public static final int MYSQL_PORT = 3307;
+
+    public static final String MYSQL_USERNAME = "root";
+
+    public static final String MYSQL_PASSWORD = "galapagos";
+
+    //destination MySQL DB (VMS DB)
+     public static final String DEST_MYSQL_DB_SERVER = "sos.sdp.stratify.com";
+
+    public static final String DEST_MYSQL_DATABASE = "vms_qa";
+
+    public static final String DEST_MYSQL_CONNECTION_STRING = "com.mysql.jdbc.Driver";
+
+    public static final String DEST_MYSQL_DB_URL_PREFIX = "jdbc:mysql://";
+
+    public static final int DEST_MYSQL_PORT = 3307;
+
+    public static final String DEST_MYSQL_USERNAME = "root";
+
+    public static final String DEST_MYSQL_PASSWORD = "galapagos";
+
+    //domain related
+    public static final String FE = "LDS";
+    public static final String BE = "SDP";
+    public static final String FESUFFIX = ".lds.asp.stratify.com";
+    public static final String BESUFFIX = ".sdp.stratify.com";
+
+    //table aliases
+    public static final String TBL_CASE = "vms_cases";
+    public static final String TBL_SERVER = "vms_servers";
+    public static final String TBL_COMPONENT = "vms_components";
+
+    public static final String TBL_VERSION = "vms_compo_version";
+
+    public static final String TBL_MAPPING = "vms_component_mapping";
+
+    //Entry Server File Locations
+    public static final String ENTRY_SERVER_FOLDER = "\\\\entry1\\Stratify\\casemgmt\\webapps\\casemanagement\\conf";
+    //URL of the FE Web Service
+    public static final String FE_WEB_SERVICE_URL = "http://ldstools01.lds.asp.stratify.com:82/vms/services/VMSFEComponentService/fetchComponents";
+
+    //Registry Key Search Strings
+    public static final String SEARCH_SERVER_STRING = "PYFTS";
+    public static final String REDACTION_SERVER_STRING = "REDACTION_VER";
+    public static final String PDF_SERVER_STRING = "PDFCONV_VER";
+    public static final String LDSUI_STRING = "LDSAPPSUI_VER";
+
+}

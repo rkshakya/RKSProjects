@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+    <form-beans>
+        <form-bean name="VMSCaseComponentActionForm" type="com.stratify.apps.vms.web.forms.VMSCaseComponentActionForm"/>
+        <form-bean name="VMSVersionActionForm" type="com.stratify.apps.vms.web.forms.VMSVersionActionForm"/>
+        <form-bean name="VMSCaseActionForm" type="com.stratify.apps.vms.web.forms.VMSCaseActionForm"/>
+        <form-bean name="VMSServerActionForm" type="com.stratify.apps.vms.web.forms.VMSServerActionForm"/>
+        <form-bean name="VMSListRuleForm" type="com.stratify.apps.vms.web.forms.VMSListRuleForm"/>
+        <form-bean name="VMSAddRuleForm" type="com.stratify.apps.vms.web.forms.VMSAddRuleForm"/>
+        <form-bean name="VMSEditRuleForm" type="com.stratify.apps.vms.web.forms.VMSEditRuleForm"/> 
+    </form-beans>
+    
+    <global-exceptions>
+        
+    </global-exceptions>
+    
+    <global-forwards>
+        
+    </global-forwards>
+    
+    <action-mappings>
+        
+        
+	        <action path="/vmsHome" 
+	                scope="request" 
+	                type="com.stratify.apps.vms.web.handlers.VMSHomeAction"                
+	                validate="false">
+	            <forward name="home" path="/htdocs/vmsHome.jsp"/>
+	        </action>
+	
+	        <action path="/VMSListComponentsAction" 
+	                scope="request" 
+	                type="com.stratify.apps.vms.web.handlers.VMSListComponentsAction"
+	                validate="false">
+	            <forward name="listComponents" path="/htdocs/components/listComponents.jsp"/>
+	            <forward name="addComponent" path="/htdocs/components/addComponent.jsp"/>
+	        </action>
+	
+	        <action input="/addRule.jsp" 
+	                name="VMSAddRuleForm"
+	                path="/VMSAddRuleAction" 
+	                scope="request" 
+	                type="com.stratify.apps.vms.web.handlers.VMSAddRuleAction"                
+	                validate="false">
+	            <forward name = "view" path = "/htdocs/rules/addRule.jsp"/>
+	            <forward name = "success" path = "/htdocs/rules/listRules.jsp"/>
+	            <forward name="failure" path="/htdocs/rules/addRule.jsp"/>
+	        </action>
+	        
+	        <action input="/listRules.jsp" 
+	                name="VMSListRuleForm"
+	                path="/VMSListRuleAction" 
+	                scope="request" 
+	                type="com.stratify.apps.vms.web.handlers.VMSListRuleAction"                
+	                validate="false">           
+	            <forward name = "success" path = "/htdocs/rules/listRules.jsp"/>
+	            <forward name = "edit" path="/htdocs/rules/editRule.jsp"/>
+	            <forward name = "failure" path = "/htdocs/vmsError.jsp"/>
+	            <forward name = "add" path = "/htdocs/rules/addRule.jsp"/>
+	        </action>
+	        
+	        <action name="VMSEditRuleForm"
+	                path="/VMSEditRuleAction" 
+	                scope="request" 
+	                type="com.stratify.apps.vms.web.handlers.VMSEditRuleAction"                
+	                validate="false">           
+	            <forward name = "success" path = "/htdocs/rules/editRule.jsp"/>
+	            <forward name = "failure" path = "/htdocs/rules/listRules.jsp"/>
+	        </action>
+	        <action name="VMSServerActionForm" 
+	                path="/VMSServerAction" 
+	                scope="request" 
+	                type="com.stratify.apps.vms.web.handlers.VMSServerAction"               
+	                validate="false">
+	            <forward name = "success" path = "/htdocs/servers/showServer.jsp"/>
+	            <forward name = "failure" path = "/htdocs/servers/vmsError.jsp"/> 
+	        </action>
+	        <action name="VMSCaseActionForm" 
+	                path="/VMSCaseAction" 
+	                scope="request" 
+	                type="com.stratify.apps.vms.web.handlers.VMSCaseAction"                
+	                validate="false">
+	            <forward name = "success" path = "/htdocs/cases/showCase.jsp"/>
+	            <forward name = "failure" path = "/htdocs/cases/vmsError.jsp"/> 
+	        </action> 
+	        
+	         <action name="VMSVersionActionForm" 
+		                path="/VMSVersionAction" 
+		                scope="request" 
+		                type="com.stratify.apps.vms.web.handlers.VMSVersionAction" 
+		                validate="false">
+		            <forward name = "success" path = "/htdocs/versions/searchVersion.jsp"/>
+		            <forward name = "failure" path = "/htdocs/cases/vmsHome.jsp"/> 
+	        </action>
+	         <action name="VMSCaseComponentActionForm" 
+		                path="/VMSCaseComponentAction" 
+		                scope="request" 
+		                type="com.stratify.apps.vms.web.handlers.VMSCaseComponentAction" 
+		                validate="false">
+		            <forward name = "success" path = "/htdocs/components/caseComponents.jsp"/>
+		            <forward name = "failure" path = "/htdocs/cases/vmsHome.jsp"/> 
+        </action>   
+    </action-mappings>
+    
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+            
+    
+    <!-- ========================= Tiles plugin ===============================-->
+    <!--
+    This plugin initialize Tiles definition factory. This later can takes some
+    parameters explained here after. The plugin first read parameters from
+    web.xml, thenoverload them with parameters defined here. All parameters
+    are optional.
+    The plugin should be declared in each struts-config file.
+    - definitions-config: (optional)
+    Specify configuration file names. There can be several comma
+    separated file names (default: ?? )
+    - moduleAware: (optional - struts1.1)
+    Specify if the Tiles definition factory is module aware. If true
+    (default), there will be one factory for each Struts module.
+    If false, there will be one common factory for all module. In this
+    later case, it is still needed to declare one plugin per module.
+    The factory will be initialized with parameters found in the first
+    initialized plugin (generally the one associated with the default
+    module).
+    true : One factory per module. (default)
+    false : one single shared factory for all modules
+    - definitions-parser-validate: (optional)
+    Specify if xml parser should validate the Tiles configuration file.
+    true : validate. DTD should be specified in file header (default)
+    false : no validation
+
+    Paths found in Tiles definitions are relative to the main context.
+    -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />      
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+    
+    <!-- ========================= Validator plugin ================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property
+            property="pathnames"
+            value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
+    
+</struts-config>

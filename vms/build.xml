@@ -1,0 +1,495 @@
+<?xml version="1.0"?>
+
+<project name="vms" default="main" basedir="../..">
+
+ 	<property name="apps.home" location="." />
+	<property name="apps.common.src" location="${apps.home}/common/src/java" />
+	<property name="vms.stage" location="${basedir}/vms/stage/client" />
+	<property name="vms.server.stage" location="${basedir}/vms/stage/server" />
+	<property name="vms.client.stage" location="${basedir}/vms/stage/client" />
+	<property name="apps.common.lib" location="${basedir}/common/lib/scheduler" />
+
+	<property name="vms.temp" location="${apps.home}/vms/stage/temp-vms" />
+	<property name="vms.server.temp" location="${apps.home}/vms/stage/temp-vms-server" />
+
+	<property name="src.java" location="${basedir}/vms/src/java" />
+	<property name="src.projects" location="${basedir}/vms/src/project" />
+	<property name="product.common.libs" location="../src/javaroot/common/lib" />
+	<property name="product.common2.libs" location="../src/javaroot/datahub/src/applications/common/lib" />
+	<property name="product.common.src" location="../src/javaroot/common/src/java" />
+	<property name="product.datahub.src" location="../src/javaroot/datahub/src/java" />
+	<property name="apps.common.projects" location="${apps.home}/common/src/projects"/>
+	<property name="product.datahub.src" location="../src/javaroot/datahub/src/java" />
+        
+	<property name="struts.jar" location="${product.common.libs}/struts.jar"/>
+	<property name="log4j.jar" location="${product.common.libs}/log4j.jar"/>
+	<property name="commons-digester.jar" location="${product.common.libs}/commons-digester.jar"/>
+	<property name="commons-validator.jar" location="${product.common.libs}/commons-validator.jar"/>
+        
+        
+	<property name="commons-lang.jar" location="${apps.common.projects}/common/docroot/WEB-INF/lib/commons-lang-2.3.jar"/>
+	<property name="commons-beanutils.jar" location="${apps.common.projects}/common/docroot/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
+	<property name="commons-collections.jar" location="${apps.common.projects}/common/docroot/WEB-INF/lib/commons-collections-3.2.jar"/>
+	<property name="mail.jar" location="${apps.common.projects}/common/docroot/WEB-INF/lib/mail.jar"/>
+	<property name="jRegistryKey.jar" location="${src.projects}/WEB-INF/lib/jRegistryKey.jar"/>
+	<property name="jRegistryKey.dll" location="${src.projects}/bin/jRegistryKey.dll"/>
+	<property name="htmlparser.jar" location="${src.projects}/WEB-INF/lib/htmlparser.jar"/>
+	<property name="htmllexer.jar" location="${src.projects}/WEB-INF/lib/htmllexer.jar"/>
+	<property name="activation.jar" location="${src.projects}/WEB-INF/lib/activation.jar"/>
+	<property name="mail.jar" location="${src.projects}/WEB-INF/lib/mail.jar"/>
+
+	<!-- Axis2 related libraries -->
+	<!--TODO : Use jars from products lib instead of keeping local copies-->
+	<property name="xalan.jar" location="${product.common.libs}/xalan.jar"/>
+	<property name="stax2.jar" location="${product.common.libs}/axis/stax2.jar"/>
+	<property name="stax-api-1.0.1.jar" location="${product.common.libs}/axis/stax-api-1.0.1.jar"/>
+	<property name="xml-apis.jar" location="${product.common.libs}/xml-apis.jar"/>
+	<property name="activation-1.1.jar" location="${product.common.libs}/axis/activation-1.1.jar"/>
+	<property name="annogen-0.1.0.jar" location="${product.common.libs}/axis/annogen-0.1.0.jar"/>
+
+	<property name="jdom-1.0.jar" location="${product.common.libs}/axis/jdom-1.0.jar"/>
+	<property name="wstx-asl-3.2.1.jar" location="${product.common.libs}/axis/wstx-asl-3.2.1.jar"/>
+	<property name="XmlSchema-1.1.jar" location="${product.common.libs}/axis/XmlSchema-1.1.jar"/>
+	<property name="jaxen-1.1-beta-7.jar" location="${product.common.libs}/jaxen-1.1-beta-7.jar"/>
+	<property name="backport-util-concurrent-2.2.jar" location="${product.common.libs}/axis/backport-util-concurrent-2.2.jar"/>
+	<property name="commons-codec-1.3.jar" location="${product.common.libs}/axis/commons-codec-1.3.jar"/>
+
+	<property name="commons-httpclient-3.0.1.jar" location="${src.projects}/WEB-INF/lib/commons-httpclient-3.0.1.jar"/>
+	<property name="wsdl4j-1.6.1.jar" location="${src.projects}/WEB-INF/lib/wsdl4j-1.6.1.jar"/>
+	<property name="neethi-2.0.1.jar" location="${src.projects}/WEB-INF/lib/neethi-2.0.1.jar"/>
+	<property name="axis2-java2wsdl-1.2.jar" location="${src.projects}/WEB-INF/lib/axis2-java2wsdl-1.2.jar"/>
+	<property name="axiom-api-1.2.4.jar" location="${src.projects}/WEB-INF/lib/axiom-api-1.2.4.jar"/>
+	<property name="axiom-impl-1.2.4.jar" location="${src.projects}/WEB-INF/lib/axiom-impl-1.2.4.jar"/>
+	<property name="axis2-kernel-1.2.jar" location="${src.projects}/WEB-INF/lib/axis2-kernel-1.2.jar"/>
+	<property name="axis2-adb-1.2.jar" location="${src.projects}/WEB-INF/lib/axis2-adb-1.2.jar"/>
+	<property name="axis2-codegen-1.2.jar" location="${src.projects}/WEB-INF/lib/axis2-codegen-1.2.jar"/>
+	<property name="xbean-2.2.0.jar" location="${src.projects}/WEB-INF/lib/xbean-2.2.0.jar"/>
+	<property name="axis2-adb-codegen-1.2.jar" location="${src.projects}/WEB-INF/lib/axis2-adb-codegen-1.2.jar"/>
+	<property name="woden-1.0-incubating-M7a.jar" location="${src.projects}/WEB-INF/lib/woden-1.0-incubating-M7a.jar"/>
+	<property name="jawin.jar" location="${src.projects}/WEB-INF/lib/jawin.jar"/>
+	<property name="commons-fileupload-1.1.1.jar" location="${src.projects}/WEB-INF/lib/commons-fileupload-1.1.1.jar"/>
+	<property name="xercesImpl" location="${src.projects}/WEB-INF/lib/xercesImpl-2.8.1.jar"/>
+	
+	<property name="jstl.jar" location="${src.projects}/WEB-INF/lib/jstl.jar"/>
+	<property name="standard.jar" location="${src.projects}/WEB-INF/lib/standard.jar"/>
+	<property name="taglibs-request.jar" location="${src.projects}/WEB-INF/lib/taglibs-request.jar"/>
+			
+       
+    <!--============================================================================================
+    	class path settings for Version Managament Systems java class compilation
+    ============================================================================================-->
+    <path id="vms.classpath">
+        <fileset dir="${apps.home}/common/src/projects/common/docroot/WEB-INF/lib">
+		    <include name="*.jar"/>
+		</fileset>		
+
+		<fileset dir="${apps.common.lib}">
+		    <include name="quartz.jar"/>
+		</fileset>
+		
+		<fileset dir="${src.projects}/WEB-INF/lib">
+		    <include name="axis2-metadata-1.2.jar"/>
+			<include name="axis2-kernel-1.2.jar"/>
+		</fileset>
+		<pathelement location="${xercesImpl}"/>
+		<pathelement location="${struts.jar}"/>
+		<pathelement location="${log4j.jar}"/>
+		<pathelement location="${product.common2.libs}/j2ee.jar"/>
+		<pathelement location="${commons-lang.jar}"/>
+		<pathelement location="${commons-beanutils.jar}"/>
+		<pathelement location="${commons-collections.jar}"/>       
+		<pathelement location="${mail.jar}"/>
+		<pathelement location="${jRegistryKey.jar}"/>
+		<pathelement location="${htmlparser.jar}"/>
+		<pathelement location="${htmllexer.jar}"/>
+		<pathelement location="${activation.jar}"/>
+		<pathelement location="${mail.jar}"/>
+		
+		<pathelement location="${activation-1.1.jar}"/>
+		<pathelement location="${annogen-0.1.0.jar}"/>
+		<pathelement location="${axiom-api-1.2.4.jar}"/>
+		<pathelement location="${axiom-impl-1.2.4.jar}"/>
+		<pathelement location="${axis2-adb-1.2.jar}"/>
+		<pathelement location="${axis2-java2wsdl-1.2.jar}"/>
+		<pathelement location="${axis2-kernel-1.2.jar}"/>
+		<pathelement location="${jawin.jar}"/>
+		<pathelement location="${commons-fileupload-1.1.1.jar}"/>
+		<pathelement location="${jaxen-1.1-beta-7.jar}"/>
+		<pathelement location="${jdom-1.0.jar}"/>
+		<pathelement location="${wsdl4j-1.6.1.jar}"/>
+		<pathelement location="${wstx-asl-3.2.1.jar}"/>
+		<pathelement location="${xalan.jar}"/>
+		<pathelement location="${XmlSchema-1.1.jar}"/>
+		<pathelement location="${stax-api-1.0.1.jar}"/>
+		<pathelement location="${stax2.jar}"/>
+		<pathelement location="${backport-util-concurrent-2.2.jar}"/>
+		<pathelement location="${commons-codec-1.3.jar}"/>
+		<pathelement location="${neethi-2.0.1.jar}"/>
+		<pathelement location="${commons-httpclient-3.0.1.jar}"/>
+
+		<pathelement location="${axis2-codegen-1.2.jar}"/>
+		
+		<pathelement location="${xml-apis.jar}"/>
+		<pathelement location="${xbean-2.2.0.jar}"/>
+		<pathelement location="${axis2-adb-codegen-1.2.jar}"/>
+		<pathelement location="${woden-1.0-incubating-M7a.jar}"/>						
+
+     </path>	 
+
+	 <path id="vms.final.path">
+         <fileset dir="${vms.client.stage}/WEB-INF/lib">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${apps.home}/common/src/projects/common/docroot/WEB-INF/lib">
+		    <include name="*.jar"/>
+		</fileset>		
+		<fileset dir="${src.projects}/WEB-INF/lib">
+		    <include name="axis2-metadata-1.2.jar"/>
+			<include name="axis2-kernel-1.2.jar"/>
+		</fileset>
+
+		<fileset dir="${apps.common.lib}">
+		    <include name="quartz.jar"/>
+		</fileset>
+
+		<pathelement location="${xercesImpl}"/>
+		<pathelement location="${struts.jar}"/>
+		<pathelement location="${log4j.jar}"/>
+		<pathelement location="${product.common2.libs}/j2ee.jar"/>
+		<pathelement location="${commons-lang.jar}"/>
+		<pathelement location="${commons-beanutils.jar}"/>
+		<pathelement location="${commons-collections.jar}"/>       
+		<pathelement location="${mail.jar}"/>
+		<pathelement location="${jRegistryKey.jar}"/>
+		<pathelement location="${htmlparser.jar}"/>
+		<pathelement location="${htmllexer.jar}"/>
+		<pathelement location="${activation.jar}"/>
+		<pathelement location="${mail.jar}"/>
+		
+		<pathelement location="${activation-1.1.jar}"/>
+		<pathelement location="${annogen-0.1.0.jar}"/>
+		<pathelement location="${axiom-api-1.2.4.jar}"/>
+		<pathelement location="${axiom-impl-1.2.4.jar}"/>
+		<pathelement location="${axis2-adb-1.2.jar}"/>
+		<pathelement location="${axis2-java2wsdl-1.2.jar}"/>
+		<pathelement location="${axis2-kernel-1.2.jar}"/>
+		<pathelement location="${jawin.jar}"/>
+		<pathelement location="${commons-fileupload-1.1.1.jar}"/>
+		<pathelement location="${jaxen-1.1-beta-7.jar}"/>
+		<pathelement location="${jdom-1.0.jar}"/>
+		<pathelement location="${wsdl4j-1.6.1.jar}"/>
+		<pathelement location="${wstx-asl-3.2.1.jar}"/>
+		<pathelement location="${xalan.jar}"/>
+		<pathelement location="${XmlSchema-1.1.jar}"/>
+		<pathelement location="${stax-api-1.0.1.jar}"/>
+		<pathelement location="${stax2.jar}"/>
+		<pathelement location="${backport-util-concurrent-2.2.jar}"/>
+		<pathelement location="${commons-codec-1.3.jar}"/>
+		<pathelement location="${neethi-2.0.1.jar}"/>
+		<pathelement location="${commons-httpclient-3.0.1.jar}"/>
+
+		<pathelement location="${axis2-codegen-1.2.jar}"/>
+		
+		<pathelement location="${xml-apis.jar}"/>
+		<pathelement location="${xbean-2.2.0.jar}"/>
+		<pathelement location="${axis2-adb-codegen-1.2.jar}"/>
+		<pathelement location="${woden-1.0-incubating-M7a.jar}"/>	
+     </path>
+
+     <!--============================================================================================
+       	Compile flag settings - vms.jar.uptodate
+       	By default, the value of the property is set to true if the timestamp of the source file(s)
+       	is not more recent than the timestamp of the corresponding target file(s).
+    ============================================================================================-->
+
+    <target name="flags" >
+        <uptodate property="vms.jar.uptodate">
+            <srcfiles dir="${src.java}" >
+              <exclude name="**/CVS/**" />
+            </srcfiles>
+
+            <srcfiles dir="src/projects">
+                <include name="vms/**/*.xml" />
+            </srcfiles>
+
+			<srcfiles dir="${apps.common.src}">
+			</srcfiles>
+
+			<srcfiles dir="${product.common.src}" >
+				<exclude name="**/CVS/**" />
+			</srcfiles>
+
+            <mapper type="merge" to="${vms.jar}"/>
+        </uptodate>
+		<echo message="vms jar compliation not required = ${vms.jar.uptodate}" />
+    </target>
+
+
+    <!--============================================================================================
+    	prepare : create required directory for Version Managament Systems build
+    ============================================================================================-->
+
+    <target name="prepare" depends="flags" description="prepare for this build">
+        <mkdir dir="${vms.stage}"/>
+		<mkdir dir="${vms.server.stage}"/>
+		<mkdir dir="${vms.temp}"/>
+        <mkdir dir="${vms.stage}/WEB-INF/lib"/>
+		<mkdir dir="${vms.server.stage}/WEB-INF/services"/>
+		<mkdir dir="${vms.temp}/service"/>
+		<mkdir dir="${vms.temp}/classes"/>
+		<mkdir dir="${vms.temp}/src"/>
+		<mkdir dir="${vms.server.temp}"/>
+    </target>
+
+
+    <!--============================================================================================
+        compile : target to compile all java classes required for VMS
+    ============================================================================================-->
+
+    <target name="classes" depends="prepare" description="compile all java source files" >
+        <javac srcdir="${src.java}:${apps.common.src}:${product.common.src}:${product.datahub.src}"
+                destdir="${vms.temp}/classes"
+                classpathref="vms.classpath"
+                debug="off" deprecation="${compile.deprecation}"
+                optimize="${compile.optimize}" 
+                excludes="**/CVS/**, com/stratify/common/encoder/**/*.java,
+                    com/stratify/common/ntrealm/**/*.java,
+					com/stratify/datahub/common/security/**/*.java,
+					com/stratify/datahub/common/search/**/*.java,
+					com/stratify/datahub/common/filters/**/*.java,
+					com/stratify/datahub/common/lookup/**/*.java,
+					com/stratify/datahub/common/valueobjects/**/*.java,
+					com/stratify/datahub/common/xml/**/*.java,
+					com/stratify/datahub/common/util/CaseShareDetails.java,
+					com/stratify/datahub/common/soap/**/*.java,
+                    com/stratify/common/prefs/**/*.java,
+                    com/stratify/common/soap/**/*.java,
+					com/stratify/apps/vms/client/**/*.java,
+                    com/stratify/common/win32/**/*.java,
+					com/stratify/apps/common/export/excel/**/*.java"
+                includes="com/stratify/common/logging/**/*.java,
+					com/stratify/common/util/**/*.java,
+                    com/stratify/datahub/common/util/PyEnv.java,
+                    com/stratify/datahub/common/util/PyEnvLocal.java,
+					com/stratify/datahub/appserver/common/StartupServlet.java,
+                    com/stratify/apps/vms/common/**/*.java,
+					com/stratify/apps/vms/dao/**/*.java,
+					com/stratify/apps/vms/web/**/*.java,
+					com/stratify/apps/vms/fe/**/*.java,					
+                    com/stratify/apps/common/**/*.java" nowarn = "true">
+             
+        </javac>
+    </target>
+
+
+	<target name="classes.final" depends="client-classes" description="compile all java source files" >
+        <javac srcdir="${src.java}"
+                destdir="${vms.temp}/classes"
+                classpathref="vms.final.path"
+                debug="off" deprecation="${compile.deprecation}"
+                optimize="${compile.optimize}" 
+                includes="com/stratify/apps/vms/client/**/*.java" nowarn = "true">                          
+        </javac>
+    </target>
+	
+	<target name="client-classes" depends="prepare, generate.client" description="compile all java source files" >
+        <javac srcdir="${vms.temp}/src"
+                destdir="${vms.temp}/classes"
+                classpathref="vms.classpath"
+                debug="off" deprecation="${compile.deprecation}"
+                optimize="${compile.optimize}" 
+                includes="com/stratify/apps/vms/client/*.java" nowarn = "true">             
+        </javac>
+    </target>
+
+   
+   <!--============================================================================================
+    	vms-jar : target to create the jar file based on the Version Managament Systems classes
+    ============================================================================================-->
+
+    <target name="vms-jar" depends="classes" description="build the vms.jar">		
+		<jar jarfile="${vms.client.stage}/WEB-INF/lib/vms.jar"
+					basedir="${vms.temp}/classes"/>
+    </target>
+
+	 <target name="vms-client-jar" depends="classes.final" description="build the vms client jar">
+		<jar jarfile="${vms.client.stage}/WEB-INF/lib/vms-client.jar"
+					basedir="${vms.temp}/classes"/>
+    </target>
+    
+    <!--============================================================================================
+    	docroot : target to copy the configuration files for Version Managament Systems
+    ============================================================================================-->
+	<target name="docroot">                        
+            <copy todir="${vms.stage}/" preservelastmodified="true">
+			 <fileset dir="${src.projects}/docroot/">
+                             <exclude name="**/*-debug*"/>
+			</fileset>
+            </copy>      
+        
+    </target>
+	 <!--===========================================================================================
+    	webapp : the target which build the Version Managament Systems web application
+    ============================================================================================-->
+    <target name="client" depends="vms-client-jar">
+        <!--copy todir="${vms.stage}/WEB-INF" preservelastmodified="true">
+			<fileset dir="${src.projects}/WEB-INF">
+			</fileset>
+        </copy-->
+        <copy todir="${vms.stage}/htdocs" preservelastmodified="true">
+			<fileset dir="${src.projects}/htdocs"></fileset>
+        </copy>
+        <copy todir="${vms.stage}/conf" preservelastmodified="true">
+			<fileset dir="${src.projects}/conf"></fileset>
+        </copy>
+
+        <copy file="${struts.jar}" todir="${vms.stage}/WEB-INF/lib"/>
+        <copy file="${log4j.jar}" todir="${vms.stage}/WEB-INF/lib"/>        
+        <copy file="${commons-digester.jar}" todir="${vms.stage}/WEB-INF/lib"/>
+        <copy file="${commons-validator.jar}" todir="${vms.stage}/WEB-INF/lib"/>
+        <copy file="${commons-beanutils.jar}" todir="${vms.stage}/WEB-INF/lib"/>
+        <copy file="${commons-lang.jar}" todir="${vms.stage}/WEB-INF/lib"/>
+        <copy file="${commons-collections.jar}" todir="${vms.stage}/WEB-INF/lib"/>      
+        <copy file="${mail.jar}" todir="${vms.stage}/WEB-INF/lib"/>      
+		<copy file="${jRegistryKey.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		<copy file="${htmlparser.jar}" todir="${vms.stage}/WEB-INF/lib"/> 
+		<copy file="${htmllexer.jar}" todir="${vms.stage}/WEB-INF/lib"/> 
+		<copy file="${activation.jar}" todir="${vms.stage}/WEB-INF/lib"/> 
+		<copy file="${mail.jar}" todir="${vms.stage}/WEB-INF/lib"/>
+		<copy file="${jRegistryKey.dll}" todir="${vms.stage}/bin"/>  
+		 <copy file="${activation-1.1.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${annogen-0.1.0.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${axiom-api-1.2.4.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${axiom-impl-1.2.4.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${axis2-adb-1.2.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${axis2-java2wsdl-1.2.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${axis2-kernel-1.2.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${jawin.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+ 		 <copy file="${commons-fileupload-1.1.1.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${jaxen-1.1-beta-7.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${jdom-1.0.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${wsdl4j-1.6.1.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${wstx-asl-3.2.1.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${xalan.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${XmlSchema-1.1.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${stax-api-1.0.1.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${stax2.jar}" todir="${vms.stage}/WEB-INF/lib"/> 
+		 <copy file="${backport-util-concurrent-2.2.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${commons-codec-1.3.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${neethi-2.0.1.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${commons-httpclient-3.0.1.jar}" todir="${vms.stage}/WEB-INF/lib"/> 
+		 
+		 <copy file="${jstl.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${standard.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${taglibs-request.jar}" todir="${vms.stage}/WEB-INF/lib"/> 
+		 		 
+    </target>	
+
+    <target name="server" depends="vms-jar, generate.service">
+        <!--copy todir="${vms.server.stage}/WEB-INF" preservelastmodified="true">
+			<fileset dir="${src.projects}/WEB-INF">
+			</fileset>
+        </copy-->
+        <copy todir="${vms.server.stage}/conf" preservelastmodified="true">
+			<fileset dir="${src.projects}/conf"></fileset>
+        </copy>
+        <copy file="${commons-digester.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>
+        <copy file="${commons-validator.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>
+        <copy file="${commons-beanutils.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>
+        <copy file="${commons-lang.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>
+        <copy file="${commons-collections.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>      
+        <copy file="${mail.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>      
+		<copy file="${jRegistryKey.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  		
+		<copy file="${htmlparser.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>
+		<copy file="${htmllexer.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>
+		<copy file="${activation.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>
+		<copy file="${mail.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>
+		<copy file="${jRegistryKey.dll}" todir="${vms.server.stage}/bin"/>  
+		 <copy file="${activation-1.1.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${annogen-0.1.0.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${axiom-api-1.2.4.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${axiom-impl-1.2.4.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${axis2-adb-1.2.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${axis2-java2wsdl-1.2.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${axis2-kernel-1.2.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${jawin.jar}" todir="${vms.server.stage}/WEB-INF/lib"/> 
+ 		 <copy file="${commons-fileupload-1.1.1.jar}" todir="${vms.stage}/WEB-INF/lib"/>  		 
+		 <copy file="${jaxen-1.1-beta-7.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${jdom-1.0.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${wsdl4j-1.6.1.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${wstx-asl-3.2.1.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${xalan.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${XmlSchema-1.1.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${stax-api-1.0.1.jar}" todir="${vms.server.stage}/WEB-INF/lib"/>  
+		 <copy file="${stax2.jar}" todir="${vms.server.stage}/WEB-INF/lib"/> 
+		 <copy file="${backport-util-concurrent-2.2.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${commons-codec-1.3.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${neethi-2.0.1.jar}" todir="${vms.stage}/WEB-INF/lib"/>  
+		 <copy file="${commons-httpclient-3.0.1.jar}" todir="${vms.stage}/WEB-INF/lib"/> 
+      </target>	   
+
+	<!--===========================================================================================
+		generate.service : generate the aar file for Web Service
+		=======================================================================================-->
+		<target name="generate.service"  >		
+        <copy toDir="${vms.server.temp}" failonerror="false">
+            <fileset dir="${src.projects}/resources">
+                <include name="**/*.xml"/>
+            </fileset>
+			<fileset dir="${vms.temp}/classes">
+				 <include name="**/*.*"/>
+			</fileset>
+        </copy>
+        <jar destfile="${vms.server.stage}/WEB-INF/services/VMSFEComponentService.aar">
+            <fileset  dir="${vms.server.temp}"/>
+        </jar>
+    </target>
+
+	<!--===========================================================================================
+	   generate.wsdl : generate wsdl file for the Web Service
+	   =========================================================================================-->
+
+	<target name="generate.wsdl" depends="vms-jar" >
+        <taskdef name="java2wsdl" classname="org.apache.ws.java2wsdl.Java2WSDLTask"
+				                 classpathref="vms.classpath"/>
+        <java2wsdl className="com.stratify.apps.vms.fe.VMSFEComponentService"
+                   outputLocation="${vms.temp}/service">
+            <classpath>
+	            <pathelement location="${vms.stage}/WEB-INF/lib/vms.jar"/>
+				<pathelement path="${java.class.path}"/>
+            </classpath>
+        </java2wsdl>
+    </target>
+
+	<!--=============================================================================================
+	  generate.client : generate client stub files for Web services
+	  ============================================================================================-->
+	<target name ="generate.client" depends="generate.wsdl">
+		 <java classname="org.apache.axis2.wsdl.WSDL2Java" fork="true" classpathref="vms.classpath">
+            <arg line="-uri ${vms.temp}/service/VMSFEComponentService.wsdl"/>                       
+            <arg line="-p com.stratify.apps.vms.client"/>
+            <arg line="-d adb"/>
+			<arg line="-s"/>
+            <arg line="-o ${vms.temp}"/>
+        </java>
+	</target>	
+	
+    <!--============================================================================================
+    	clean : target to clean the build directory
+    ============================================================================================-->
+
+    <target name="clean" description="clean up all the files generated by build">
+        <delete dir="${vms.client.stage}"/>
+		<delete dir="${vms.server.stage}"/>
+        <delete dir="${vms.temp}"/>
+		<delete dir="${vms.server.temp}"/>
+    </target>
+
+    <target name="main" depends="client">
+    </target>
+
+    <target name="all" depends="clean, main, server"
+        description="Clean, build, and deploy server component"/>
+
+</project>
+

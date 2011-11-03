@@ -1,0 +1,15 @@
+.paginatorNav {
+	margin: 5px 0;
+}
+.paginatorNav a, .paginatorNav span {
+	padding:0 5px;
+}
+.paginatorNav .disabled {
+	color: #BFBFBF;
+}
+.paginatorNav .paginatorShowing {
+					float: left;
+}
+.paginatorNav .paginatorNavLinks {
+			float: right;
+}

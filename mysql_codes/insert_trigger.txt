@@ -1,0 +1,4 @@
+create trigger vms_qa_trgr_vri_insert AFTER INSERT ON vms_rules_info
+for each row
+INSERT INTO vms_rules_info_history(RULE, NAME, DESCRIPTION, CREATED_BY, ACTION_GID)
+SELECT NEW.RULE, NEW.NAME, NEW.DESCRIPTION, NEW.CREATED_BY, A.GID FROM vms_action_info A where LOWER(A.ACTION) = 'insert' ;
