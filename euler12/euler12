@@ -1,0 +1,4 @@
+#!/bin/bash
+MAINCLASS="pack.Euler12"
+CP=".build/classes"
+java -cp "${CP}" ${MAINCLASS} "$*"
