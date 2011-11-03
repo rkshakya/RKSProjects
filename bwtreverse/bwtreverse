@@ -1,0 +1,4 @@
+#!/bin/bash
+MAINCLASS="pack.BWTReverse"
+CP=".build/classes"
+java -cp "${CP}" ${MAINCLASS} "$*"
