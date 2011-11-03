@@ -22,8 +22,8 @@ public class VMSStaticParams {
     //SQL server related
     public static final String CONNECTION_STRING = "net.sourceforge.jtds.jdbc.Driver";
     public static final String DB_URL_PREFIX = "jdbc:jtds:sqlserver://";
-    public static final String MSSQL_BE_USERNAME = "DBADMIN";
-    public static final String MSSQL_BE_PASSWORD = "DBADMIN";
+    public static final String MSSQL_BE_USERNAME = "";
+    public static final String MSSQL_BE_PASSWORD = "";
     public static final int MSSQL_PORT = 1433;
     
     //domain related
@@ -31,13 +31,13 @@ public class VMSStaticParams {
     public static final String BE = "SDP";
     public static final String FEALAIS = "FE";
     public static final String BEALIAS = "BE";
-    public static final String FESUFFIX = ".lds.asp.stratify.com";
-    public static final String BESUFFIX = ".sdp.stratify.com";
+    public static final String FESUFFIX = "";
+    public static final String BESUFFIX = "";
     public static final String APAC = "APAC";
     public static final String APACFEALAIS = "APACFE";
     public static final String APACBEALIAS = "APACBE";
-    public static final String BESUFFIX_APAC = ".sdp.stratify.com";
-    public static final String FESUFFIX_APAC = ".lds.apac.stratify.com";
+    public static final String BESUFFIX_APAC = "";
+    public static final String FESUFFIX_APAC = "";
     
     //table aliases
     public static final String TBL_CASE = "vms_cases";
@@ -50,7 +50,7 @@ public class VMSStaticParams {
     public static final String ENTRY_SERVER_FOLDER = "\\\\uprof01\\EntryConf\\conf";
     //public static final String ENTRY_SERVER_FOLDER = "\\\\apacentry01\\Stratify\\conf";
     //FE WEb Services URL
-    public static final String FE_WEB_SERVICE_URL_APAC = "http://ldstools01.lds.asp.stratify.com/vms/services/VMSFEComponentService";
+    public static final String FE_WEB_SERVICE_URL_APAC = "http:///vms/services/VMSFEComponentService";
     //public static final String FE_WEB_SERVICE_URL_APAC = "http://192.168.1.224/vms/services/VMSFEComponentService";
     
     //Registry Key Search Strings
