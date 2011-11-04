@@ -1,0 +1,245 @@
+body
+	{
+		margin:0;
+		font-family:"Verdana, Helvetica, sans-serif";
+		font-size:"7.5pt";
+		color:"#000000";
+		text-align:none;
+		background:#ffffff;
+		scrollbar-arrow-color: #FFFFFF;
+		scrollbar-3dlight-color: #DDDDDD;
+		scrollbar-highlight-color: #AAAAAA;
+		scrollbar-face-color: #6b73b5;
+		scrollbar-shadow-color: #FFFFFF;
+		scrollbar-darkshadow-color: #000000;
+		scrollbar-track-color: #00008b;
+	}
+
+td 
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		font-size:"7.5pt";
+		color:"#000000";
+		text-align:none;
+	}
+
+
+.small
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		font-size:"7.5pt";
+		color:#000000;
+		text-align:none;
+		line-height:10pt;
+	}
+
+input
+	{ 
+		font-family: Tahoma; 
+		font-size:"7.5pt"; 
+		border: 1px;
+		border-style:outset;
+	}
+
+
+input.btn
+	{ 
+	font-family:Verdana, Tahoma, Arial, Verdana;
+	font-size:7.5pt;
+	font-weight:bold;
+	text-decoration: none;
+	text-align:center;
+	color:#FFFFFF;
+	background:#3F4D46;
+	vertical-align: middle;
+	border-style: outset;
+	border-width: 1px;
+	cursor:hand;
+	}
+
+input.noborder
+	{ 
+		font-family: Tahoma; 
+		font-size:"7.5pt"; 
+		border: none;
+	}
+
+
+select
+	{ 
+		font-family: Tahoma; 
+		font-size:"7.5pt"; 
+		border: 1px 
+		solid #999999
+	}
+
+textarea
+	{ 
+		font-family: Tahoma; 
+		font-size:"7.5pt"; 
+		border: 1px 
+		solid #999999
+	}
+
+//a{text-decoration:none;}
+
+.date
+	{ 
+		font-family:"Verdana, Helvetica, sans-serif";
+		font-size:7.5pt;
+		text-decoration:none;
+		font-weight:"bold"; 
+		color: #446B70;
+	}
+
+.head
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		font-size:10pt;
+		color:"#6b73b5";
+		font-weight:bold;
+	}
+
+
+.smallhead
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		font-size:7.5pt;
+		color:"#EFDD93";
+		font-weight:bold;
+	}
+
+
+a:link
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		color:#000000;
+		font-size:"7.5pt";
+		text-decoration:none;
+		text-align:none;
+		font-weight:none;
+	}
+	
+a:active
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		color:#000000;
+		font-size:"7.5pt";
+		text-decoration:underline;
+		text-align:none;
+		font-weight:none;
+	}
+	
+a:visited
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		color:#000000;
+		font-size:"7.5pt";
+		text-decoration:none;
+		text-align:none;
+		font-weight:none;
+	}
+
+a:hover
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		color:#1D4146;
+		font-size:"7.5pt";
+		text-decoration:underline;
+		text-align:none;
+		font-weight:none;
+	}
+
+a.search:link
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		color:#FF0000;
+		font-size:"7.5pt";
+		text-decoration:underline;
+		text-align:none;
+		font-weight:none;
+	}
+	
+a.search:active
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		color:#FF0000;
+		font-size:"7.5pt";
+		text-decoration:underline;
+		text-align:none;
+		font-weight:none;
+	}
+	
+a.search:visited
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		color:#FF0000;
+		font-size:"7.5pt";
+		text-decoration:underline;
+		text-align:none;
+		font-weight:none;
+	}
+
+a.search:hover
+	{
+		font-family:"Verdana, Helvetica, sans-serif";
+		color:#1D4146;
+		font-size:"7.5pt";
+		text-decoration:underline;
+		text-align:none;
+		font-weight:none;
+	}
+
+a.main:link
+	{
+		font-family:"Verdana, Helvetica, sans-serif, Arial";
+		color:#ffffff;
+		font-size:"7.5pt";
+		text-decoration:none;
+		text-align:none;
+		font-weight:bold;
+	}
+	
+a.main:active
+	{
+		font-family:"Verdana, Helvetica, sans-serif, Arial";
+		color:#ffffff;
+		font-size:"7.5pt";
+		text-decoration:none;
+		text-align:none;
+		font-weight:bold;
+	}
+	
+a.main:visited
+	{
+		font-family:"Verdana, Helvetica, sans-serif, Arial";
+		color:#ffffff;
+		font-size:"7.5pt";
+		text-decoration:none;
+		text-align:none;
+		font-weight:bold;
+	}
+
+a.main:hover
+	{
+		font-family:"Verdana, Helvetica, sans-serif, Arial";
+		color:#6B73B5;
+		font-size:"7.5pt";
+		text-decoration:none;
+		text-align:none;
+		font-weight:bold;
+	}
+
+.greet
+{
+	font-family:"Verdana, Helvetica, sans-serif";
+	color:#003063;
+	font-size:"7.5pt";
+	font-weight:bold;
+}
+
+hr
+{
+	height:1px;
+	color:#FFFFFF;
+}
