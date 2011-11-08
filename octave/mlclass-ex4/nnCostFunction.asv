@@ -82,16 +82,23 @@ for i = 1 : m
         temp_y( y(i) ) = 1;
         temp_y = temp_y(:);
         
-        temp = temp + ( (temp_y .* log(h_theta)) + ((1 - temp_y).* log(1 - h_theta)) );
+        temp = temp + sum( (temp_y .* log(h_theta)) + ((1 - temp_y).* log(1 - h_theta)) );
         
 end 
 
-J = -temp/
+J = -temp/m;
+
+% prepare for regularization
+trim_1 = Theta1 .^ 2;  % exclude col1 from reg
+part_1 = trim_1(:, 2:end);
+part_1 = sum(sum(part_1), 2);
+
+trim_2 = Theta2 .^ 2;  % exclude col1 from reg
+part_2 = trim_2(:, 2:end);
+part_2 = sum(sum(part_2), 2);
 
 
-
-
-
+J = J + (lambda/(2 * m)) * (part_1 + part_2);
 
 
 

@@ -88,10 +88,17 @@ end
 
 J = -temp/m;
 
+% prepare for regularization
+trim_1 = Theta1 .^ 2;  % exclude col1 from reg
+part_1 = trim_1(:, 2:end);
+part_1 = sum(sum(part_1), 2);
+
+trim_2 = Theta2 .^ 2;  % exclude col1 from reg
+part_2 = trim_2(:, 2:end);
+part_2 = sum(sum(part_2), 2);
 
 
-
-
+J = J + (lambda/(2 * m)) * (part_1 + part_2);
 
 
 
