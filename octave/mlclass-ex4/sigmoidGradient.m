@@ -13,8 +13,8 @@ g = zeros(size(z));
 %               each value of z (z can be a matrix, vector or scalar).
 
 
-
-
+temp = sigmoid(z);
+g = temp .* (1 - temp);
 
 
 
