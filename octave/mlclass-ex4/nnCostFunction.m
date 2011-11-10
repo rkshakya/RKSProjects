@@ -101,15 +101,52 @@ part_2 = sum(sum(part_2), 2);
 J = J + (lambda/(2 * m)) * (part_1 + part_2);
 
 
+% work for gradients
+
+%iterate over each trng example (TODO: see if above loop for cost can be reused)
+for i = 1 : m
+        
+       %STEP1: calculate params using feedforward activation 
+       %calcualte h_theta as a vector
+        z_2 = Theta1 * (X(i, :))';
+        a_2 = sigmoid(z_2);
+        a_2 = [1; a_2];
+        z_3 = Theta2 * a_2;
+        h_theta = sigmoid(z_3);
+        
+        %prepare y vector
+        temp_y = zeros(1, num_labels);
+        temp_y( y(i) ) = 1;
+        temp_y = temp_y(:);
+        
+        %STEP 2: calculate errors(small deltas) for nodes
+        delt_3 = h_theta - temp_y;
+        
+        %STEP 3: propagate deltas to hidden layers, need 25 x 1 matrix, exclude 1st col from Theta2
+        delt_2 = ( (Theta2(:, 2:end))' * delt_3) .* sigmoidGradient(z_2);
+        
+        %STEP 4 : accumulate gradients
+        Theta1_grad = Theta1_grad + delt_2 * X(i, :);
+        Theta2_grad = Theta2_grad + delt_3 * (a_2)';
+        
+end 
 
 
+Theta1_grad = (1/m) .* Theta1_grad;
+Theta2_grad = (1/m) .* Theta2_grad;
 
+%implement regularization for gradients
 
+%prepare temp matrices
+temp_theta1_grad = (lambda/m) .* Theta1;
+temp_theta2_grad = (lambda/m) .* Theta2;
 
+%set 1st col to 0
+temp_theta1_grad(:, 1) = 0;
+temp_theta2_grad(:, 1) = 0;
 
-
-
-
+Theta1_grad = Theta1_grad + temp_theta1_grad;
+Theta2_grad = Theta2_grad + temp_theta2_grad;
 
 % -------------------------------------------------------------
 
