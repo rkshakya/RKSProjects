@@ -1,0 +1,18 @@
+Xpath and Xquery for Course Catalog
+
+(Author: Ravi Kishor Shakya)
+
+1) Return all Title elements (of both departments and courses).
+doc("courses.xml")/Course_Catalog/(Department/Title | Department/Course/Title)
+
+2)Return last names of all department chairs.
+doc("courses.xml")/Course_Catalog/Department/Chair/Professor/Last_Name
+
+3)Return titles of courses with enrollment greater than 500.
+doc("courses.xml")/Course_Catalog/Department/Course[@Enrollment > 500]/Title
+
+4)Return titles of departments that have some course that takes "CS106B" as a prerequisite.
+doc("courses.xml")/Course_Catalog/Department[Course/Prerequisites/Prereq = 'CS106B']/Title
+
+5)Return last names of all professors or lecturers who use a middle initial. Don't worry about eliminating duplicates.
+doc("courses.xml")//(Professor | Lecturer)[Middle_Initial]/Last_Name
