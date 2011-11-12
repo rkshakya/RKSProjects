@@ -1,0 +1,34 @@
+XSLT Queries
+
+Author : Ravi Kishor Shakya
+
+1) Return a list of department titles.
+<?xml version="1.0" encoding="ISO-8859-1"?>
+    <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:template match="Department">
+            <xsl:copy-of select = "Title">
+        </xsl:template>        
+    </xsl:stylesheet>
+
+2)Return a list of department elements with no attributes and two subelements each: the department title and the entire Chair subelement structure.
+<?xml version="1.0" encoding="ISO-8859-1"?>
+    <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+        <xsl:template match="*|@*|text()">
+            <xsl:copy>
+			<xsl:apply-templates select = "*|@*|text()"/>
+		</xsl:copy>
+        </xsl:template>
+	
+	<!-- replace attributes in department elem -->
+	<xsl:template match="Department/@*">
+	</xsl:template>
+
+	<xsl:template match="Department[Title]">
+		<xsl:copy-of select="." />
+	</xsl:template>
+
+	<xsl:template match="Department[Chair]">
+		<xsl:copy-of select="." />
+	</xsl:template>
+     
+    </xsl:stylesheet>
