@@ -3,16 +3,45 @@ Xpath and Xquery for Course Catalog
 (Author: Ravi Kishor Shakya)
 
 1) Return all Title elements (of both departments and courses).
+
 doc("courses.xml")/Course_Catalog/(Department/Title | Department/Course/Title)
 
 2)Return last names of all department chairs.
+
 doc("courses.xml")/Course_Catalog/Department/Chair/Professor/Last_Name
 
 3)Return titles of courses with enrollment greater than 500.
+
 doc("courses.xml")/Course_Catalog/Department/Course[@Enrollment > 500]/Title
 
 4)Return titles of departments that have some course that takes "CS106B" as a prerequisite.
+
 doc("courses.xml")/Course_Catalog/Department[Course/Prerequisites/Prereq = 'CS106B']/Title
 
 5)Return last names of all professors or lecturers who use a middle initial. Don't worry about eliminating duplicates.
+
 doc("courses.xml")//(Professor | Lecturer)[Middle_Initial]/Last_Name
+
+6)Return the count of courses that have a cross-listed course (i.e., that have "Cross-listed" in their description).
+
+count(doc("courses.xml")/Course_Catalog/Department/Course[contains(Description, 'Cross-listed')])
+
+7) Return the average enrollment of all courses in the CS department.
+
+for $d in doc("courses.xml")/Course_Catalog/Department
+let $a := $d/Course/@Enrollment
+where $d/@Code = 'CS'
+return avg($a)
+
+8)Return last names of instructors teaching at least one course that has "system" in its description and enrollment greater than 100.
+
+for $c in doc("courses.xml")/Course_Catalog/Department/Course
+where 
+$c/@Enrollment > 100
+and contains($c/Description, "system") 
+return $c/Instructors//Last_Name
+
+9)Return the title of the course with the largest enrollment.
+
+doc("courses.xml")/Course_Catalog/Department/Course[not(xs:int(@Enrollment) <= preceding::Course/xs:int(@Enrollment)) and not(xs:int(@Enrollment) <=
+following::Course/xs:int(@Enrollment)) and @Enrollment]/Title
