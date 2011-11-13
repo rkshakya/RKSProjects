@@ -1,0 +1,31 @@
+Author : Ravi Kishor Shakya
+
+1)Return the area of Mongolia.
+
+for $c in doc("countries.xml")//country
+where 
+$c/@name = "Mongolia"
+return $c/data(@area)
+
+2) Return the names of all cities that have the same name as the country in which they are located.
+
+for $c in doc("countries.xml")//country
+where 
+$c/data(@name) = $c/city/name
+return <name> {$c/data(@name)} </name>
+
+3) Return the average population of Russian-speaking countries.
+
+let $cnt := doc("countries.xml")//country[language = "Russian"]
+let $pop := $cnt/data(@population)
+return  avg($pop)
+
+4) Return the names of all countries that have at least three 
+cities with population greater than 3 million.
+
+for $c in doc("countries.xml")//country
+let $cit := $c/city/[population > 3000000]
+where count($cit > 3)
+return $c/@name
+
+
