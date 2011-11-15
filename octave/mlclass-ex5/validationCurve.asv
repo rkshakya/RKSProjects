@@ -49,9 +49,9 @@ for i = 1:length(lambda_vec)
         %get theta for this dataset, common for trng and validatestring
         temp_theta = trainLinearReg(X, y, lambda);
         
-        error_train(i) = linearRegCostFunction(X, y, temp_theta, 0);
+        error_train(i) = linearRegCostFunction(X, y, temp_theta, lambda);
         
-        error_val(i) = linearRegCostFunction(Xval, yval, temp_theta, 0);
+        error_val(i) = linearRegCostFunction(X)
           
 end
 

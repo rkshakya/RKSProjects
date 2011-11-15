@@ -70,7 +70,7 @@ for i = 1:m
         
         %store in error vectors
         error_train(i)  = err_trng;
-        error_val(i) = err_val;
+        error_val
 end
 
 
