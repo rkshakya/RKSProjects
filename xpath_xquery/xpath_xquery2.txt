@@ -24,8 +24,38 @@ return  avg($pop)
 cities with population greater than 3 million.
 
 for $c in doc("countries.xml")//country
-let $cit := $c/city/[population > 3000000]
-where count($cit > 3)
-return $c/@name
+where count($c/city[population > 3000000]) > 3
+return $c/data(@name)
+
+5)Create a list of French-speaking and German-speaking countries.
+
+<result> 
+<French> 
+{for $f in doc("countries.xml")//country
+where $f/language = "French"
+return 
+<country>{ data($f/@name)}</country> }
+</French>
+
+<German> {
+for $g in doc("countries.xml")//country
+where $g/language = "German"
+return
+<country>{ data($g/@name)}</country> }
+</German>
+</result>
+
+6)Return the countries with the highest and lowest population densities. Note that because the "/" operator has its own meaning in XPath and XQuery, the division operator is infix "div". To compute population density use "(@population div @area)". You can assume density values are unique. 
+
+let $mx := max(doc("countries.xml")//country/(@population div @area))
+let $mxc := doc("countries.xml")//country[@population div @area = $mx]
+let $mn := min(doc("countries.xml")//country/(@population div @area))
+let $mnc := doc("countries.xml")//country[@population div @area = $mn]
+return 
+<result>
+<highest density = "{$mx}">{data($mxc/@name)}</highest>
+<lowest density = "{$mn}">{data($mnc/@name)}</lowest>
+</result>
+
 
 
