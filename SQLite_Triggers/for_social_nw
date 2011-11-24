@@ -1,0 +1,103 @@
+SQLite Triggers for Social N/W DB
+
+Author : Ravi Kishor Shakya
+
+1) Write a trigger that makes new students named 'Friendly' automatically like everyone else in their grade. That is, after the trigger runs, we should have ('Friendly', A) in the Likes table for every other Highschooler A in the same grade as 'Friendly'. 
+
+create trigger Friendly
+before insert on Highschooler
+for each row
+when New.name = 'Friendly'
+begin
+  insert into Likes(ID1, ID2)  select New.ID, H.ID from Highschooler H
+  where H.grade = New.grade;
+end;
+
+or 
+
+create trigger Friendly
+after insert on Highschooler
+for each row
+when New.name = 'Friendly'
+begin
+  insert into Likes(ID1, ID2)  select New.ID, H.ID from Highschooler H
+  where H.grade = New.grade and H.name <> New.name;
+end;
+
+2)Write one or more triggers to manage the grade attribute of new Highschoolers. If the inserted tuple has a value less than 9 or greater than 12, change the value to NULL. On the other hand, if the inserted tuple has a null value for grade, change it to 9. 
+
+create trigger TrgrGrade
+after insert on Highschooler
+for each row
+when (New.grade < 9 or New.grade > 12)
+begin
+  update Highschooler set grade = NULL where ID = New.ID;
+end;
+|
+create trigger TrgrGradeExt
+after insert on Highschooler
+for each row
+when (New.grade is NULL)
+begin
+  update Highschooler set grade = 9 where ID = New.ID;
+end;
+
+3)Write one or more triggers to maintain symmetry in friend relationships. Specifically, if (A,B) is deleted from Friend, then (B,A) should be deleted too. If (A,B) is inserted into Friend then (B,A) should be inserted too. Don't worry about updates to the Friend table. 
+
+create trigger TrgrSymmDel
+after delete on Friend
+for each row
+when exists (select 'x' from Friend where ID1 = Old.ID2 and ID2 = Old.ID1)
+begin
+  delete from Friend where ID1 = Old.ID2 and ID2 = Old.ID1;
+end;
+|
+create trigger TrgrSymmIns
+after insert on Friend
+for each row
+when not exists (select 'x' from Friend where ID1 = New.ID2 and ID2 = New.ID1)
+begin
+  insert into Friend values (New.ID2, New.ID1);
+end;
+
+4)Write a trigger that automatically deletes students when they graduate, i.e., when their grade is updated to exceed 12. 
+
+create trigger TrgrPurgeStudents
+after update of grade on Highschooler
+for each row
+when (New.grade > 12)
+begin
+  delete from Highschooler where grade = New.grade;
+end;
+
+5)Write a trigger that automatically deletes students when they graduate, i.e., when their grade is updated to exceed 12 (same as Question 4). In addition, write a trigger so when a student is moved ahead one grade, then so are all of his or her friends. 
+
+create trigger TrgrPurgeStudents
+after update of grade on Highschooler
+for each row
+when (New.grade > 12)
+begin
+  delete from Highschooler where grade = New.grade;
+end;
+|
+create trigger TrgrUpdateStudents
+after update of grade on Highschooler
+for each row
+when (New.grade = Old.grade + 1)
+begin
+  update Highschooler set grade = grade + 1 where ID in (
+	select ID2 as ID from Friend where ID1 = New.ID union select ID1 as ID from
+	Friend where ID2 = New.ID
+  );  
+end;
+
+6)Write a trigger to enforce the following behavior: If A liked B but is updated to A liking C instead, and B and C were friends, make B and C no longer friends. Don't forget to delete the friendship in both directions, and make sure the trigger only runs when the "liked" (ID2) person is changed but the "liking" (ID1) person is not changed. 
+
+create trigger TrgrUpdateFriends
+after update of ID2 on Likes
+for each row
+when (New.ID2 <> Old.ID2 and New.ID1 = Old.ID1 and exists(select 'x' from Friend where (ID2 = New.ID2 and ID1 = Old.ID2) OR (ID1 = New.ID2 and ID2 = Old.ID2)))
+begin
+  delete from Friend where (ID1 = Old.ID2 and ID2 = New.ID2) or (ID1 = New.ID2 and ID2 = Old.ID2);  
+end;
+
