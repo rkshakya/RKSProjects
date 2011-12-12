@@ -8,12 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-//this is added
-
 /*---------------------------------------------------------------------------------------------------------
 # Gymnast.java - program to generate top 5 search terms from log files
-# i/p -  an input log file (txt format)
-# o/p - top 5 search terms (based on frequency) displayed on console (sorted desc)
+# i/p -  an input file with (height, weight) (height, weight) pair of gymnasts
+# o/p - number of candidates for optimal solution
 # @author - Ravi Kishor Shakya
 # @date - 09 Dec 2011
 # JDK 1.6
@@ -21,10 +19,10 @@ import java.util.TreeMap;
 */
 
 //comparator class for sorting Map based on values
-class ValComparator implements Comparator<Candidate> {	
-	  public int compare(Candidate a, Candidate b) {
-		  int sumtotal1 = a.getSum();
-		  int sumtotal2 = b.getSum();
+class ValComparator implements Comparator<Candidate> {    
+      public int compare(Candidate a, Candidate b) {
+          int sumtotal1 = a.getSum();
+    	  int sumtotal2 = b.getSum();
 		  
 	    if( sumtotal1 < sumtotal2 ) {
 	      return 1;
@@ -72,12 +70,12 @@ public class Gymnast {
 	private static final int DEFAULT_CAPACITY = 5000;  //default size of Data Structs
 	public static void main(String[] args) {	
 		if(args.length != 1){
-			System.out.println("Usage: java Gymnast <input log file name>");
+			System.out.println("Usage: java Gymnast <input file name>");
 			return;
 		}
 		
 		String inFile = args[0];
-		ArrayList<Candidate> participants = new ArrayList<Candidate>(DEFAULT_CAPACITY);
+		ArrayList<Candidate> participants = new ArrayList<Candidate>();
 		
 		try{
 		BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -124,7 +122,7 @@ public class Gymnast {
 		for(Candidate c : participants){
 			//System.out.println(c.getHeight() + ": " + c.getWeight() + ": " + c.getSum());
 			//checking condition for sum is redundant as list is already sorted desc
-			if((c.getHeight() < testHeight) && (c.getWeight() < testWeight) && (c.getSum() < testSum)){
+			if((c.getHeight() < testHeight) && (c.getWeight() < testWeight)){
 				candidates++;
 				testHeight = c.getHeight();
 				testWeight = c.getWeight();
@@ -137,5 +135,3 @@ public class Gymnast {
 		System.out.println();		
 	}
 }
-
-
