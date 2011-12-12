@@ -1,15 +1,12 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.Vector;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 /*---------------------------------------------------------------------------------------------------------
-# Gymnast.java - program to generate top 5 search terms from log files
+# Gymnast.java - program to generate optimal number of gymnasts to form a tower
 # i/p -  an input file with (height, weight) (height, weight) pair of gymnasts
 # o/p - number of candidates for optimal solution
 # @author - Ravi Kishor Shakya
@@ -19,10 +16,11 @@ import java.util.TreeMap;
 */
 
 //comparator class for sorting Map based on values
-class ValComparator implements Comparator<Candidate> {    
+class ValComparator implements Comparator<Candidate> {  
+	 int sumtotal1, sumtotal2;
       public int compare(Candidate a, Candidate b) {
-          int sumtotal1 = a.getSum();
-    	  int sumtotal2 = b.getSum();
+          sumtotal1 = a.getSum();
+    	  sumtotal2 = b.getSum();
 		  
 	    if( sumtotal1 < sumtotal2 ) {
 	      return 1;
@@ -41,7 +39,6 @@ class Candidate{
 	private int sum;
 	
 	public Candidate(int height, int weight) {
-		super();
 		this.height = height;
 		this.weight = weight;
 		this.sum = height + weight;
@@ -67,7 +64,6 @@ class Candidate{
 }
 
 public class Gymnast {
-	private static final int DEFAULT_CAPACITY = 5000;  //default size of Data Structs
 	public static void main(String[] args) {	
 		if(args.length != 1){
 			System.out.println("Usage: java Gymnast <input file name>");
@@ -75,7 +71,7 @@ public class Gymnast {
 		}
 		
 		String inFile = args[0];
-		ArrayList<Candidate> participants = new ArrayList<Candidate>();
+		Vector<Candidate> participants = new Vector<Candidate>();
 		
 		try{
 		BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -83,7 +79,6 @@ public class Gymnast {
 		String line;
 		String[] term;
 		String[] finalTokens;
-		int counter;
 		
 		while ((line = br.readLine()) != null) {
 			line = line.trim();
@@ -94,16 +89,11 @@ public class Gymnast {
 			term[0] = term[0].replace('(', ' ').trim();
 			term[term.length - 1] = term[term.length - 1].replace(')', ' ').trim();
 			
-			//again tokenize on comma and populate into hash
+			//again tokenize on comma and populate into list
 			for(String s: term){
-				//System.out.println(s);
-				finalTokens = s.replaceAll(" ", "").split(",");
-				//System.out.println(finalTokens[0] + ":" + finalTokens[1]);
-				
-				participants.add(new Candidate(Integer.parseInt(finalTokens[0]), Integer.parseInt(finalTokens[1])));
-				
-			}
-							
+				finalTokens = s.replaceAll(" ", "").split(",");				
+				participants.add(new Candidate(Integer.parseInt(finalTokens[0]), Integer.parseInt(finalTokens[1])));				
+			}						
 		}
 		
 		br.close();
@@ -117,21 +107,19 @@ public class Gymnast {
 		int candidates = 1; //holds the final result - no of possible candidates		
 		int testHeight = participants.get(0).getHeight();
 		int testWeight = participants.get(0).getWeight();
-		int testSum = participants.get(0).getSum();
 		
 		for(Candidate c : participants){
-			//System.out.println(c.getHeight() + ": " + c.getWeight() + ": " + c.getSum());
 			//checking condition for sum is redundant as list is already sorted desc
 			if((c.getHeight() < testHeight) && (c.getWeight() < testWeight)){
 				candidates++;
 				testHeight = c.getHeight();
-				testWeight = c.getWeight();
-				testSum = c.getSum();
-			}
-			
-		}	
-		
+				testWeight = c.getWeight();				
+			}			
+		}			
 		System.out.print(candidates);
 		System.out.println();		
+		
+		participants.clear();
+		participants = null;
 	}
 }
