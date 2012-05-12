@@ -1,0 +1,22 @@
+<html>
+                <head>
+                <title>Blog List</title>                
+                <style type="text/css">
+      .body {
+        font-family: sans-serif; width: 800px; margin: 0 auto; padding: 10px;
+    }
+      hr {
+        margin: 20px auto;
+    }   
+    .title {
+        font-weight: bold; font-size: 20px;
+    }
+    </style>
+    </head>
+<body>
+                {% for p in posts %}
+                  <div class = "title">{{p.subject}}</div> <div align = "right">{{p.created}}</div><hr>
+                  <div class = "body">{{p.content}}</div                
+                {%endfor%}
+</body>
+</html>
