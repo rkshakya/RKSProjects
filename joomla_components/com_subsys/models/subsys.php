@@ -39,6 +39,7 @@ class SubsysModelSubsys extends JModel
    * @var object
    */
   var $_pagination = null;
+  
 
 function __construct()
   {
@@ -55,6 +56,7 @@ function __construct()
  
 	$this->setState('limit', $limit);
 	$this->setState('limitstart', $limitstart);
+	
   }
 
 
@@ -64,8 +66,9 @@ function __construct()
 	 */
 	function _buildQuery()
 	{
+	 
 		$query = ' SELECT * '
-			. ' FROM sms_subscribers '
+			. ' FROM sms_subscribers '			
 		;
 
 		return $query;

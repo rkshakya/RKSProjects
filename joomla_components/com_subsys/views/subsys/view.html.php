@@ -27,7 +27,7 @@ class SubsysViewSubsys extends JView
 	 **/
 	function display($tpl = null)
 	{
-		JToolBarHelper::title(   JText::_( 'Subscribers Manager' ), 'generic.png' );
+		JToolBarHelper::title(   JText::_( 'Subscriber Manager' ), 'generic.png' );
 		JToolBarHelper::deleteList();
 		JToolBarHelper::editListX();
 		JToolBarHelper::addNewX();

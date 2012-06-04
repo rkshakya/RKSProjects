@@ -68,7 +68,17 @@ dump(JRequest::getVar('cid'), "CID");
 			$this->_data->sub_id = 0;
 			$this->_data->sub_code = null;
 			$this->_data->sub_name = null;
-			$this->_data->sub_address = null;
+			$this->_data->sub_category = null;
+			$this->_data->sub_address = null;		
+			$this->_data->sub_city = null;
+			$this->_data->sub_pobox = null;
+			$this->_data->sub_phone = null;
+			$this->_data->sub_fax = null;
+			$this->_data->sub_email = null;
+			$this->_data->sub_web = null;
+			$this->_data->sub_cp = null;
+			$this->_data->sub_cpd = null;
+			$this->_data->sub_cdate = null;
 		}
 		return $this->_data;
 	}
@@ -90,18 +100,21 @@ dump(JRequest::getVar('cid'), "CID");
 		// Bind the form fields to the hello table
 		if (!$row->bind($data)) {
 			$this->setError($this->_db->getErrorMsg());
+			dump($this->_db->getErrorMsg(), "BINDERROR");
 			return false;
 		}
 
 		// Make sure the hello record is valid
 		if (!$row->check()) {
 			$this->setError($this->_db->getErrorMsg());
+			dump($this->_db->getErrorMsg() , "VALIDITYERROR");
 			return false;
 		}
 
 		// Store the web link table to the database
 		if (!$row->store()) {
 			$this->setError( $row->getErrorMsg() );
+				dump($row->getErrorMsg() , "DBERROR");
 			return false;
 		}
 

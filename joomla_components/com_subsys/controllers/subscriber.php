@@ -48,11 +48,14 @@ dump("Jamali", "Tutu");
 	function save()
 	{
 		$model = $this->getModel('subscriber');
-
+dump($model, "Model");
+dump($post, "POSTAL");
 		if ($model->store($post)) {
 			$msg = JText::_( 'Subscriber Information Saved!' );
+			dump("success", "Update");
 		} else {
 			$msg = JText::_( 'Error Saving Subscriber Information' );
+			dump("fail", "Update");
 		}
 
 		// Check the table in so it can be edited.... we are done with it anyway
