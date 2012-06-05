@@ -35,10 +35,12 @@ class SubsysViewSubsys extends JView
 		// Get data from the model
 		$items		= & $this->get( 'Data');
 		$pagination =& $this->get('Pagination');
-	#	dump($items, 'Items');
+		$lists =& $this->get('Lists');
+		dump($lists, 'Lists');
 
 		$this->assignRef('items',		$items);
 		$this->assignRef('pagination', $pagination);
+		$this->assignRef('lists', $lists);
 
 		parent::display($tpl);
 	}

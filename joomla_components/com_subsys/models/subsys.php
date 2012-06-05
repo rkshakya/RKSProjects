@@ -39,24 +39,38 @@ class SubsysModelSubsys extends JModel
    * @var object
    */
   var $_pagination = null;
+  var $_where = null;
+  var $_list = null;
   
 
 function __construct()
   {
  	parent::__construct();
- 
+   $db =& JFactory::getDBO();
 	$mainframe = JFactory::getApplication();
+	
+	 $search = $mainframe-> getUserStateFromRequest( $option.'search','search','','string' );
+    $search = JString::strtolower( $search );
+ 
+ dump($search, "SEARCH");
  
 	// Get pagination request variables
 	$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
 	$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
+	$where = array();
+    if ( $search ) {
+        $where[] = 'sub_name LIKE "%'.$db->getEscaped($search).'%"';
+    }   
+    $where      = ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
  
 	// In case limit has been changed, adjust it
 	$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
  
 	$this->setState('limit', $limit);
 	$this->setState('limitstart', $limitstart);
-	
+	$lists['search']= $search; 
+	$this->_where = $where; 
+	$this->_lists = $lists;
   }
 
 
@@ -68,9 +82,11 @@ function __construct()
 	{
 	 
 		$query = ' SELECT * '
-			. ' FROM sms_subscribers '			
+			. ' FROM sms_subscribers '	
+			. $this->_where
 		;
-
+dump($this->_where, "WHERE");
+dump($query, "QUERY");
 		return $query;
 	}
 
@@ -88,6 +104,10 @@ function __construct()
 		}
 
 		return $this->_data;
+	}
+	
+	function getLists(){   
+    return $this->_lists;
 	}
 	
 	function getTotal()
