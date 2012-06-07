@@ -19,7 +19,7 @@ jimport( 'joomla.application.component.model' );
  * @package    Joomla.Tutorials
  * @subpackage Components
  */
-class SubsysModelSubsys extends JModel
+class SubsysModelPublications extends JModel
 {
 	/**
 	 * Hellos data array
@@ -45,13 +45,13 @@ class SubsysModelSubsys extends JModel
 
 function __construct()
   {
- 	parent::__construct();
+ 	  parent::__construct();
    $db =& JFactory::getDBO();
-	$mainframe = JFactory::getApplication();
+  	$mainframe = JFactory::getApplication();
 	
-	 $search = $mainframe-> getUserStateFromRequest( $option.'search','search','','string' );
-	 $origSearch = $search;
-    $search = JString::strtolower( $search );
+	  $search = $mainframe-> getUserStateFromRequest( $option.'search','search','','string' );
+	    $origSearch = $search;
+   $search = JString::strtolower( $search );
  
  dump($search, "SEARCH");
  
@@ -60,7 +60,7 @@ function __construct()
 	$limitstart = JRequest::getVar('limitstart', 0, '', 'int');
 	$where = array();
     if ( $search ) {
-        $where[] = 'sub_name LIKE "%'.$db->getEscaped($search).'%"';
+        $where[] = 'pub.pub_name LIKE "%'.$db->getEscaped($search).'%"';
     }   
     $where      = ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
  
@@ -81,9 +81,8 @@ function __construct()
 	 */
 	function _buildQuery()
 	{
-	 
-		$query = ' SELECT * '
-			. ' FROM sms_subscribers '	
+		$query = ' SELECT pub.*, cat.cat_name '
+			. ' FROM sms_publications pub LEFT JOIN sms_categories cat ON pub.pub_category = cat.cat_code '	
 			. $this->_where
 		;
 dump($this->_where, "WHERE");

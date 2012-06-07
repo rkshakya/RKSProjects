@@ -50,6 +50,7 @@ function __construct()
   	$mainframe = JFactory::getApplication();
 	
 	  $search = $mainframe-> getUserStateFromRequest( $option.'search','search','','string' );
+	  $origSearch = $search;
    $search = JString::strtolower( $search );
  
  dump($search, "SEARCH");
@@ -68,7 +69,7 @@ function __construct()
  
 	$this->setState('limit', $limit);
 	$this->setState('limitstart', $limitstart);
-	$lists['search']= $search; 
+	$lists['search']= $origSearch; 
 	$this->_where = $where; 
 	$this->_lists = $lists;
   }
