@@ -1,0 +1,3 @@
+select pub.*, cat.cat_name from
+sms_publications pub, sms_categories cat
+where pub.pub_category = cat.cat_code
