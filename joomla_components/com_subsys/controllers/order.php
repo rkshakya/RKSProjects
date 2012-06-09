@@ -34,8 +34,8 @@ class SubsysControllerOrder extends SubsysController
 	 */
 	function edit()
 	{
-		JRequest::setVar( 'view', 'publication' );
-		JRequest::setVar( 'layout', 'editpublication'  );
+		JRequest::setVar( 'view', 'order' );
+		JRequest::setVar( 'layout', 'editorder'  );
 		JRequest::setVar('hidemainmenu', 1);
 dump("Jamali", "Tutu");
 		parent::display();
@@ -53,19 +53,19 @@ dump("Jamali", "Tutu");
 	 */
 	function save()
 	{
-		$model = $this->getModel('publication');
+		$model = $this->getModel('order');
 dump($model, "Model");
 dump($post, "POSTAL");
 		if ($model->store($post)) {
-			$msg = JText::_( 'Publication Information Saved!' );
+			$msg = JText::_( 'Order Information Saved!' );
 			dump("success", "Update");
 		} else {
-			$msg = JText::_( 'Error Saving Publication Information' );
+			$msg = JText::_( 'Error Saving Order Information' );
 			dump("fail", "Update");
 		}
 
 		// Check the table in so it can be edited.... we are done with it anyway
-		$link = 'index.php?option=com_subsys&controller=publication';
+		$link = 'index.php?option=com_subsys&controller=order';
 		$this->setRedirect($link, $msg);
 	}
 
@@ -75,14 +75,14 @@ dump($post, "POSTAL");
 	 */
 	function remove()
 	{
-		$model = $this->getModel('publication');
+		$model = $this->getModel('order');
 		if(!$model->delete()) {
-			$msg = JText::_( 'Error: One or More Publications could not be deleted' );
+			$msg = JText::_( 'Error: One or More Orders could not be deleted' );
 		} else {
-			$msg = JText::_( 'Publication(s) Deleted' );
+			$msg = JText::_( 'Order(s) Deleted' );
 		}
 
-		$this->setRedirect( 'index.php?option=com_subsys&controller=publication', $msg );
+		$this->setRedirect( 'index.php?option=com_subsys&controller=order', $msg );
 	}
 
 	/**
@@ -92,6 +92,6 @@ dump($post, "POSTAL");
 	function cancel()
 	{
 		$msg = JText::_( 'Operation Cancelled' );
-		$this->setRedirect( 'index.php?option=com_subsys&controller=publication', $msg );
+		$this->setRedirect( 'index.php?option=com_subsys&controller=order', $msg );
 	}
 }

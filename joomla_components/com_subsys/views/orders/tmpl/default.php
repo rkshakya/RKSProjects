@@ -88,7 +88,7 @@ JHTML::_('behavior.tooltip');
 	$k = 0;
 	for ($i=0, $n=count( $this->items ); $i < $n; $i++)	{
 		$row =& $this->items[$i];
-		$checked 	= JHTML::_('grid.id',   $i, $row->order_code );
+		$checked 	= JHTML::_('grid.id',   $i, $row->order_id );
 		$link 		= JRoute::_( 'index.php?option=com_subsys&controller=order&task=edit&cid[]='. $row->order_code );		
 		?>
 		<tr class="<?php echo "row$k"; ?>">
