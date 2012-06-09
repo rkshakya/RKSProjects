@@ -13,6 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 jimport('joomla.application.component.model');
 
+
 /**
  * 
  *
@@ -152,34 +153,59 @@ class SubsysModelOrder extends JModel
 	 */
 	function store()
 	{	
-		$row =& $this->getTable();
-		dump($row, "TABLEDATA");
-
+		
 		$data = JRequest::get( 'post' );
 		dump($data, "POSTDATA");
+		//dump($data["order_id"], "ULLUDATA");
 
-		// Bind the form fields to the hello table
-		if (!$row->bind($data)) {
-			$this->setError($this->_db->getErrorMsg());
-			dump($this->_db->getErrorMsg(), "BINDERROR");
-			return false;
-		}
+  //update order information, this will be same all the time
+  $dbnew =& JFactory::getDBO();
+  $ord = new JObject();
+  $ord->order_id = $data['order_id'];
+  $ord->order_code = $data['order_code'];
+  $ord->order_date = $data['order_date'];
+  $ord->order_title = $data['order_title'];
+  $ord->sub_code = $data['sub_code'];
+  $ord->order_invno = $data['order_invno'];
+  $ord->order_invamt = $data['order_invamt'];
+  $ord->order_paid = $data['order_paid'];
 
-		// Make sure the hello record is valid
-		if (!$row->check()) {
-			$this->setError($this->_db->getErrorMsg());
-			dump($this->_db->getErrorMsg() , "VALIDITYERROR");
-			return false;
-		}
-
-		// Store the web link table to the database
-		if (!$row->store()) {
-			$this->setError( $row->getErrorMsg() );
-				dump($row->getErrorMsg() , "DBERROR");
-			return false;
-		}
-
-		return true;
+  //Update the record. Third parameter is table id field that will be used to update.
+  $ret = $dbnew->updateObject('sms_orders', $ord,'order_id');
+  
+  //update order_code in sms_subscritions table
+  $qryUdt = "UPDATE sms_subscriptions SET order_code = '".$data['order_code']."' WHERE order_id = ".$data['order_id'];
+  $dbnew->setQuery($qryUdt);
+  $retUdt = $dbnew->query();
+    
+    //now deal with all valid Subscription parts
+    for($i = 0; $i < $data['countsubscription']; $i++){
+      if($data['action'.$i] == 'Update'){
+          $sub = new JObject();
+          $sub->subscription_id = $data['subscription_id'.$i];
+          $sub->order_id = $data['order_id'];
+          $sub->subscription_title = $data['subscription_title'.$i];
+          $sub->order_code = $data['order_code'];
+          $sub->sub_code = $data['sub_code'];
+          $sub->pub_code = $data['pub_code'.$i];
+          $sub->num_issues = $data['num_issues'.$i];
+          $sub->num_copies = $data['num_copies'.$i];
+          $sub->issue_from = $data['issue_from'.$i];
+          $sub->issue_to = $data['issue_to'.$i];
+          $sub->start_date = $data['start_date'.$i];
+          $sub->exp_date = $data['exp_date'.$i];
+                   
+          $ret1 = $dbnew->updateObject('sms_subscriptions', $sub,'subscription_id'); 
+                    
+        } else if($data['action'.$i] == 'Delete'){
+                    $qry = "DELETE FROM sms_subscriptions WHERE subscription_id = ".$data['subscription_id'.$i];
+                    $dbnew->setQuery($qry);
+                    $ret2 = $dbnew->query();
+        }
+    }
+    if($ret and $ret2 and $ret3 and $retUdt){
+		  return true;
+		  }
 	}
 
 	/**

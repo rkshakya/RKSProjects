@@ -141,7 +141,7 @@ JHTML::_('behavior.tooltip');
 				<?php echo $row->start_date; ?>
 			</td>
 			<td>
-				<?php echo $row->end_date; ?>
+				<?php echo $row->exp_date; ?>
 			</td>
 			<td>
 				<?php echo $row->cdate.'('.$row->mdate.')'; ?>

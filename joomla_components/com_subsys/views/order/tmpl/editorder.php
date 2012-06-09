@@ -126,8 +126,7 @@
 				<?php echo JText::_( 'Subscription ID' ); ?>
 			</th>
 			<th width="20">
-			<?php echo JText::_( 'delete?' ); ?>
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->subscriptions ); ?>);" />
+			<?php echo JText::_( 'Select Action' ); ?>
 			</th>			
 			<th>
 				<?php echo JText::_( 'Publication' ); ?>
@@ -164,9 +163,16 @@
 		<tr class="<?php echo "row$k"; ?>">
 			<td>
 				<?php echo $row->subscription_id; ?>
+				<input type="hidden" name="subscription_id<?php echo $i; ?>" value="<?php echo $row->subscription_id; ?>" />
 			</td>
 			<td>
-				<?php echo $checked; ?>
+				<?php 
+				$actions = array(JHTML::_('select.option','',JText::_('ACTION?')),
+				JHTML::_('select.option','Update',JText::_('Update')),
+				JHTML::_('select.option','Delete',JText::_('Delete'))
+				);
+    echo JHTML::_('select.genericlist', $actions, 'action'.$i, '', 'value', 'text', '');
+				?>
 			</td>
 			<td>
 			<?php 
@@ -221,4 +227,5 @@
 <input type="hidden" name="order_id" value="<?php echo $this->order->order_id; ?>" />
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="controller" value="order" />
+<input type="hidden" name="countsubscription" value="<?php echo count( $this->subscriptions ); ?>">
 </form>
