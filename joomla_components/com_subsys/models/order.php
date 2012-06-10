@@ -60,8 +60,9 @@ class SubsysModelOrder extends JModel
 	
 	function &getSubscribers(){
 	   if(empty($this->_subscribers)){
-              $qrySubscriber = 'SELECT sub_code, sub_name FROM sms_subscribers ORDER BY sub_name';         
-			           $this->_subscribers = $this->_getList($qrySubscriber);		
+              $qrySubscriber = 'SELECT sub_code, sub_name FROM sms_subscribers WHERE sub_code = ' . $this->_subcode;         
+			           $this->_db->setQuery( $qrySubscriber );
+			           $this->_subscribers = $this->_db->loadObject();			
       }
     
    
@@ -203,9 +204,77 @@ class SubsysModelOrder extends JModel
                     $ret2 = $dbnew->query();
         }
     }
-    if($ret and $ret2 and $ret3 and $retUdt){
+    if($ret and $retUdt){
 		  return true;
 		  }
+	}
+	
+	function storeIns()
+	{	
+		
+		$data = JRequest::get( 'post' );
+		dump($data, "POSTDATA");
+		
+		//check if order_code exists
+		$db =& JFactory::getDBO();
+		$qryCount = "SELECT order_id FROM sms_orders WHERE order_code = ".$data['order_code'];
+		dump($qryCount, "QRYCOUNT");
+		$db->setQuery($qryCount);
+  $order_id = $db->loadResult();
+  dump($orderid, "ORDERID");
+  if (!$order_id){
+  //add order info
+    $ord = new JObject();
+    $ord->order_code = $data['order_code'];
+    $ord->order_date = $data['order_date'];
+    $ord->order_title = $data['order_title'];
+    $ord->sub_code = $data['sub_code'];
+    $ord->order_invno = $data['order_invno'];
+    $ord->order_invamt = $data['order_invamt'];
+    $ord->order_paid = $data['order_paid'];
+   dump("here", "HERER");
+   
+    $ret = $db->insertObject('sms_orders', $ord, 'order_id');
+ 
+    if (!$ret) {
+	      $this->setError($db->getErrorMsg());
+	      return false;
+        }
+ 
+    //Get the new record id
+    $order_id = (int)$db->insertid();
+     dump($order_id, "ORDER ID");
+    }
+    
+   // dump($order_id, "ORDER IIIID");
+ //add subscriptions with this order_id
+    for($i = 0; $i < 2; $i++){
+    //dump($order_id, "ORDER CRAP");
+        // dump($data['pub_code'.$i], "ullu");
+      if($data['pub_code'.$i] != ""){
+          $sub = new JObject();         
+          $sub->order_id = $order_id;
+          $sub->subscription_title = $data['subscription_title'.$i];
+          $sub->order_code = $data['order_code'];
+          $sub->sub_code = $data['sub_code'];
+          $sub->pub_code = $data['pub_code'.$i];
+          $sub->num_issues = $data['num_issues'.$i];
+          $sub->num_copies = $data['num_copies'.$i];
+          $sub->issue_from = $data['issue_from'.$i];
+          $sub->issue_to = $data['issue_to'.$i];
+          $sub->start_date = $data['start_date'.$i];
+          $sub->exp_date = $data['exp_date'.$i];
+          dump($order_id, "ORDER BITRA ID");
+                   
+          $ret1 = $db->insertObject('sms_subscriptions', $sub,'subscription_id'); 
+          if (!$ret1) {
+	             $this->setError($db->getErrorMsg());
+	              return false;
+                    }                    
+        } 
+    }
+    
+		  return true;
 	}
 
 	/**
@@ -218,18 +287,18 @@ class SubsysModelOrder extends JModel
 	{
 		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
-		$row =& $this->getTable();
+		//$row =& $this->getTable();
 		
-		dump($cids, "CIDS");
-
-		if (count( $cids )) {
-			foreach($cids as $cid) {
-				if (!$row->delete( $cid )) {
-					$this->setError( $row->getErrorMsg() );
-					return false;
-				}
-			}
-		}
+		dump(implode(",", $cids), "CIDS");
+    $qryDelete = "DELETE FROM sms_orders WHERE order_id IN (".implode(",", $cids).")";
+    $db =& JFactory::getDBO();
+    $db->setQuery($qryDelete);
+    $result = $db->query();
+    if (!$result) {
+	             $this->setError($db->getErrorMsg());
+	              return false;
+                    }        
+		
 		return true;
 	}
 
