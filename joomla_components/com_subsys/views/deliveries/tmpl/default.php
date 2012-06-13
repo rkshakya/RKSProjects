@@ -4,7 +4,7 @@
 <div id="editcell">
 <table>
 <tr>
-	  <td align="left" width="100%">
+	  <td align="left">
 				<?php 
 				$options = array();
     $options[] = JHTML::_('select.option','',JText::_('PLS CHOOSE A SUBSCRIBER'));
@@ -16,7 +16,7 @@
 				?>
 			</td>
 			
-			<td align="left" width="100%">
+			<td align="left">
 				<?php 
 				$options = array();
     $options[] = JHTML::_('select.option','',JText::_('PLS CHOOSE A PUBLICATION'));
@@ -27,7 +27,7 @@
     echo JHTML::_('select.genericlist', $options, 'pub_code', '', 'value', 'text', $this->lists['pubcode']);
 				?>
 				</td>
-				<td align="left" width="100%">
+				<td align="left">
 				<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 				<button onclick="document.getElementById('sub_code').value='';document.getElementById('pub_code').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 			</td>

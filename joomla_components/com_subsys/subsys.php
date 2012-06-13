@@ -11,6 +11,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 // Require the base controller
 require_once( JPATH_COMPONENT.DS.'controller.php' );
+//class for creating sub menus in each pages
+JLoader::register('SubMenuHelper', dirname(__FILE__) . DS . 'helpers' . DS . 'submenu.php');
 
 // Require specific controller if requested
 

@@ -31,6 +31,7 @@ class SubsysViewDeliveries extends JView
 		JToolBarHelper::deleteList();
 		JToolBarHelper::editListX();
 		JToolBarHelper::addNewX();
+		SubMenuHelper::addSubmenu();		
 
 		// Get data from the model
 		$subscribers =& $this->get( 'Subscribers');

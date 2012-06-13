@@ -31,6 +31,7 @@ class SubsysViewCategories extends JView
 		JToolBarHelper::deleteList();
 		JToolBarHelper::editListX();
 		JToolBarHelper::addNewX();
+		SubMenuHelper::addSubmenu();		
 
 		// Get data from the model
 		$items		= & $this->get( 'Data');
