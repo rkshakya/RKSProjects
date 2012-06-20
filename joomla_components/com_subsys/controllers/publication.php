@@ -1,11 +1,12 @@
 <?php
 /**
- *  Controller for Subsys Component
+ *  Publication Controller for Subsys Component
  * 
  * @package    
  * @subpackage Components
  * @link 
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -23,9 +24,7 @@ class SubsysControllerPublication extends SubsysController
 		parent::__construct();
 
 		// Register Extra tasks
-		$this->registerTask( 'add'  , 	'edit' );
-		$tut = 90;
-		dump($tut, "Tut");
+		$this->registerTask( 'add'  , 	'edit' );	
 	}
 
 	/**
@@ -37,10 +36,10 @@ class SubsysControllerPublication extends SubsysController
 		JRequest::setVar( 'view', 'publication' );
 		JRequest::setVar( 'layout', 'editpublication'  );
 		JRequest::setVar('hidemainmenu', 1);
-dump("Jamali", "Tutu");
 		parent::display();
 	}
 	
+	//default display function for all pubs
 	function display(){
     JRequest::setVar( 'view', 'publications' );
 		  JRequest::setVar( 'layout', 'default'  );
@@ -54,17 +53,15 @@ dump("Jamali", "Tutu");
 	function save()
 	{
 		$model = $this->getModel('publication');
-dump($model, "Model");
-dump($post, "POSTAL");
+
 		if ($model->store($post)) {
 			$msg = JText::_( 'Publication Information Saved!' );
-			dump("success", "Update");
+			//dump("success", "Update");
 		} else {
 			$msg = JText::_( 'Error Saving Publication Information' );
-			dump("fail", "Update");
+			//dump("fail", "Update");
 		}
 
-		// Check the table in so it can be edited.... we are done with it anyway
 		$link = 'index.php?option=com_subsys&controller=publication';
 		$this->setRedirect($link, $msg);
 	}

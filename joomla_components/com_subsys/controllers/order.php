@@ -1,11 +1,12 @@
 <?php
 /**
- *  Controller for Subsys Component
+ *  Order Controller for Subsys Component
  * 
  * @package    
  * @subpackage Components
  * @link 
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -21,19 +22,15 @@ class SubsysControllerOrder extends SubsysController
 	function __construct()
 	{
 		parent::__construct();
-
-		// Register Extra tasks
-		//$this->registerTask( 'add'  , 	'edit' );
-		$tut = 90;
-		dump($tut, "Tut");
 	}
 	
+	//for adding new orders
 	function add()
 	{
 		JRequest::setVar( 'view', 'addorder' );
 		JRequest::setVar( 'layout', 'addorder'  );
 		JRequest::setVar('hidemainmenu', 1);
-dump("Add", "ADD");
+//dump("Add", "ADD");
 		parent::display();
 	}
 
@@ -46,7 +43,6 @@ dump("Add", "ADD");
 		JRequest::setVar( 'view', 'order' );
 		JRequest::setVar( 'layout', 'editorder'  );
 		JRequest::setVar('hidemainmenu', 1);
-dump("Jamali", "Tutu");
 		parent::display();
 	}
 	
@@ -63,28 +59,26 @@ dump("Jamali", "Tutu");
 	function save()
 	{
 		$model = $this->getModel('order');
-dump($model, "Model");
-dump($post, "POSTAL");
+		
     $orderid = JRequest::getVar('order_id',  0, '', 'int');
     if($orderid > 0){
 		    if ($model->store($post)) {
 			    $msg = JText::_( 'Order Information Updated!' );
-			    dump("success", "Update");
+			    //dump("success", "Update");
 		    } else {
 			    $msg = JText::_( 'Error Updating Order Information' );
-			    dump("fail", "Update");
+			    //dump("fail", "Update");
 		        }
 		}else{
 		    if ($model->storeIns($post)) {
 			    $msg = JText::_( 'Order Information Added!' );
-			    dump("success", "Add");
+			    //dump("success", "Add");
 		    } else {
 			    $msg = JText::_( 'Error Adding Order Information' );
-			    dump("fail", "Add");
+			    //dump("fail", "Add");
 		        }
 		}
 
-		// Check the table in so it can be edited.... we are done with it anyway
 		$link = 'index.php?option=com_subsys&controller=order';
 		$this->setRedirect($link, $msg);
 	}

@@ -1,10 +1,9 @@
 <?php
 /**
  * 
- * 
+ * @author Ravi Shakya
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
  */
 
@@ -30,7 +29,7 @@ class SubsysViewAddorder extends JView
 	//get the sub_code and order_id
 	$subcode = JRequest::getVar('sub_code',  0, '', 'int');
 	
-	dump($subcode, "Sub Code");
+	//dump($subcode, "Sub Code");
 	
 		//get the order info
 		$subscribers =& $this->get('Subscribers');
@@ -47,8 +46,8 @@ class SubsysViewAddorder extends JView
   $document->addScript("includes/js/joomla.javascript.js");    
   JHTML::_('behavior.calendar');
   
-  dump($publications, "PUBLICATIONS"); 
-  dump($subscribers, "SUBSCRIBERS");
+  //dump($publications, "PUBLICATIONS"); 
+  //dump($subscribers, "SUBSCRIBERS");
 
 		$this->assignRef('subscribers',	$subscribers);
 		$this->assignRef('publications',	$publications);

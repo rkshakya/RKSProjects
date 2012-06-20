@@ -1,10 +1,9 @@
 <?php
 /**
  * 
- * 
+ * @author Ravi Shakya
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
  */
 
@@ -32,8 +31,8 @@ class SubsysViewOrder extends JView
   $array = JRequest::getVar('cid',  0, '', 'array');
   $orderId = (int)$array[0];
 	
-	dump($subcode, "Sub Code");
-	dump($orderId, "Order ID");
+	//dump($subcode, "Sub Code");
+	//dump($orderId, "Order ID");
 	
 		//get the order info
 		$ords		=& $this->get('Data');
@@ -41,7 +40,7 @@ class SubsysViewOrder extends JView
 		$subscribers =& $this->get('Subscribers');
 		$publications =& $this->get('Publications');
 	
-		dump($ords, "Ords");
+		//dump($ords, "Ords");
 		$isNew		= ($ords->order_code < 1);
 
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
@@ -59,8 +58,8 @@ class SubsysViewOrder extends JView
   $document->addScript("includes/js/joomla.javascript.js");    
   JHTML::_('behavior.calendar');
   
-  dump($subs, "PAKHND"); 
-  dump($subscribers, "SUBSCRIBERS");
+ // dump($subs, "PAKHND"); 
+ // dump($subscribers, "SUBSCRIBERS");
 
 		$this->assignRef('order',	$ords);
 		$this->assignRef('subscriptions',	$subs);

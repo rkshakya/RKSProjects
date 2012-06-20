@@ -6,6 +6,7 @@
  * @subpackage Components
  * @link 
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -24,8 +25,8 @@ class SubsysControllerSubscriber extends SubsysController
 
 		// Register Extra tasks
 		$this->registerTask( 'add'  , 	'edit' );
-		$tut = 90;
-		dump($tut, "Tut");
+	
+	//	dump(90, "Tut");
 	}
 
 	/**
@@ -37,7 +38,6 @@ class SubsysControllerSubscriber extends SubsysController
 		JRequest::setVar( 'view', 'subscriber' );
 		JRequest::setVar( 'layout', 'editform'  );
 		JRequest::setVar('hidemainmenu', 1);
-dump("Jamali", "Tutu");
 		parent::display();
 	}
 
@@ -48,17 +48,15 @@ dump("Jamali", "Tutu");
 	function save()
 	{
 		$model = $this->getModel('subscriber');
-dump($model, "Model");
-dump($post, "POSTAL");
+
 		if ($model->store($post)) {
 			$msg = JText::_( 'Subscriber Information Saved!' );
-			dump("success", "Update");
+			//dump("success", "Update");
 		} else {
 			$msg = JText::_( 'Error Saving Subscriber Information' );
-			dump("fail", "Update");
+			//dump("fail", "Update");
 		}
 
-		// Check the table in so it can be edited.... we are done with it anyway
 		$link = 'index.php?option=com_subsys';
 		$this->setRedirect($link, $msg);
 	}

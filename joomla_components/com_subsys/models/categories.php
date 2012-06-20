@@ -1,11 +1,12 @@
 <?php
 /**
- * Hellos Model for Hello World Component
+ *
  * 
- * @package    Joomla.Tutorials
+ * @package    
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
+ * @link 
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -14,15 +15,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.model' );
 
 /**
- * Hello Model
  *
- * @package    Joomla.Tutorials
+ *
+ * @package    
  * @subpackage Components
  */
 class SubsysModelCategories extends JModel
 {
 	/**
-	 * Hellos data array
 	 *
 	 * @var array
 	 */
@@ -49,11 +49,12 @@ function __construct()
    $db =& JFactory::getDBO();
   	$mainframe = JFactory::getApplication();
 	
+	//for search filters
 	  $search = $mainframe-> getUserStateFromRequest( $option.'search','search','','string' );
 	  $origSearch = $search;
    $search = JString::strtolower( $search );
  
- dump($search, "SEARCH");
+ //dump($search, "SEARCH");
  
 	// Get pagination request variables
 	$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
@@ -80,19 +81,18 @@ function __construct()
 	 * @return string The query to be used to retrieve the rows from the database
 	 */
 	function _buildQuery()
-	{
-	 
+	{	 
 		$query = ' SELECT * '
 			. ' FROM sms_categories '	
 			. $this->_where
 		;
-dump($this->_where, "WHERE");
-dump($query, "QUERY");
+//dump($this->_where, "WHERE");
+//dump($query, "QUERY");
 		return $query;
 	}
 
 	/**
-	 * Retrieves the hello data
+	 * Retrieves the categories data
 	 * @return array Array of objects containing the data from the database
 	 */
 	function getData()
@@ -107,6 +107,7 @@ dump($query, "QUERY");
 		return $this->_data;
 	}
 	
+	//getter method for _lists
 	function getLists(){   
     return $this->_lists;
 	}

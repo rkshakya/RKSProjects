@@ -8,7 +8,7 @@
 				<?php 
 				$options = array();
     $options[] = JHTML::_('select.option','',JText::_('PLS CHOOSE A SUBSCRIBER'));
-    dump($this->subscribers, "SUBSCRIBERS");
+    //dump($this->subscribers, "SUBSCRIBERS");
     foreach($this->subscribers as $key=>$value) :
       $options[] = JHTML::_('select.option', $value->sub_code, JText::_($value->sub_name).'('.$value->sub_code.')');
     endforeach;
@@ -20,7 +20,7 @@
 				<?php 
 				$options = array();
     $options[] = JHTML::_('select.option','',JText::_('PLS CHOOSE A PUBLICATION'));
-    dump($this->publications, "PUBLICATIONS");
+    //dump($this->publications, "PUBLICATIONS");
     foreach($this->publications as $key=>$value) :
       $options[] = JHTML::_('select.option', $value->pub_code, JText::_($value->pub_name).'('.$value->pub_code.')');
     endforeach;

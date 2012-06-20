@@ -1,11 +1,12 @@
 <?php
 /**
- *  Controller for Subsys Component
+ *  Delivery Controller for Subsys Component
  * 
  * @package    
  * @subpackage Components
  * @link 
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -21,11 +22,6 @@ class SubsysControllerDelivery extends SubsysController
 	function __construct()
 	{
 		parent::__construct();
-
-		// Register Extra tasks
-		//$this->registerTask( 'add'  , 	'edit' );
-		$tut = 90;
-		dump($tut, "Tut");
 	}
 
 	/**
@@ -45,7 +41,6 @@ class SubsysControllerDelivery extends SubsysController
 		JRequest::setVar( 'view', 'delivera' );
 		JRequest::setVar( 'layout', 'default'  );
 		JRequest::setVar('hidemainmenu', 1);
-dump("Jamali", "Tutu");
 		parent::display();
 	}
 	
@@ -62,28 +57,26 @@ dump("Jamali", "Tutu");
 	function save()
 	{
 		$model = $this->getModel('delivery');
-dump($model, "Model");
-dump($post, "POSTAL");
-$deliveryid = JRequest::getVar('delivery_id',  0, '', 'int');
+  $deliveryid = JRequest::getVar('delivery_id',  0, '', 'int');
+
 if($deliveryid > 0){
 		  if ($model->store($post)) {
 			  $msg = JText::_( 'Delivery Information Updated!' );
-			  dump("success", "Update");
+			  //dump("success", "Update");
 		  } else {
 			  $msg = JText::_( 'Error Updating Delivery Information' );
-			  dump("fail", "Update");
+			  //dump("fail", "Update");
 		  }
 		}else{
 		  if ($model->storeIns($post)) {
 			    $msg = JText::_( 'Delivery Information Added!' );
-			    dump("success", "Add");
+			    //dump("success", "Add");
 		    } else {
 			    $msg = JText::_( 'Error Adding Delivery Information' );
-			    dump("fail", "Add");
+			    //dump("fail", "Add");
 		        }
 		}
 
-		// Check the table in so it can be edited.... we are done with it anyway
 		$link = 'index.php?option=com_subsys&controller=delivery';
 		$this->setRedirect($link, $msg);
 	}

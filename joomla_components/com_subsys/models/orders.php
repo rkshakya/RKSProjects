@@ -1,11 +1,10 @@
 <?php
 /**
- * Hellos Model for Hello World Component
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -14,7 +13,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.model' );
 
 /**
- * Hello Model
  *
  * @package    Joomla.Tutorials
  * @subpackage Components
@@ -22,7 +20,6 @@ jimport( 'joomla.application.component.model' );
 class SubsysModelOrders extends JModel
 {
 	/**
-	 * Hellos data array
 	 *
 	 * @var array
 	 */
@@ -51,9 +48,9 @@ function __construct()
    $db =& JFactory::getDBO();
   	$mainframe = JFactory::getApplication();
 	
-	 $this->_subcode = JRequest::getVar('sub_code', 0, '', 'int');
+	  $this->_subcode = JRequest::getVar('sub_code', 0, '', 'int');
  
- dump($this->_subcode, "SUBCODE");
+ //dump($this->_subcode, "SUBCODE");
 
 	// Get pagination request variables
 	$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
@@ -86,13 +83,13 @@ function __construct()
     . $this->_subcode
     . ' ORDER BY O.order_code '
 		;
-dump($this->_subcode, "SUB");
-dump($query, "QUERY");
+//dump($this->_subcode, "SUB");
+//dump($query, "QUERY");
 		return $query;
 	}
 
 	/**
-	 * Retrieves the hello data
+	 * Retrieves the data
 	 * @return array Array of objects containing the data from the database
 	 */
 	function getData()
@@ -105,7 +102,7 @@ dump($query, "QUERY");
 			$this->_lists['subcount'] = $this->_getListCount($query);
 		}
 
-dump($this->_data, "RESULTS");
+//dump($this->_data, "RESULTS");
 		return $this->_data;
 	}
 	

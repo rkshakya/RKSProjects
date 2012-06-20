@@ -1,10 +1,9 @@
 <?php
 /**
- * Hello World table class
+ * Subscriber table class
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
  */
 
@@ -12,7 +11,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
- * Hello Table class
+ * Subscriber Table class
  *
  * @package    Joomla.Tutorials
  * @subpackage Components

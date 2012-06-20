@@ -4,8 +4,9 @@
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
+ * @link 
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -23,7 +24,7 @@ jimport('joomla.application.component.model');
 class SubsysModelAddOrder extends JModel
 {
 	/**
-	 * Constructor that retrieves the ID from the request
+	 * Constructor that retrieves the Sub code from the request
 	 *
 	 * @access	public
 	 * @return	void
@@ -31,36 +32,33 @@ class SubsysModelAddOrder extends JModel
 	function __construct()
 	{
 		parent::__construct();		
-  $subcode = JRequest::getVar('sub_code',  0, '', 'int');
-		//$orderid = JRequest::getVar('order_id',  0, '', 'array');
-		//$array = JRequest::getVar('cid',  0, '', 'array');
-		//$this->setId((int)$array[0]);
+  $subcode = JRequest::getVar('sub_code',  0, '', 'int');		
 		$this->setId($subcode);
 	}
 
 	/**
-	 * Method to set the hello identifier
+	 * Method to set the sub code
 	 *
 	 * @access	public
-	 * @param	int Hello identifier
+	 * @param	int Sub code
 	 * @return	void
 	 */
 	function setId($scode)
 	{
-		// Set id and wipe data
+		// Set sub code and wipe data
 		$this->_subcode		= $scode;
-		dump($scode, "SCODE passed in Addorder");
+		//dump($scode, "SCODE passed in Addorder");
 	 $this->_subscribers = null;
 	 $this->_publications = null;
 	}
 	
+	//get subscribers info for dropdowns
 	function &getSubscribers(){
 	   if(empty($this->_subscribers)){
               $qrySubscriber = 'SELECT sub_code, sub_name FROM sms_subscribers ORDER BY sub_name';         
 			            $this->_subscribers = $this->_getList($qrySubscriber);
       }
-    
-   
+       
       if (!$this->_subscribers) {
 			  $this->_subscribers = new stdClass();
 			  $this->_subscribers->sub_code = 0;
@@ -70,6 +68,7 @@ class SubsysModelAddOrder extends JModel
 		return $this->_subscribers;
 	}
 	
+	//get publications info for dropdown
 		function &getPublications(){
 	 if(empty($this->_publications)){
             $qryPublication = 'SELECT pub_code, pub_name FROM sms_publications ORDER BY pub_name';
@@ -95,7 +94,7 @@ class SubsysModelAddOrder extends JModel
 	{	
 		
 		$data = JRequest::get( 'post' );
-		dump($data, "POSTDATA");
+		//dump($data, "POSTDATA");
 		
 		//check if order_code exists
 		$db =& JFactory::getDBO();

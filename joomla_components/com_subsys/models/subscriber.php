@@ -1,11 +1,10 @@
 <?php
 /**
- * Hello Model for Hello World Component
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -14,7 +13,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.application.component.model');
 
 /**
- * Hello Hello Model
  *
  * @package    Joomla.Tutorials
  * @subpackage Components
@@ -30,28 +28,28 @@ class SubsysModelSubscriber extends JModel
 	function __construct()
 	{
 		parent::__construct();
-dump(JRequest::getVar('cid'), "CID");
+//dump(JRequest::getVar('cid'), "CID");
 		$array = JRequest::getVar('cid',  0, '', 'array');
 		$this->setId((int)$array[0]);
 	}
 
 	/**
-	 * Method to set the hello identifier
+	 * Method to set the identifier
 	 *
 	 * @access	public
-	 * @param	int Hello identifier
+	 * @param	int identifier
 	 * @return	void
 	 */
 	function setId($id)
 	{
 		// Set id and wipe data
 		$this->_id		= $id;
-		dump($id, "ID passed");
+	//	dump($id, "ID passed");
 		$this->_data	= null;
 	}
 
 	/**
-	 * Method to get a hello
+	 * Method to get records
 	 * @return object with data
 	 */
 	function &getData()
@@ -92,29 +90,29 @@ dump(JRequest::getVar('cid'), "CID");
 	function store()
 	{	
 		$row =& $this->getTable();
-		dump($row, "TABLEDATA");
+	//	dump($row, "TABLEDATA");
 
 		$data = JRequest::get( 'post' );
-		dump($data, "POSTDATA");
+	//	dump($data, "POSTDATA");
 
-		// Bind the form fields to the hello table
+		// Bind the form fields to the table
 		if (!$row->bind($data)) {
 			$this->setError($this->_db->getErrorMsg());
-			dump($this->_db->getErrorMsg(), "BINDERROR");
+		//	dump($this->_db->getErrorMsg(), "BINDERROR");
 			return false;
 		}
 
-		// Make sure the hello record is valid
+		// Make sure the  record is valid
 		if (!$row->check()) {
 			$this->setError($this->_db->getErrorMsg());
-			dump($this->_db->getErrorMsg() , "VALIDITYERROR");
+		//	dump($this->_db->getErrorMsg() , "VALIDITYERROR");
 			return false;
 		}
 
 		// Store the web link table to the database
 		if (!$row->store()) {
 			$this->setError( $row->getErrorMsg() );
-				dump($row->getErrorMsg() , "DBERROR");
+			//	dump($row->getErrorMsg() , "DBERROR");
 			return false;
 		}
 
@@ -133,7 +131,7 @@ dump(JRequest::getVar('cid'), "CID");
 
 		$row =& $this->getTable();
 		
-		dump($cids, "CIDS");
+		//dump($cids, "CIDS");
 
 		if (count( $cids )) {
 			foreach($cids as $cid) {

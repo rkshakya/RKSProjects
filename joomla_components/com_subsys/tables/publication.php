@@ -2,9 +2,9 @@
 /**
  * PUblication table class
  * 
+ * @author Ravi Shakya
  * @package    Joomla.Tutorials
  * @pubpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
  */
 

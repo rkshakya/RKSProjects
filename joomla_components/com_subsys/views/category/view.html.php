@@ -1,10 +1,8 @@
 <?php
 /**
- * Hello View for Hello World Component
- * 
+ * @author Ravi Shakya
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
  */
 
@@ -14,7 +12,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.view' );
 
 /**
- * Hello View
  *
  * @package    Joomla.Tutorials
  * @subpackage Components
@@ -22,14 +19,14 @@ jimport( 'joomla.application.component.view' );
 class SubsysViewCategory extends JView
 {
 	/**
-	 * display method of Hello view
+	 * display method of view
 	 * @return void
 	 **/
 	function display($tpl = null)
 	{
 		//get the categories
 		$cats		=& $this->get('Data');
-		dump($cats->cat_id, "Cat ID");
+		//dump($cats->cat_id, "Cat ID");
 		$isNew		= ($cats->cat_id < 1);
 
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );

@@ -1,9 +1,11 @@
 <?php
 /**
+* Subsys Main(default) Controller
  * @package    
  * @subpackage Components
  * @link 
  * @license    GNU/GPL
+ *@author Ravi Shakya
  */
 
 // No direct access
@@ -18,7 +20,7 @@ JLoader::register('SubMenuHelper', dirname(__FILE__) . DS . 'helpers' . DS . 'su
 
 if($controller = JRequest::getWord('controller')) {
 	$path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
-	dump($path, 'CtrlPath');
+	//dump($path, 'CtrlPath');
 	if (file_exists($path)) {
 		require_once $path;
 	} else {
@@ -31,8 +33,8 @@ $classname	= 'SubsysController'.$controller;
 
 $controller	= new $classname( );
 
-dump($classname, 'CtrlClass');
-dump(JRequest::getVar( 'task' ), 'Task');
+//dump($classname, 'CtrlClass');
+//dump(JRequest::getVar( 'task' ), 'Task');
 
 // Perform the Request task
 $controller->execute( JRequest::getVar( 'task' ) );

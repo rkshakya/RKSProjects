@@ -1,11 +1,12 @@
 <?php
 /**
- *  Controller for Subsys Component
+ *  Category Controller for Subsys Component
  * 
  * @package    
  * @subpackage Components
  * @link 
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -24,8 +25,6 @@ class SubsysControllerCategory extends SubsysController
 
 		// Register Extra tasks
 		$this->registerTask( 'add'  , 	'edit' );
-		$tut = 90;
-		dump($tut, "Tut");
 	}
 
 	/**
@@ -37,7 +36,6 @@ class SubsysControllerCategory extends SubsysController
 		JRequest::setVar( 'view', 'category' );
 		JRequest::setVar( 'layout', 'editcategory'  );
 		JRequest::setVar('hidemainmenu', 1);
-dump("Jamali", "Tutu");
 		parent::display();
 	}
 	
@@ -54,17 +52,15 @@ dump("Jamali", "Tutu");
 	function save()
 	{
 		$model = $this->getModel('category');
-dump($model, "Model");
-dump($post, "POSTAL");
+
 		if ($model->store($post)) {
 			$msg = JText::_( 'Category Information Saved!' );
-			dump("success", "Update");
+//			dump("success", "Update");
 		} else {
 			$msg = JText::_( 'Error Saving Category Information' );
-			dump("fail", "Update");
+//			dump("fail", "Update");
 		}
 
-		// Check the table in so it can be edited.... we are done with it anyway
 		$link = 'index.php?option=com_subsys&controller=category';
 		$this->setRedirect($link, $msg);
 	}

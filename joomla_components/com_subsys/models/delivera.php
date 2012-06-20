@@ -4,8 +4,9 @@
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
+ * @link 
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -23,7 +24,7 @@ jimport('joomla.application.component.model');
 class SubsysModelDelivera extends JModel
 {
 	/**
-	 * Constructor that retrieves the ID from the request
+	 * Constructor that retrieves info from the request
 	 *
 	 * @access	public
 	 * @return	void
@@ -40,10 +41,10 @@ class SubsysModelDelivera extends JModel
 	}
 
 	/**
-	 * Method to set the hello identifier
+	 * Method to set the identifier
 	 *
 	 * @access	public
-	 * @param	int Hello identifier
+	 * @param	int identifier
 	 * @return	void
 	 */
 	function setId($scode, $pcode, $ocode)
@@ -52,12 +53,13 @@ class SubsysModelDelivera extends JModel
 		$this->_subcode		= $scode;
 		$this->_pubcode		= $pcode;
 		$this->_ordercode		= $ocode;
-		dump($scode, "SCODE passed in AddDElivery");
+		//dump($scode, "SCODE passed in AddDElivery");
 	 $this->_subscribers = null;
 	 $this->_publications = null;
 	 $this->_orders = null;
 	}
 	
+	//subscriber info for dropdown
 	function &getSubscribers(){
 	   if(empty($this->_subscribers)){
               $qrySubscriber = 'SELECT sub_code, sub_name FROM sms_subscribers ORDER BY sub_name';         
@@ -74,6 +76,7 @@ class SubsysModelDelivera extends JModel
 		return $this->_subscribers;
 	}
 	
+	//publications info for dropdown
 		function &getPublications(){
 	 if(empty($this->_publications)){
             $qryPublication = 'SELECT pub_code, pub_name FROM sms_publications ORDER BY pub_name';
@@ -117,7 +120,7 @@ class SubsysModelDelivera extends JModel
 	{	
 		
 		$data = JRequest::get( 'post' );
-		dump($data, "POSTDATA");
+		//dump($data, "POSTDATA");
 		
 		//check if order_code exists
 		$db =& JFactory::getDBO();

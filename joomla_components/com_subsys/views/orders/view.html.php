@@ -4,7 +4,6 @@
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
  */
 
@@ -37,9 +36,9 @@ class SubsysViewOrders extends JView
 		$items		= & $this->get( 'Data');
 		$pagination =& $this->get('Pagination');
 		$subscribers =& $this->get('Subscribers');
-			$lists =& $this->get('Lists');
-			$summary =& $this->get('Summary');
-		dump($lists, 'Lists');
+		$lists =& $this->get('Lists');
+		$summary =& $this->get('Summary');
+		//dump($lists, 'Lists');
 
 		$this->assignRef('items',		$items);
 		$this->assignRef('pagination', $pagination);

@@ -1,10 +1,8 @@
 <?php
 /**
- * Hellos View for Hello World Component
- * 
+ * @author Ravi Shakya
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
  */
 
@@ -14,7 +12,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.view' );
 
 /**
- * Hellos View
  *
  * @package    Joomla.Tutorials
  * @subpackage Components
@@ -22,7 +19,6 @@ jimport( 'joomla.application.component.view' );
 class SubsysViewDeliveries extends JView
 {
 	/**
-	 * Hellos view display method
 	 * @return void
 	 **/
 	function display($tpl = null)
@@ -39,7 +35,7 @@ class SubsysViewDeliveries extends JView
 		$items		=& $this->get( 'Data');
 		$pagination =& $this->get('Pagination');
 		$lists =& $this->get('Lists');
-		dump($lists, 'Lists');
+		//dump($lists, 'Lists');
 
 		$this->assignRef('items',		$items);
 		$this->assignRef('pagination', $pagination);

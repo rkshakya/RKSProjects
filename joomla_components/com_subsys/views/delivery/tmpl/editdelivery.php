@@ -14,7 +14,7 @@
 			</td>
 			<td>
 				<?php echo $this->delivery->delivery_id;
-				dump($this->delivery->delivery_id, "DELID");
+				//dump($this->delivery->delivery_id, "DELID");
 				?>
 			</td>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

@@ -1,10 +1,9 @@
 <?php
 /**
  * 
- * 
+ * @author Ravi Shakya
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
  */
 
@@ -22,14 +21,14 @@ jimport( 'joomla.application.component.view' );
 class SubsysViewDelivery extends JView
 {
 	/**
-	 * display method of Hello view
+	 * display method of view
 	 * @return void
 	 **/
 	function display($tpl = null)
 	{
 		//get the categories
 		$dels		=& $this->get('Data');
-		dump($dels, "Del ID");
+		//dump($dels, "Del ID");
 		$isNew		= ($dels->delivery_id < 1);
 
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );

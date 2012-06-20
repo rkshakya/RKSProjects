@@ -1,11 +1,10 @@
 <?php
 /**
- * Hellos Model for Hello World Component
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -14,7 +13,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.model' );
 
 /**
- * Hello Model
  *
  * @package    Joomla.Tutorials
  * @subpackage Components
@@ -22,7 +20,6 @@ jimport( 'joomla.application.component.model' );
 class SubsysModelPublications extends JModel
 {
 	/**
-	 * Hellos data array
 	 *
 	 * @var array
 	 */
@@ -53,7 +50,7 @@ function __construct()
 	    $origSearch = $search;
    $search = JString::strtolower( $search );
  
- dump($search, "SEARCH");
+ //dump($search, "SEARCH");
  
 	// Get pagination request variables
 	$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
@@ -85,13 +82,13 @@ function __construct()
 			. ' FROM sms_publications pub LEFT JOIN sms_categories cat ON pub.pub_category = cat.cat_code '	
 			. $this->_where
 		;
-dump($this->_where, "WHERE");
-dump($query, "QUERY");
+//dump($this->_where, "WHERE");
+//dump($query, "QUERY");
 		return $query;
 	}
 
 	/**
-	 * Retrieves the hello data
+	 * Retrieves the data
 	 * @return array Array of objects containing the data from the database
 	 */
 	function getData()

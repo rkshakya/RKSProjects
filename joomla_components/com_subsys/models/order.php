@@ -4,8 +4,8 @@
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -32,17 +32,14 @@ class SubsysModelOrder extends JModel
 	{
 		parent::__construct();		
   $subcode = JRequest::getVar('sub_code',  0, '', 'int');
-		//$orderid = JRequest::getVar('order_id',  0, '', 'array');
 		$array = JRequest::getVar('cid',  0, '', 'array');
-		//$this->setId((int)$array[0]);
 		$this->setId($subcode, (int)$array[0]);
 	}
 
 	/**
-	 * Method to set the hello identifier
 	 *
 	 * @access	public
-	 * @param	int Hello identifier
+	 * @param	int identifier
 	 * @return	void
 	 */
 	function setId($scode, $oid)
@@ -50,8 +47,8 @@ class SubsysModelOrder extends JModel
 		// Set id and wipe data
 		$this->_subcode		= $scode;
 		$this->_orderid = $oid;
-		dump($scode, "SCODE passed");
-		dump($oid, "OID passed");
+	//	dump($scode, "SCODE passed");
+	//	dump($oid, "OID passed");
 		$this->_data	= null;	
 		$this->_subsdata = null;
 	 $this->_subscribers = null;
@@ -92,7 +89,7 @@ class SubsysModelOrder extends JModel
 	function &getSubscriptions(){
     if(empty($this->_subsdata)){
             $qrySub = 'SELECT * FROM sms_subscriptions WHERE order_id = '.$this->_orderid.' AND sub_code = '.$this->_subcode. ' ORDER BY order_id DESC';
-                        dump($qrySub, "QURIL");
+          //dump($qrySub, "QURIL");
             $this->_subsdata = $this->_getList($qrySub);			
     }
     
@@ -117,7 +114,7 @@ class SubsysModelOrder extends JModel
 	}
 
 	/**
-	 * Method to get a hello
+	 * Method to get records
 	 * @return object with data
 	 */
 	function &getData()
@@ -156,7 +153,7 @@ class SubsysModelOrder extends JModel
 	{	
 		
 		$data = JRequest::get( 'post' );
-		dump($data, "POSTDATA");
+		//dump($data, "POSTDATA");
 		//dump($data["order_id"], "ULLUDATA");
 
   //update order information, this will be same all the time
@@ -213,15 +210,15 @@ class SubsysModelOrder extends JModel
 	{	
 		
 		$data = JRequest::get( 'post' );
-		dump($data, "POSTDATA");
+		//dump($data, "POSTDATA");
 		
 		//check if order_code exists
 		$db =& JFactory::getDBO();
 		$qryCount = "SELECT order_id FROM sms_orders WHERE order_code = ".$data['order_code'];
-		dump($qryCount, "QRYCOUNT");
+	//	dump($qryCount, "QRYCOUNT");
 		$db->setQuery($qryCount);
   $order_id = $db->loadResult();
-  dump($orderid, "ORDERID");
+ // dump($orderid, "ORDERID");
   if (!$order_id){
   //add order info
     $ord = new JObject();
@@ -232,7 +229,7 @@ class SubsysModelOrder extends JModel
     $ord->order_invno = $data['order_invno'];
     $ord->order_invamt = $data['order_invamt'];
     $ord->order_paid = $data['order_paid'];
-   dump("here", "HERER");
+  // dump("here", "HERER");
    
     $ret = $db->insertObject('sms_orders', $ord, 'order_id');
  
@@ -243,7 +240,7 @@ class SubsysModelOrder extends JModel
  
     //Get the new record id
     $order_id = (int)$db->insertid();
-     dump($order_id, "ORDER ID");
+    // dump($order_id, "ORDER ID");
     }
     
    // dump($order_id, "ORDER IIIID");
@@ -264,7 +261,7 @@ class SubsysModelOrder extends JModel
           $sub->issue_to = $data['issue_to'.$i];
           $sub->start_date = $data['start_date'.$i];
           $sub->exp_date = $data['exp_date'.$i];
-          dump($order_id, "ORDER BITRA ID");
+          //dump($order_id, "ORDER BITRA ID");
                    
           $ret1 = $db->insertObject('sms_subscriptions', $sub,'subscription_id'); 
           if (!$ret1) {
@@ -289,7 +286,7 @@ class SubsysModelOrder extends JModel
 
 		//$row =& $this->getTable();
 		
-		dump(implode(",", $cids), "CIDS");
+		//dump(implode(",", $cids), "CIDS");
     $qryDelete = "DELETE FROM sms_orders WHERE order_id IN (".implode(",", $cids).")";
     $db =& JFactory::getDBO();
     $db->setQuery($qryDelete);

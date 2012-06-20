@@ -9,7 +9,7 @@ JHTML::_('behavior.tooltip');
 			<?php 
 				$options = array();
     $options[] = JHTML::_('select.option','',JText::_('PLS CHOOSE A SUBSCRIBER'));
-    dump($this->subscribers, "SUBSCRIBERS");
+    //dump($this->subscribers, "SUBSCRIBERS");
     foreach($this->subscribers as $key=>$value) :
       ## Create $value ##
       #dump($value, "CATS");

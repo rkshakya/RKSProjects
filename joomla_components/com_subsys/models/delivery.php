@@ -1,11 +1,10 @@
 <?php
 /**
- * Hello Model for Hello World Component
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -14,7 +13,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.application.component.model');
 
 /**
- * Hello Hello Model
  *
  * @package    Joomla.Tutorials
  * @subpackage Components
@@ -30,13 +28,12 @@ class SubsysModelDelivery extends JModel
 	function __construct()
 	{
 		parent::__construct();
-dump(JRequest::getVar('cid'), "CID");
+//dump(JRequest::getVar('cid'), "CID");
 		$array = JRequest::getVar('cid',  0, '', 'array');
 		$this->setId((int)$array[0]);
 	}
 
 	/**
-	 * Method to set the hello identifier
 	 *
 	 * @access	public
 	 * @param	int Hello identifier
@@ -46,12 +43,11 @@ dump(JRequest::getVar('cid'), "CID");
 	{
 		// Set id and wipe data
 		$this->_id		= $id;
-		dump($id, "ID passed");
+	//	dump($id, "ID passed");
 		$this->_data	= null;	
 	}
 
 	/**
-	 * Method to get a hello
 	 * @return object with data
 	 */
 	function &getData()
@@ -92,15 +88,15 @@ dump(JRequest::getVar('cid'), "CID");
 	function store()
 	{	
 		$row =& $this->getTable();
-		dump($row, "TABLEDATA");
+	//	dump($row, "TABLEDATA");
 
 		$data = JRequest::get( 'post' );
-		dump($data, "POSTDATA");
+	//	dump($data, "POSTDATA");
 
-		// Bind the form fields to the hello table
+		// Bind the form fields to the table
 		if (!$row->bind($data)) {
 			$this->setError($this->_db->getErrorMsg());
-			dump($this->_db->getErrorMsg(), "BINDERROR");
+			//dump($this->_db->getErrorMsg(), "BINDERROR");
 			return false;
 		}
 
@@ -114,7 +110,7 @@ dump(JRequest::getVar('cid'), "CID");
 		// Store the web link table to the database
 		if (!$row->store()) {
 			$this->setError( $row->getErrorMsg() );
-				dump($row->getErrorMsg() , "DBERROR");
+		//		dump($row->getErrorMsg() , "DBERROR");
 			return false;
 		}
 
@@ -125,13 +121,13 @@ dump(JRequest::getVar('cid'), "CID");
 	{	
 		
 		$data = JRequest::get( 'post' );
-		dump($data, "POSTDATA");
+		//dump($data, "POSTDATA");
 		
 		//check if order_code exists
 		$db =& JFactory::getDBO();
 		//get the subscriptiion_id
 		$qrySub = "SELECT subscription_id FROM sms_subscriptions WHERE order_code = ".$data['order_code']." AND pub_code = ".$data['pub_code']. " AND sub_code = ".$data['sub_code'];
-		dump($qrySub, "QRYSUB");
+		//dump($qrySub, "QRYSUB");
 		$db->setQuery($qrySub);
   $subscription_id = $db->loadResult();
 
@@ -170,7 +166,7 @@ dump(JRequest::getVar('cid'), "CID");
 
 		$row =& $this->getTable();
 		
-		dump($cids, "CIDS");
+	//	dump($cids, "CIDS");
 
 		if (count( $cids )) {
 			foreach($cids as $cid) {

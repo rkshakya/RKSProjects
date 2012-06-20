@@ -1,11 +1,10 @@
 <?php
 /**
- * Hellos Model for Hello World Component
  * 
  * @package    Joomla.Tutorials
  * @subpackage Components
- * @link http://docs.joomla.org/Developing_a_Model-View-Controller_Component_-_Part_4
  * @license		GNU/GPL
+ * @author Ravi Shakya
  */
 
 // No direct access
@@ -14,7 +13,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.model' );
 
 /**
- * Hello Model
  *
  * @package    Joomla.Tutorials
  * @subpackage Components
@@ -22,8 +20,6 @@ jimport( 'joomla.application.component.model' );
 class SubsysModelDeliveries extends JModel
 {
 	/**
-	 * Hellos data array
-	 *
 	 * @var array
 	 */
 	var $_data;
@@ -55,7 +51,7 @@ function __construct()
 	  $this->_subcode = JRequest::getVar('sub_code', 0, '', 'int');
 	  $this->_pubcode = JRequest::getVar('pub_code', 0, '', 'int');
  
- dump($this->_subcode, "SUBCODE");
+ //dump($this->_subcode, "SUBCODE");
 
 	// Get pagination request variables
 	$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
@@ -85,12 +81,12 @@ function __construct()
         if($this->_pubcode){ $query = $query. ' AND D.pub_code ='. $this->_pubcode;}
         $query = $query . ' ORDER BY delivery_date DESC';
 //dump($this->_subcode, "SUB");
-dump($query, "QUERY");
+//dump($query, "QUERY");
 		return $query;
 	}
 
 	/**
-	 * Retrieves the hello data
+	 * Retrieves the data
 	 * @return array Array of objects containing the data from the database
 	 */
 	function getData()
@@ -102,7 +98,7 @@ dump($query, "QUERY");
 			$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 		}
 
-dump($this->_data, "RESULTS");
+//dump($this->_data, "RESULTS");
 		return $this->_data;
 	}
 	

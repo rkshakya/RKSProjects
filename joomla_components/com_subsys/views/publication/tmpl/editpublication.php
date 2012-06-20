@@ -56,7 +56,7 @@
 				$options = array();
  
     $options[] = JHTML::_('select.option','',JText::_('PLS CHOOSE A CATEGORY'));
-    dump($this->categories, "CATS");
+    //dump($this->categories, "CATS");
     foreach($this->categories as $key=>$value) :
       ## Create $value ##
       #dump($value, "CATS");

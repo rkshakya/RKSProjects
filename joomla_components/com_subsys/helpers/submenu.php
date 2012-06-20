@@ -1,4 +1,12 @@
 <?php
+/**
+ * 
+ * @package    
+ * @subpackage Components
+ * @link 
+ * @license		GNU/GPL
+ * @author Ravi Shakya
+ */
 // No direct access to this file
 defined('_JEXEC') or die;
  
