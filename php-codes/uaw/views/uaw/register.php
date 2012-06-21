@@ -13,12 +13,12 @@
 <label for="lname">Last Name</label> 
 <input type="input" name="lname" value="<?php echo set_value('lname'); ?>" /><br />
 <label for="artist">Artist?</label> 
-<select name="artist">
-<option value="Cant hold a brush" <?php echo set_select('artist', 'Cant hold a brush', TRUE); ?> >Cant hold a brush</option>
-<option value="Amateur" <?php echo set_select('artist', 'Amateur'); ?> >Amateur</option>
-<option value="Professional" <?php echo set_select('artist', 'Professional'); ?> >Professional</option>
-</select><br />
-
+<select name = "artist">
+<?php foreach ($types as $type_item): ?>
+  <option value="<?php echo $type_item['id']; ?>" <?php echo set_select('artist', $type_item['id']); ?> ><?php echo $type_item['description']; ?></option>   
+<?php endforeach ?>
+</select>
+<br />
 <label for="activist">Activist</label> 
 <select name="activist">
 <option value="Yes" <?php echo set_select('activist', 'Yes'); ?> >Yes</option>
@@ -27,18 +27,21 @@
 </select><br />
 <label for="causeworking">Social cause(s) working on</label> 
 <select name="causeworking[]" size=4 multiple>
-<option name="child labour" value="child labour" <?php echo set_checkbox('causeworking[]', 'child labour'); ?> >child labour</option>
-<option name="child abuse" value="child abuse" <?php echo set_checkbox('causeworking[]', 'child abuse'); ?> >child abuse</option>
-<option name="suicide" value="suicide"  <?php echo set_checkbox('causeworking[]', 'suicide'); ?> >suicide</option> 
-<option name="rape" value="rape" <?php echo set_checkbox('causeworking[]', 'rape'); ?> >rape</option>
+<?php foreach ($causes as $cause_item): ?>
+  <option value="<?php echo $cause_item['id']; ?>" <?php echo set_select('causeworking[]', $cause_item['id']); ?> ><?php echo $cause_item['status']; ?></option>   
+<?php endforeach ?>
 </select><br />
 <label for="causeinterest">Social cause(s) interested to know</label> 
 <select name="causeinterest[]" size=4 multiple>
-<option name="child labour" value="child labour" <?php echo set_checkbox('causeinterest[]', 'child labour'); ?> >child labour</option>
-<option name="child abuse" value="child abuse" <?php echo set_checkbox('causeinterest[]', 'child abuse'); ?> >child abuse</option>
-<option name="suicide" value="suicide" <?php echo set_checkbox('causeinterest[]', 'suicide'); ?> >suicide</option>
-<option name="rape" value="rape" <?php echo set_checkbox('causeinterest[]', 'rape'); ?> >rape</option>
+<?php foreach ($causes as $cause_item): ?>
+  <option value="<?php echo $cause_item['id']; ?>" <?php echo set_select('causeinterest[]', $cause_item['id']); ?> ><?php echo $cause_item['status']; ?></option>   
+<?php endforeach ?>
 </select><br />
+<div class="textfield">
+        <?php echo form_label($captcha, 'captcha'); ?>
+        <?php echo form_error('captcha'); ?>
+        <?php echo form_input('captcha'); ?>
+</div>
 	<input type="submit" name="submit" value="Register" />
 </form>
 
