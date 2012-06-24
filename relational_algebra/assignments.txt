@@ -1,3 +1,5 @@
+Relational Algebra queries
+
 1
 \project_{pizza}(\project_{name}\select_{gender='female' and age > 20} Person \join Eats)
 
