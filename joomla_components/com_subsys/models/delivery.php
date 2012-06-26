@@ -71,6 +71,7 @@ class SubsysModelDelivery extends JModel
 			$this->_data->sub_name = null;
 			$this->_data->pub_name = null;
 			$this->_data->delivery_issue = null;
+			$this->_data->delivery_issuedt = null;
 			$this->_data->delivery_copies = null;
 			$this->_data->delivered_by = null;
 			$this->_data->received_by = null;
@@ -140,6 +141,7 @@ class SubsysModelDelivery extends JModel
     $del->sub_code = $data['sub_code'];
     $del->pub_code = $data['pub_code'];
     $del->delivery_issue = $data['delivery_issue'];
+    $del->delivery_issuedt = $data['delivery_issuedt'];
     $del->delivery_copies = $data['delivery_copies'];
     $del->delivered_by = $data['delivered_by'];
     $del->received_by = $data['received_by'];

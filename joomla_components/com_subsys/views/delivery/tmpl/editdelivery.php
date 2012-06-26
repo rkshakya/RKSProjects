@@ -77,6 +77,17 @@
 				<input class="textarea" type="text" name="delivery_issue" id="delivery_issue" size="32" maxlength="250" value="<?php echo $this->delivery->delivery_issue;?>" />
 			</td>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td width="100" align="right" class="key">
+				<label for="greeting">
+					<?php echo JText::_( 'Issue Date' ); ?>:
+				</label>
+			</td>
+			<td>
+				<input class="inputbox" type="text" name="delivery_issuedt" id="delivery_issuedt" size="32" maxlength="250" value="<?php echo $this->delivery->delivery_issuedt;?>" />
+				<input type="reset" class="button" value="..." onclick="return showCalendar('delivery_issuedt','%Y-%m-%d');">	
+			</td>
+		</tr>
+		<tr>
 			<td width="100" align="right" class="key">
 				<label for="greeting">
 					<?php echo JText::_( 'Copies' ); ?>:

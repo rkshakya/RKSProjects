@@ -32,6 +32,8 @@ class SubsysViewDeliveries extends JView
 		// Get data from the model
 		$subscribers =& $this->get( 'Subscribers');
 		$publications =& $this->get( 'Publications');
+		$issues =& $this->get( 'Issues');
+		
 		$items		=& $this->get( 'Data');
 		$pagination =& $this->get('Pagination');
 		$lists =& $this->get('Lists');
@@ -42,6 +44,7 @@ class SubsysViewDeliveries extends JView
 		$this->assignRef('lists', $lists);
 		$this->assignRef('subscribers', $subscribers);
 		$this->assignRef('publications', $publications);
+		$this->assignRef('issues', $issues);
 
 		parent::display($tpl);
 	}

@@ -35,6 +35,7 @@ class TableDelivery extends JTable
 	var $delivery_copies = null;
 	var $delivered_by = null;
 	var $received_by = null;
+	var $delivery_issuedt = null;
 	
 
 	/**

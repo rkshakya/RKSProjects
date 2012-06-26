@@ -60,7 +60,13 @@ JHTML::_('behavior.tooltip');
 				<?php echo JText::_( 'Designation' ); ?>
 			</th>
 			<th>
+				<?php echo JText::_( 'Customer ID' ); ?>
+			</th>
+			<th>
 				<?php echo JText::_( 'Created Date' ); ?>
+			</th>			
+			<th>
+				<?php echo JText::_( 'Modified Date' ); ?>
 			</th>
 		</tr>
 	</thead>
@@ -114,8 +120,14 @@ JHTML::_('behavior.tooltip');
 			<td>
 				<?php echo $row->sub_cpd; ?>
 			</td>
+				<td>
+				<?php echo $row->customer_id; ?>
+			</td>
 			<td>
 				<?php echo $row->cdate; ?>
+			</td>
+			<td>
+				<?php echo $row->mdate; ?>
 			</td>
 		</tr>
 		<?php
@@ -124,7 +136,7 @@ JHTML::_('behavior.tooltip');
 	?>
 	<tfoot>
     <tr>
-      <td colspan="15"><?php echo $this->pagination->getListFooter(); ?></td>
+      <td colspan="17"><?php echo $this->pagination->getListFooter(); ?></td>
     </tr>
   </tfoot>
 	</table>

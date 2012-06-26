@@ -77,6 +77,7 @@ class SubsysModelSubscriber extends JModel
 			$this->_data->sub_cp = null;
 			$this->_data->sub_cpd = null;
 			$this->_data->sub_cdate = null;
+			$this->_data->customer_id = null;
 		}
 		return $this->_data;
 	}

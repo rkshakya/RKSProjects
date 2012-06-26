@@ -98,6 +98,17 @@
 				<input class="textarea" type="text" name="delivery_issue" id="delivery_issue" size="32" maxlength="250" value="" />
 			</td>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td width="100" align="right" class="key">
+				<label for="greeting">
+					<?php echo JText::_( 'Issue Date' ); ?>:
+				</label>
+			</td>
+			<td>
+				<input class="textarea" type="text" name="delivery_issuedt" id="delivery_issuedt" size="32" maxlength="250" value="" />
+				<input type="reset" class="button" value="..." onclick="return showCalendar('delivery_issuedt','%Y-%m-%d');">
+			</td>
+		</tr>		
+		<tr>
 			<td width="100" align="right" class="key">
 				<label for="greeting">
 					<?php echo JText::_( 'Copies' ); ?>:
@@ -106,7 +117,7 @@
 			<td>
 			<input class="textarea" type="text" name="delivery_copies" id="delivery_copies" size="32" maxlength="250" value="" />				
 			</td>
-		</tr>		
+		</tr>
 		<tr>
 			<td width="100" align="right" class="key">
 				<label for="greeting">

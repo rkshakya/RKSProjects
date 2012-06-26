@@ -41,6 +41,7 @@ class TableSubscriber extends JTable
 	var $sub_cp = null;
 	var $sub_cpd = null;
 	var $sub_cdate = null;
+ var $customer_id = null;
 	
 
 	/**

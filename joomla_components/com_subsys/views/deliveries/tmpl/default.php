@@ -27,11 +27,37 @@
     echo JHTML::_('select.genericlist', $options, 'pub_code', '', 'value', 'text', $this->lists['pubcode']);
 				?>
 				</td>
+				
+				<td align="left">
+				<?php 
+				$options = array(); 
+				$options[] = JHTML::_('select.option','DEFAULT',JText::_('PLS CHOOSE ISSUE'));   
+    foreach($this->issues as $key=>$value) :
+      $options[] = JHTML::_('select.option', $value->delivery_issue, JText::_($value->delivery_issue) );
+    endforeach;
+    echo JHTML::_('select.genericlist', $options, 'delivery_issue', '', 'value', 'text', $this->lists['deliveryissue']);
+				?>
+				</td>
+				<td align="left">
+				<?php 
+				$optionsFreq = array(JHTML::_('select.option','',JText::_('PLS CHOOSE TIMEFRAME')),
+				  JHTML::_('select.option', 7 , JText::_('past 1 week')),
+				  JHTML::_('select.option', 14, JText::_('past 2 weeks')),
+				  JHTML::_('select.option', 30, JText::_('past 1 month')),
+				  JHTML::_('select.option', 90, JText::_('past 3 months')),
+				  JHTML::_('select.option', 180, JText::_('past 6 months')),
+				  JHTML::_('select.option', 365, JText::_('past 1 year'))		
+				);
+    echo JHTML::_('select.genericlist', $optionsFreq, 'time_period', '', 'value', 'text', $this->lists['timeperiod']);
+				?>
+			</td>
+				
 				<td align="left">
 				<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
-				<button onclick="document.getElementById('sub_code').value='';document.getElementById('pub_code').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+				<button onclick="document.getElementById('sub_code').value='';document.getElementById('pub_code').value='';document.getElementById('delivery_issue').value='DEFAULT';document.getElementById('time_period').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 			</td>
-			
+			<td nowrap="nowrap">
+					</td>
 	</tr>
 </table>
 <?php if(!empty($this->lists)) { ?>
@@ -45,22 +71,25 @@
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
 			</th>			
 			<th>
-				<?php echo JText::_( 'Delivery Date' ); ?>
+    <?php echo JHTML::_('grid.sort', JText::_('Delivery Date'),'delivery_date', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Order Code' ); ?>
+				<?php echo JHTML::_('grid.sort', JText::_('Order Code'),'order_code', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Subscriber' ); ?>
+			<?php echo JHTML::_('grid.sort', JText::_('Subscriber'),'sub_name', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Publication' ); ?>
+			<?php echo JHTML::_('grid.sort', JText::_('Publication'),'pub_name', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
 				<?php echo JText::_( 'Title' ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Issue' ); ?>
+	  <?php echo JHTML::_('grid.sort', JText::_('Issue'),'delivery_issue', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+			</th>
+			<th>
+	  <?php echo JHTML::_('grid.sort', JText::_('Issue Date'),'delivery_issuedt', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
 				<?php echo JText::_( 'Copies' ); ?>
@@ -112,6 +141,9 @@
 				<?php echo $row->delivery_issue; ?>
 			</td>
 			<td>
+				<?php echo $row->delivery_issuedt; ?>
+			</td>
+			<td>
 				<?php echo $row->delivery_copies; ?>
 			</td>
 			<td>
@@ -133,7 +165,7 @@
 	?>
 	<tfoot>
     <tr>
-      <td colspan="15"><?php echo $this->pagination->getListFooter(); ?></td>
+      <td colspan="16"><?php echo $this->pagination->getListFooter(); ?></td>
     </tr>
   </tfoot>
 	</table>
@@ -144,4 +176,6 @@
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="boxchecked" value="0" />
 <input type="hidden" name="controller" value="delivery" />
+<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+<input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
 </form>

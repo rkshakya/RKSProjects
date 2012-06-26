@@ -117,15 +117,24 @@
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td width="100" align="right" class="key">
 				<label for="greeting">
+					<?php echo JText::_( 'Customer ID' ); ?>:
+				</label>
+			</td>
+			<td>
+				<input class="inputbox" type="text" name="customer_id" id="customer_id" size="32" maxlength="250" value="<?php echo $this->subscriber->customer_id;?>" />
+			</td>			
+		</tr>
+		
+		<tr>
+			<td width="100" align="right" class="key">
+				<label for="greeting">
 					<?php echo JText::_( 'Contact Person' ); ?>:
 				</label>
 			</td>
 			<td>
 				<input class="inputbox" type="text" name="sub_cp" id="sub_cp" size="32" maxlength="250" value="<?php echo $this->subscriber->sub_cp;?>" />
 			</td>
-		</tr>
-		
-		<tr>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>			
 			<td width="100" align="right" class="key">
 				<label for="greeting">
 					<?php echo JText::_( 'Contact Person Designation' ); ?>:
@@ -133,9 +142,10 @@
 			</td>
 			<td>
 				<input class="inputbox" type="text" name="sub_cpd" id="sub_cpd" size="32" maxlength="250" value="<?php echo $this->subscriber->sub_cpd;?>" />
-			</td>
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td width="100" align="right" class="key">
+			</td>			
+		</tr>
+		<tr>
+		<td width="100" align="right" class="key">
 				<label for="greeting">
 					<?php echo JText::_( 'Created Date| Modified Date' ); ?>:
 				</label>
@@ -143,8 +153,7 @@
 			<td>
 				<?php echo $this->subscriber->cdate;?>|<?php echo $this->subscriber->mdate;?>
 			</td>
-		</tr>
-		
+			</tr>
 	</table>
 	</fieldset>
 </div>

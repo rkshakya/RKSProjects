@@ -35,6 +35,9 @@ JHTML::_('behavior.tooltip');
 			<th>
 				<?php echo JText::_( 'Created Date' ); ?>
 			</th>
+			<th>
+				<?php echo JText::_( 'Modified Date' ); ?>
+			</th>
 		</tr>
 	</thead>
 	<?php
@@ -63,6 +66,9 @@ JHTML::_('behavior.tooltip');
 			<td>
 				<?php echo $row->cdate; ?>
 			</td>
+			<td>
+				<?php echo $row->mdate; ?>
+			</td>
 		</tr>
 		<?php
 		$k = 1 - $k;
@@ -70,7 +76,7 @@ JHTML::_('behavior.tooltip');
 	?>
 	<tfoot>
     <tr>
-      <td colspan="15"><?php echo $this->pagination->getListFooter(); ?></td>
+      <td colspan="7"><?php echo $this->pagination->getListFooter(); ?></td>
     </tr>
   </tfoot>
 	</table>
