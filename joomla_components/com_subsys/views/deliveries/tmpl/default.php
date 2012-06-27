@@ -56,8 +56,6 @@
 				<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 				<button onclick="document.getElementById('sub_code').value='';document.getElementById('pub_code').value='';document.getElementById('delivery_issue').value='DEFAULT';document.getElementById('time_period').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 			</td>
-			<td nowrap="nowrap">
-					</td>
 	</tr>
 </table>
 <?php if(!empty($this->lists)) { ?>

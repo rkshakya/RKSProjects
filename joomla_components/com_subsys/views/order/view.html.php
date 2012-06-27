@@ -27,9 +27,10 @@ class SubsysViewOrder extends JView
 	function display($tpl = null)
 	{
 	//get the sub_code and order_id
-	$subcode = JRequest::getVar('sub_code',  0, '', 'int');
-  $array = JRequest::getVar('cid',  0, '', 'array');
-  $orderId = (int)$array[0];
+	 //$subcode = JRequest::getVar('sub_code',  0, '', 'int');
+		//$timeperiod = JRequest::getVar('time_period',  0, '', 'int');
+  //$array = JRequest::getVar('cid',  0, '', 'array');
+  //$orderId = (int)$array[0];
 	
 	//dump($subcode, "Sub Code");
 	//dump($orderId, "Order ID");
@@ -66,6 +67,7 @@ class SubsysViewOrder extends JView
 		$this->assignRef('subscribers',	$subscribers);
 		$this->assignRef('publications',	$publications);
 		$this->assignRef('subcode',	$subcode);
+		$this->assignRef('timeperiod',	$timeperiod);
 
 		parent::display($tpl);
 	}

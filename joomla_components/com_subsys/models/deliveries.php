@@ -96,12 +96,12 @@ function __construct()
         . ' WHERE D.sub_code = S.sub_code AND P.pub_code = D.pub_code';
         if($this->_subcode){ $query = $query. ' AND D.sub_code ='. $this->_subcode; }
         if($this->_pubcode){ $query = $query. ' AND D.pub_code ='. $this->_pubcode;}
-        if($this->_deliveryissue && $this->_deliveryissue != 'DEFAULT'){ $query = $query. ' AND D.delivery_issue ='. $this->_deliveryissue;}
+        if($this->_deliveryissue && $this->_deliveryissue != 'DEFAULT'){ $query = $query. ' AND D.delivery_issue ='. $this->_db->quote($this->_deliveryissue);}
         if($this->_timeperiod){ $query = $query. ' AND DATE_SUB( CURDATE( ) , INTERVAL '.$this->_timeperiod. ' DAY ) <= delivery_date';}
         $query .= $this-> _buildQueryOrderBy();
 //dump($this->_subcode, "SUB");
-print $query;
-dump($query, "QUERY");
+//print $query;
+//dump($query, "QUERY");
 		return $query;
 	}
 	

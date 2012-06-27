@@ -24,19 +24,19 @@ JHTML::_('behavior.tooltip');
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
 			</th>			
 			<th>
-				<?php echo JText::_( 'Category Code' ); ?>
+			<?php echo JHTML::_('grid.sort', JText::_('Category Code'),'cat_code', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Category Name' ); ?>
+				<?php echo JHTML::_('grid.sort', JText::_('Category Name'),'cat_name', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
-			<th>
+			<th>			
 				<?php echo JText::_( 'Description' ); ?>
 			</th>			
 			<th>
-				<?php echo JText::_( 'Created Date' ); ?>
+				<?php echo JHTML::_('grid.sort', JText::_('Created Date'),'cdate', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Modified Date' ); ?>
+				<?php echo JHTML::_('grid.sort', JText::_('Modified Date'),'mdate', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 		</tr>
 	</thead>
@@ -87,4 +87,6 @@ JHTML::_('behavior.tooltip');
 <input type="hidden" name="boxchecked" value="0" />
 <input type="hidden" name="controller" value="category" />
 <input type="hidden" name="view" value="category" />
+<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+<input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
 </form>

@@ -48,11 +48,16 @@ function __construct()
  	  parent::__construct();
    $db =& JFactory::getDBO();
   	$mainframe = JFactory::getApplication();
+  	global $option;
 	
 	//for search filters
 	  $search = $mainframe-> getUserStateFromRequest( $option.'search','search','','string' );
 	  $origSearch = $search;
    $search = JString::strtolower( $search );
+   
+   // Get the user state
+    $filter_order = $mainframe->getUserStateFromRequest($option.'filter_order','filter_order', 'cat_name');
+    $filter_order_Dir = $mainframe->getUserStateFromRequest($option.'filter_order_Dir','filter_order_Dir', 'ASC');
  
  //dump($search, "SEARCH");
  
@@ -70,6 +75,11 @@ function __construct()
  
 	$this->setState('limit', $limit);
 	$this->setState('limitstart', $limitstart);
+	
+	// Build the list array for use in the layout
+   $lists['order'] = $filter_order;
+   $lists['order_Dir'] = $filter_order_Dir;
+	
 	$lists['search']= $origSearch; 
 	$this->_where = $where; 
 	$this->_lists = $lists;
@@ -83,13 +93,47 @@ function __construct()
 	function _buildQuery()
 	{	 
 		$query = ' SELECT * '
-			. ' FROM sms_categories '	
-			. $this->_where
-		;
-//dump($this->_where, "WHERE");
-//dump($query, "QUERY");
+			. ' FROM sms_categories ';
+			if($this->_where){ $query .=  $this->_where; }
+			$query .= $this-> _buildQueryOrderBy();
+			
+//print $query;
 		return $query;
 	}
+	
+	function _buildQueryOrderBy()
+{
+  global $mainframe, $option;
+  // Array of allowable order fields
+  $orders = array('cat_code', 'cat_name', 'cdate', 'mdate');
+
+  // Get the order field and direction, default order field
+  // is 'ordering', default direction is ascending
+  $filter_order = $mainframe->getUserStateFromRequest($option.'filter_order', 'filter_order', 'cat_name');
+  $filter_order_Dir = strtoupper($mainframe->getUserStateFromRequest($option.'filter_order_Dir', 'filter_order_Dir', 'ASC'));
+
+  // Validate the order direction, must be ASC or DESC
+  if ($filter_order_Dir != 'ASC' && $filter_order_Dir != 'DESC')
+  {
+    $filter_order_Dir = 'ASC';
+  }
+
+  // If order column is unknown use the default
+  if (!in_array($filter_order, $orders))
+  {
+    $filter_order = 'cat_name';
+  }
+  $orderby = ' ORDER BY '.$filter_order.' '.$filter_order_Dir;
+  if ($filter_order != 'cat_name')
+  {
+    $orderby .= ' , cat_name ';
+  }
+  // Return the ORDER BY clause
+
+  return $orderby;
+}
+	
+	
 
 	/**
 	 * Retrieves the categories data

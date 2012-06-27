@@ -24,22 +24,22 @@ JHTML::_('behavior.tooltip');
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
 			</th>			
 			<th>
-				<?php echo JText::_( 'Publication Code' ); ?>
+			<?php echo JHTML::_('grid.sort', JText::_('Publication Code'),'pub_code', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Publication Name' ); ?>
+			<?php echo JHTML::_('grid.sort', JText::_('Publication Name'),'pub_name', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Number of Issues' ); ?>
+			<?php echo JHTML::_('grid.sort', JText::_('Number of Issues'),'pub_numissues', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Frequency' ); ?>
+				<?php echo JHTML::_('grid.sort', JText::_('Frequency'),'pub_frequency', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Currency' ); ?>
+				<?php echo JHTML::_('grid.sort', JText::_('Currency'),'pub_currency', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Rate 1' ); ?>
+			 <?php echo JHTML::_('grid.sort', JText::_('Rate 1'),'pub_rate1', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
 				<?php echo JText::_( 'Rate 2' ); ?>
@@ -51,16 +51,16 @@ JHTML::_('behavior.tooltip');
 				<?php echo JText::_( 'Rate 4' ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Principal' ); ?>
+				<?php echo JHTML::_('grid.sort', JText::_('Principal'),'pub_principal', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>			
 			<th>
-				<?php echo JText::_( 'Category' ); ?>
+				<?php echo JHTML::_('grid.sort', JText::_('Category'),'pub_category', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>						
 			<th>
-				<?php echo JText::_( 'Created Date' ); ?>
+				<?php echo JHTML::_('grid.sort', JText::_('Created Date'),'cdate', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'Modified Date' ); ?>
+  	 <?php echo JHTML::_('grid.sort', JText::_('Modified Date'),'mdate', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 		</tr>
 	</thead>
@@ -134,4 +134,6 @@ JHTML::_('behavior.tooltip');
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="boxchecked" value="0" />
 <input type="hidden" name="controller" value="publication" />
+<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+<input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists['order_Dir']; ?>" />
 </form>

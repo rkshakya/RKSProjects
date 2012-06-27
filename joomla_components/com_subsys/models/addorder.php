@@ -102,7 +102,7 @@ class SubsysModelAddOrder extends JModel
 		$db->setQuery($qryCount);
   $order_id = $db->loadResult();
   if (!$order_id){
-  //add order info
+  //totally new order - add order info
     $ord = new JObject();
     $ord->order_code = $data['order_code'];
     $ord->order_date = $data['order_date'];
@@ -121,6 +121,25 @@ class SubsysModelAddOrder extends JModel
  
     //Get the new record id
     $order_id = (int)$db->insertid();
+  } else {
+     //previously existing order - update order info
+     $ordprev = new JObject();
+    $ordprev->order_id = $data['order_id'];
+    $ordprev->order_code = $data['order_code'];
+    $ordprev->order_date = $data['order_date'];
+    $ordprev->order_title = $data['order_title'];
+    $ordprev->sub_code = $data['sub_code'];
+    $ordprev->order_invno = $data['order_invno'];
+    $ordprev->order_invamt = $data['order_invamt'];
+    $ordprev->order_paid = $data['order_paid'];
+
+  //Update the record. Third parameter is table id field that will be used to update.
+  $retprev = $db->updateObject('sms_orders', $ordprev,'order_id');
+  
+    if (!$retprev) {
+	      $this->setError($db->getErrorMsg());
+	      return false;
+        }
   }
  //add subscriptions with this order_id
     for($i = 0; $i < 2; $i++){

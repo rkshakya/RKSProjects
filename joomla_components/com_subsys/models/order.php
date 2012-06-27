@@ -34,6 +34,7 @@ class SubsysModelOrder extends JModel
   $subcode = JRequest::getVar('sub_code',  0, '', 'int');
 		$array = JRequest::getVar('cid',  0, '', 'array');
 		$this->setId($subcode, (int)$array[0]);
+		//dump($subcode, "SCODE passed");
 	}
 
 	/**
@@ -45,9 +46,16 @@ class SubsysModelOrder extends JModel
 	function setId($scode, $oid)
 	{
 		// Set id and wipe data
+		//case when Subscriber is not selected but timeperiod is
+		if(empty($scode) || $scode == 0){
+      $qrySubCode = 'SELECT sub_code FROM sms_orders WHERE order_id = '.$oid;
+      $this->_db->setQuery($qrySubCode);
+      $scode = $this->_db->loadResult();
+      //dump($scode, "SCODE passed");
+		}
 		$this->_subcode		= $scode;
 		$this->_orderid = $oid;
-	//	dump($scode, "SCODE passed");
+	//dump($scode, "SCODE passed");
 	//	dump($oid, "OID passed");
 		$this->_data	= null;	
 		$this->_subsdata = null;
@@ -61,8 +69,7 @@ class SubsysModelOrder extends JModel
 			           $this->_db->setQuery( $qrySubscriber );
 			           $this->_subscribers = $this->_db->loadObject();			
       }
-    
-   
+      
       if (!$this->_subscribers) {
 			  $this->_subscribers = new stdClass();
 			  $this->_subscribers->sub_code = 0;
@@ -241,7 +248,26 @@ class SubsysModelOrder extends JModel
     //Get the new record id
     $order_id = (int)$db->insertid();
     // dump($order_id, "ORDER ID");
-    }
+    }else {
+     //previously existing order - update order info
+     $ordprev = new JObject();
+    $ordprev->order_id = $data['order_id'];
+    $ordprev->order_code = $data['order_code'];
+    $ordprev->order_date = $data['order_date'];
+    $ordprev->order_title = $data['order_title'];
+    $ordprev->sub_code = $data['sub_code'];
+    $ordprev->order_invno = $data['order_invno'];
+    $ordprev->order_invamt = $data['order_invamt'];
+    $ordprev->order_paid = $data['order_paid'];
+
+  //Update the record. Third parameter is table id field that will be used to update.
+  $retprev = $db->updateObject('sms_orders', $ordprev,'order_id');
+  
+    if (!$retprev) {
+	      $this->setError($db->getErrorMsg());
+	      return false;
+        }
+  }
     
    // dump($order_id, "ORDER IIIID");
  //add subscriptions with this order_id
