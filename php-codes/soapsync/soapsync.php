@@ -2,14 +2,13 @@
 chdir(dirname(__FILE__));
 include "./config.php";
 require_once "./lib/nusoap.php";
-require_once 'HTTP/Client.php';
-require_once 'Zend/Json.php';
+include_once('./vtwsclib/Vtiger/WSClient.php');
 
 /*
  *soapsync.php - a CLI script that reads records from  SOAP interface and populates into Contacts of vtiger
  *configurations should be made in config.php file
  *
- *Requirements: a) nuSOAP library, b) PEAR:HTTP_Client lib, c) Zend: JSON lib, d) properly configured config.php file
+ *Requirements: a) nuSOAP library, b)vtiger Web services client lib, d) properly configured config.php file
  *
  *Usage: php soapsync.php
  *
@@ -36,38 +35,13 @@ try{
     exit;
 }
 
-//connect to destination vtiger web service
-//get challenge token - then login using accesskey and challenge token to get session id
-
-//get challenge token
 try{
-    $httpc = new HTTP_Client();
-    $httpc->get("$destURL?operation=getchallenge&username=$destUser");
-    $response = $httpc->currentResponse();
-    $jsonResponse = Zend_JSON::decode($response['body']);
-
-    if($jsonResponse['success']==false) {
-        fwrite($lg, "Error getchallenge for vtiger ".$jsonResponse['error']['errorMsg']."\n");        
-    }
-    $challengeToken = $jsonResponse['result']['token'];
-}catch(Exception $derr){
-    fwrite($lg, "Exception initializing HTTP client for vtiger ".$derr->getMessage()."\n");
-}
-
-//now login using challenge token and accesskey and get session id
-$generatedKey = md5($challengeToken.$destAccessKey);
-try{
-    $httpc->post("$destURL", array('operation'=>'login', 'username'=>$destUser, 'accessKey'=>$generatedKey), true);
-    $response = $httpc->currentResponse();
-    $jsonResponse = Zend_JSON::decode($response['body']);
-    
-    if($jsonResponse['success']==false){
-       fwrite($lg, "Error vtiger login failed ".$jsonResponse['error']['errorMsg']."\n"); 
+    $destclient = new Vtiger_WSClient($destURL);
+    $login = $destclient->doLogin($destUser, $destAccessKey);
+    if(!$login) {
+        fwrite($lg, "Login failed \n");
     }
     
-    //login successful extract sessionId and userId from LoginResult to it can used for further calls.
-    $sessionId = $jsonResponse['result']['sessionName']; 
-    $userId = $jsonResponse['result']['userId'];
 }catch(Exception $lerr){
     fwrite($lg, "Exception login vtiger ".$lerr->getMessage()."\n");
 }
@@ -118,7 +92,7 @@ while($flag == true){
                     
                     //populate into dest
                     //create the object
-                    $contactData = array('assigned_user_id'=>$userId, 'leadsource' => 'InterchangeComm');
+                    $contactData = array('leadsource' => 'InterchangeComm');
                     foreach($v as $prop=>$attr){
                         if(array_key_exists($prop, $fieldmap)){
                             $contactData[$fieldmap[$prop]] = $attr;
@@ -205,31 +179,18 @@ while($flag == true){
                         }
                         
                     }
-                    //populate
-                    $objectJson = Zend_JSON::encode($contactData);                    
-                     
-                    //sessionId is obtained from loginResult.
-                    $params = array("sessionName"=>$sessionId, "operation"=>'create', 
-                        "element"=>$objectJson, "elementType"=>$moduleName);
-                    //Create must be POST Request.
-                    //$httpc = new HTTP_Client();
-                    $httpc->post("$destURL", $params, true);
-                    $response = $httpc->currentResponse();
-                    $jsonResponse = Zend_JSON::decode($response['body']);
+                    //populate                                       
+                    $record = $destclient->doCreate($moduleName, $contactData);
                     
-                    //operation was successful get the token from the reponse.
-                    if($jsonResponse['success']==false){
-                        //collect failed rec nums
-                        array_push($except_array, $v['RecordNumber']);
-                        fwrite($lg, "Error vtiger contact creation failed for recnum". $v['RecordNumber']. " DETAILS: ". $jsonResponse['error']['errorMsg']."\n");                         
-                    }
-                    $savedObject = $jsonResponse['result'];                    
-                    $id = $savedObject['id'];
-                    if($jsonResponse['success']!=false){
-                      fwrite($lg, "SUCCESS: Created contact for recnum ". $v['RecordNumber']. " Object ID: ". $id."\n");
+                    if($record){
+                      fwrite($lg, "SUCCESS: Created contact for recnum ". $v['RecordNumber']. " Object ID: ". $destclient->getRecordId($record['id'])."\n");
                       
                       //increment counter if success
                       $destcnt++;
+                    }else{
+                       array_push($except_array, $v['RecordNumber']);
+                       fwrite($lg, "Error vtiger contact creation failed for recnum". $v['RecordNumber']. "\n");                         
+            
                     }
                    
                    //TODO : remove this later
@@ -272,22 +233,6 @@ if($destcnt < $srccnt){
 } elseif($destcnt == $srccnt){
     fwrite($lg, "INFO: SUCCESS all records from source were populated into destination\n");
 }
-
-//logout and invalidate vtiger session
-$params = "operation=logout&sessionName=$sessionId";
-
-//logout must be GET Request.
-$httpc->get("$destURL?$params");
-$response = $httpc->currentResponse();
-$jsonResponse = Zend_JSON::decode($response['body']);
-//operation was successful get the token from the reponse.
-if($jsonResponse['success']==false){
-    //handle the failure case.
-    fwrite($lg, "Error vtiger session logout failed\n");                         
-}
-//logout successful session terminated.
-fwrite($lg, "INFO vtiger session logout done\n"); 
-
 
 fclose($dat);
 fclose($lg);
