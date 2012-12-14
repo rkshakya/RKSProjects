@@ -1,0 +1,10 @@
+db.messages.aggregate(  
+  { $unwind : '$headers.To'},
+  { $group : {
+      _id : { from : '$headers.From', to : '$headers.To'},
+      nums : { $sum : 1}
+    }
+  },
+  {$sort : { nums : -1 }},
+  { $limit : 2 }
+)
