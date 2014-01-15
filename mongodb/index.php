@@ -24,8 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $people = $db->$COLLECTION;
         
         $criteria = array(
-            'org_id' => $orgid,
-            //'user_name' => 'ravi.shakya'
+            'org_id' => $orgid
         );
         
         $project = array( 
@@ -48,9 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
     $white = $_POST['whitelist'];
     $black = $_POST['blacklist'];
     $userid = $_POST['user_id'];
-    //print "POSTED USER ID : ".$_POST[user_id];
-    //print $white;
-    //print $black;
+
     $arrwhite = array_map('trim', explode(",", $white));
     $arrblack = array_map('trim', explode(",", $black));
    
@@ -125,7 +122,7 @@ if ($_POST['chk100']) { array_push ($blkcats, intval($_POST['chk100'])); }
 if ($_POST['chk101']) { array_push ($blkcats, intval($_POST['chk101'])); }
 
 $con = new Mongo('mongodb://'.$UNAME.':'.$PWD.'@'.$HOST.':'.$PORT.'/'.$DB);
-        //print 'dhukur';
+       
         if($con){
         // Select Database
         $db = $con->$DB;
@@ -136,8 +133,7 @@ $con = new Mongo('mongodb://'.$UNAME.':'.$PWD.'@'.$HOST.':'.$PORT.'/'.$DB);
             'user_id' => intval($userid)
         );
         
-        //print_r($arrwhite);
-        //print_r($arrblack);
+     
         
         $updates = array(
                          '$set' => array("allow_urls" => $arrwhite, "block_urls" => $arrblack, "block_cats" => $blkcats)
@@ -174,7 +170,7 @@ $con = new Mongo('mongodb://'.$UNAME.':'.$PWD.'@'.$HOST.':'.$PORT.'/'.$DB);
          
             
                 $cats = $v['block_cats'];
-                //print_r($cats);
+              
             
         
 ?>
