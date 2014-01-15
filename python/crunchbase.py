@@ -2,6 +2,9 @@ import requests
 import json
 import MySQLdb as mdb
 
+#script to get companies info from Crunchbase API
+#author : Ravi K Shakya
+
 #api key
 apkey = ''
 #mysql db information
