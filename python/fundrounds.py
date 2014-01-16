@@ -3,13 +3,13 @@ import json
 import MySQLdb as mdb
 
 #api key
-apkey = 'kx4j4jd98z5jvvrbw7t4b5x9'
+apkey = ''
 #mysql db information
 host = 'localhost'
 port = 3306
 db = 'crunchbase'
-uname = 'root'
-pwd = 'taklamakan'
+uname = ''
+pwd = ''
 
 payload = {'api_key' : apkey}
 
