@@ -2,17 +2,14 @@ import requests
 import json
 import MySQLdb as mdb
 
-#script to get companies funding info from Crunchbase API
-#author : Ravi K Shakya
-
 #api key
-apkey = ''
+apkey = 'kx4j4jd98z5jvvrbw7t4b5x9'
 #mysql db information
-host = ''
+host = 'localhost'
 port = 3306
-db = ''
-uname = ''
-pwd = ''
+db = 'crunchbase'
+uname = 'root'
+pwd = 'taklamakan'
 
 payload = {'api_key' : apkey}
 
@@ -23,7 +20,7 @@ try:
     
     with con:    
         cur = con.cursor(mdb.cursors.DictCursor)
-        cur.execute("SELECT `id`, `nam`, `permalink` FROM `cb_companies` WHERE `is_processed` = 0 order by `id` LIMIT 0, 100")
+        cur.execute("SELECT `id`, `nam`, `permalink` FROM `cb_companies` WHERE `is_processed` = 0 order by `id` LIMIT 0, 5")
     
         rows = cur.fetchall()
         
@@ -86,7 +83,7 @@ try:
                     else:
                         day = 0              
                     
-                    insqry = "INSERT INTO cb_fundrounds(companyid, id, code, source_description, amount, currency, year, month, day) VALUES ('%d', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d')" % (row["id"], id, code, sourcedesc, amount, currency, year, month, day)
+                    insqry = "INSERT INTO cb_fundingrounds(company_id, id, round_code, source_description, raised_amount, raised_currency_code, funded_year, funded_month, funded_day) VALUES ('%d', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d')" % (row["id"], id, code, sourcedesc, amount, currency, year, month, day)
                      
                    # print insqry        
                     try:            
@@ -123,6 +120,156 @@ try:
                                 except:              
                                     inscon1.rollback() 
                                                   
+            if funddata['relationships'] and len(funddata['relationships']) > 0:
+                for rel in funddata['relationships'] :
+                    if rel['is_past']:
+                        is_past = rel['is_past']
+                    else:
+                        is_past = "None"    
+                        
+                    if rel['title'] and len(rel['title']) > 0:
+                        title = rel['title']
+                    else:
+                        title = "None"
+                        
+                    if rel['person']['first_name'] and len(rel['person']['first_name']) > 0:
+                        first_name = rel['person']['first_name']
+                    else:
+                        first_name = "None"   
+                        
+                    if rel['person']['last_name'] and len(rel['person']['last_name']) > 0:
+                        last_name = rel['person']['last_name']
+                    else:
+                        last_name = "None" 
+                    
+                    insqryrel = "INSERT INTO cb_relationships(company_id, is_past, title, first_name, last_name) VALUES ('%d', '%s', '%s', '%s', '%s')" % (row["id"], is_past, title, first_name, last_name)
+                     
+                   # print insqry        
+                    try:            
+                        inscursor.execute(insqryrel)      
+                        inscon.commit()
+                    except:              
+                        inscon.rollback()
+                        
+                                
+                    
+     
+            if funddata['investments'] and len(funddata['investments']) > 0:
+                for i in funddata['investments'] :
+                    if i['funding_round']['round_code'] and len(i['funding_round']['round_code']) > 0:
+                        iround_code = i['funding_round']['round_code']
+                    else:
+                        iround_code = "None"  
+                        
+                    if i['funding_round']['source_url'] and len(i['funding_round']['source_url']) > 0:
+                        isource_url = i['funding_round']['source_url']
+                    else:
+                        isource_url = "None" 
+                    
+                    if i['funding_round']['source_description'] and len(i['funding_round']['source_description']) > 0:
+                        isource_description = i['funding_round']['source_description']
+                    else:
+                        isource_description = "None"  
+                        
+                    if i['funding_round']['raised_amount'] :
+                        iraised_amount = i['funding_round']['raised_amount']
+                    else:
+                        iraised_amount = 0.0
+                        
+                    if i['funding_round']['raised_currency_code'] and len(i['funding_round']['raised_currency_code']) > 0:
+                        iraised_currency_code = i['funding_round']['raised_currency_code']
+                    else:
+                        iraised_currency_code = "None" 
+                        
+                    if i['funding_round']['funded_year'] :
+                        ifunded_year = i['funding_round']['funded_year']
+                    else:
+                        ifunded_year = 0 
+                        
+                    if i['funding_round']['funded_month'] :
+                        ifunded_month = i['funding_round']['funded_month']
+                    else:
+                        ifunded_month = 0 
+                        
+                    if i['funding_round']['funded_day'] :
+                        ifunded_day = i['funding_round']['funded_day']
+                    else:
+                        ifunded_day = 0 
+                        
+                    if i['funding_round']['company']['name'] and len(i['funding_round']['company']['name']) > 0:
+                        icompany_name = i['funding_round']['company']['name']
+                    else:
+                        icompany_name = "None" 
+                        
+                    if i['funding_round']['company']['permalink'] and len(i['funding_round']['company']['permalink']) > 0:
+                        icompany_permalink = i['funding_round']['company']['permalink']
+                    else:
+                        icompany_permalink = "None"  
+                    
+                    insqryinvestments = "INSERT INTO cb_investments(company_id, round_code, source_url, source_description, raised_amount, raised_currency_code, funded_year, funded_month, funded_day, company, permalink) VALUES ('%d', '%s', '%s', '%s', '%f', '%s', '%d', '%d', '%d', '%s', '%s')" % (row["id"], iround_code, isource_url, isource_description, iraised_amount, iraised_currency_code, ifunded_year, ifunded_month, ifunded_day, icompany_name, icompany_permalink)
+                     
+                   # print insqry        
+                    try:            
+                        inscursor.execute(insqryinvestments)      
+                        inscon.commit()
+                    except:              
+                        inscon.rollback()                                
+     
+            if funddata['acquisition'] and len(funddata['acquisition']) > 0:
+                if funddata['acquisition']['price_amount'] :
+                    aprice_amount = funddata['acquisition']['price_amount']
+                else:
+                    aprice_amount = 0.0
+                    
+                if funddata['acquisition']['price_currency_code'] and len(funddata['acquisition']['price_currency_code']) > 0:
+                    aprice_currency_code = funddata['acquisition']['price_currency_code']
+                else:
+                    aprice_currency_code = "None" 
+                
+                if funddata['acquisition']['term_code'] and len(funddata['acquisition']['term_code']) > 0:
+                    aterm_code = funddata['acquisition']['term_code']
+                else:
+                    aterm_code = "None" 
+                    
+                if funddata['acquisition']['source_url'] and len(funddata['acquisition']['source_url']) > 0:
+                    asource_url = funddata['acquisition']['source_url']
+                else:
+                    asource_url = "None" 
+                    
+                if funddata['acquisition']['source_description'] and len(funddata['acquisition']['source_description']) > 0:
+                    asource_description = funddata['acquisition']['source_description']
+                else:
+                    asource_description = "None" 
+                    
+                if funddata['acquisition']['acquired_year'] :
+                    aacquired_year = funddata['acquisition']['acquired_year']
+                else:
+                    aacquired_year = 0 
+                    
+                if funddata['acquisition']['acquired_month'] :
+                    aacquired_month = funddata['acquisition']['acquired_month']
+                else:
+                    aacquired_month = 0 
+                      
+                if funddata['acquisition']['acquired_day'] :
+                    aacquired_day = funddata['acquisition']['acquired_day']
+                else:
+                    aacquired_day = 0
+                    
+                if funddata['acquisition']['acquiring_company']['name'] and len(funddata['acquisition']['acquiring_company']['name']) > 0:
+                    aacquirer = funddata['acquisition']['acquiring_company']['name']
+                else:
+                    aacquirer = "None"  
+                
+                insqryrel = "INSERT INTO cb_relationships(company_id, is_past, title, first_name, last_name) VALUES ('%d', '%s', '%s', '%s', '%s')" % (row["id"], is_past, title, first_name, last_name)
+                     
+                   # print insqry        
+                try:            
+                   inscursor.execute(insqryrel)      
+                   inscon.commit()
+                except:              
+                   inscon.rollback()                            
+                
      #update misc info
             if (funddata['number_of_employees'] > 0):
                 size = funddata['number_of_employees']
@@ -132,8 +279,60 @@ try:
             if (len(funddata['total_money_raised']) > 0):
                 totfund = funddata['total_money_raised']
             else:
-                totfund = "None"       
-            udtqry = "update cb_companies set size = %d, total_funding = '%s', is_processed = 1 where id = %d" % (size, totfund, row["id"])
+                totfund = "None" 
+                
+            if (len(funddata['homepage_url']) > 0):
+                homepage_url = funddata['homepage_url']
+            else:
+                homepage_url = "None"
+                
+            if funddata['founded_year']:
+                founded_year = funddata['founded_year']
+            else:
+                founded_year = 0  
+            
+            if funddata['founded_month']:
+                founded_month = funddata['founded_month']
+            else:
+                founded_month = 0 
+                
+            if funddata['founded_day']:
+                founded_day = funddata['founded_day']
+            else:
+                founded_day = 0 
+                
+            if funddata['deadpooled_year']:
+                deadpooled_year = funddata['deadpooled_year']
+            else:
+                deadpooled_year = 0  
+            
+            if funddata['deadpooled_month']:
+                deadpooled_month = funddata['deadpooled_month']
+            else:
+                deadpooled_month = 0 
+                
+            if funddata['deadpooled_day']:
+                deadpooled_day = funddata['deadpooled_day']
+            else:
+                deadpooled_day = 0   
+                
+            if (len(funddata['description']) > 0):
+                description = funddata['description']
+            else:
+                description = "None" 
+                
+            if (len(funddata['overview']) > 0):
+                overview = funddata['overview']
+            else:
+                overview = "None"  
+                
+            if (len(funddata['category_code']) > 0):
+                category_code = funddata['category_code']
+            else:
+                category_code = "None"                      
+                           
+            udtqry = "update cb_companies set number_of_employees = %d, total_money_raised = '%s', is_processed = 1, homepage_url = '%s', founded_year = %d, founded_month = %d, founded_day = %d, deadpooled_year = %d, deadpooled_month = %d, deadpooled_day = %d, description = '%s', overview = '%s', catcode = '%s' where id = %d" % (size, totfund, homepage_url, founded_year, founded_month, founded_day, deadpooled_year, deadpooled_month, deadpooled_day, description, overview, category_code, row["id"])
+                                                                                                                                
             try:            
                 inscursor.execute(udtqry)      
                 inscon.commit()
