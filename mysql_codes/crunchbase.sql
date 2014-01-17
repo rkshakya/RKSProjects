@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 16, 2014 at 05:13 PM
+-- Generation Time: Jan 17, 2014 at 01:07 PM
 -- Server version: 5.1.61
 -- PHP Version: 5.3.2-1ubuntu4.22
 
@@ -31,8 +31,6 @@ CREATE TABLE IF NOT EXISTS `cb_acquisition` (
   `price_amount` double DEFAULT NULL,
   `price_currency_code` varchar(30) DEFAULT NULL,
   `term_code` varchar(70) DEFAULT NULL,
-  `source_url` varchar(260) DEFAULT NULL,
-  `source_description` varchar(200) DEFAULT NULL,
   `acquired_year` int(5) DEFAULT NULL,
   `acquired_month` int(3) DEFAULT NULL,
   `acquired_day` int(3) DEFAULT NULL,
@@ -51,9 +49,6 @@ CREATE TABLE IF NOT EXISTS `cb_acquisitions` (
   `company_id` int(8) NOT NULL COMMENT 'fk to id of cb_companies',
   `price_amount` double DEFAULT NULL,
   `price_currency_code` varchar(30) DEFAULT NULL,
-  `term_code` varchar(100) DEFAULT NULL,
-  `source_url` varchar(260) DEFAULT NULL,
-  `source_description` varchar(260) DEFAULT NULL,
   `acquired_year` int(5) DEFAULT NULL,
   `acquired_month` int(5) DEFAULT NULL,
   `acquired_day` int(5) DEFAULT NULL,
@@ -71,9 +66,9 @@ CREATE TABLE IF NOT EXISTS `cb_companies` (
   `id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'primary key',
   `nam` varchar(250) NOT NULL,
   `permalink` varchar(250) NOT NULL,
-  `category_code` varchar(50) NOT NULL,
-  `number_of_employees` int(5) NOT NULL,
-  `total_money_raised` varchar(30) NOT NULL,
+  `category_code` varchar(50) DEFAULT NULL,
+  `number_of_employees` int(5) DEFAULT NULL,
+  `total_money_raised` varchar(30) DEFAULT NULL,
   `is_processed` tinyint(1) NOT NULL DEFAULT '0',
   `crdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `homepage_url` varchar(250) DEFAULT NULL,
@@ -83,11 +78,11 @@ CREATE TABLE IF NOT EXISTS `cb_companies` (
   `deadpooled_year` int(5) DEFAULT NULL,
   `deadpooled_month` int(3) DEFAULT NULL,
   `deadpooled_day` int(3) DEFAULT NULL,
-  `description` varchar(250) DEFAULT NULL,
-  `overview` varchar(260) DEFAULT NULL,
-  `catcode` varchar(100) NOT NULL,
+  `description` text,
+  `overview` text,
+  `catcode` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='holds basic information about companies' AUTO_INCREMENT=201632 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='holds basic information about companies' AUTO_INCREMENT=45264 ;
 
 -- --------------------------------------------------------
 
@@ -100,7 +95,6 @@ CREATE TABLE IF NOT EXISTS `cb_fundingrounds` (
   `company_id` int(4) NOT NULL,
   `id` int(10) NOT NULL,
   `round_code` varchar(40) NOT NULL,
-  `source_description` varchar(250) NOT NULL,
   `raised_amount` double NOT NULL,
   `raised_currency_code` varchar(10) NOT NULL,
   `funded_year` int(5) NOT NULL,
@@ -109,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `cb_fundingrounds` (
   `crdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`frid`),
   KEY `companyid` (`company_id`,`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='holds information about funding rounds for companies' AUTO_INCREMENT=346 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='holds information about funding rounds for companies' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -121,8 +115,6 @@ CREATE TABLE IF NOT EXISTS `cb_investments` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `company_id` int(8) NOT NULL,
   `round_code` varchar(50) DEFAULT NULL,
-  `source_url` varchar(260) DEFAULT NULL,
-  `source_description` varchar(260) DEFAULT NULL,
   `raised_amount` double DEFAULT NULL,
   `raised_currency_code` varchar(30) DEFAULT NULL,
   `funded_year` int(5) DEFAULT NULL,
@@ -150,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `cb_investors` (
   `permalink` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `companyid` (`companyid`,`roundid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='holds information on investors who invested in the company' AUTO_INCREMENT=739 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='holds information on investors who invested in the company' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -186,8 +178,6 @@ CREATE TABLE IF NOT EXISTS `cb_offices` (
   `city` varchar(100) DEFAULT NULL,
   `state_code` varchar(60) DEFAULT NULL,
   `country_code` varchar(200) DEFAULT NULL,
-  `latitude` double DEFAULT NULL,
-  `longitude` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='holds info about various office locs of company' AUTO_INCREMENT=1 ;
 
