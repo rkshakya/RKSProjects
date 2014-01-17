@@ -2,16 +2,13 @@ import requests
 import json
 import MySQLdb as mdb
 
-#script to get companies info from Crunchbase API
-#author : Ravi K Shakya
-
 #api key
 apkey = ''
 #mysql db information
 host = 'localhost'
 port = 3306
 db = ''
-uname = ''
+uname = 'root'
 pwd = ''
 
 #make api call and fetch company info
@@ -30,15 +27,17 @@ try:
         cur = con.cursor()
         
         for d in data:
-            sql = "insert into cb_companies(nam, permalink, category) values ('%s', '%s', '%s' )" % (d['name'], d['permalink'], d['category_code'])
+            sql = "insert into cb_companies(nam, permalink, category_code) values (%s, %s, %s )"
            
             try:
                # Execute the SQL command
-               cur.execute(sql)
+               cur.execute(sql, (d['name'], d['permalink'], d['category_code']))
                # Commit your changes in the database
                con.commit()
             except:
                # Rollback in case there is any error
+               print 'PROBLEM'
+               print d
                con.rollback()
 except mdb.Error, e:
     print "Error %d: %s" % (e.args[0],e.args[1])
