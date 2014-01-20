@@ -5,10 +5,10 @@ import MySQLdb as mdb
 #api key
 apkey = ''
 #mysql db information
-host = 'localhost'
+host = ''
 port = 3306
 db = ''
-uname = 'root'
+uname = ''
 pwd = ''
 
 payload = {'api_key' : apkey}
@@ -20,7 +20,7 @@ try:
     
     with con:    
         cur = con.cursor(mdb.cursors.DictCursor)
-        cur.execute("SELECT `id`, `nam`, `permalink` FROM `cb_companies` WHERE `is_processed` = 0  order by `id` LIMIT 0, 20000")
+        cur.execute("SELECT `id`, `nam`, `permalink` FROM `cb_companies` WHERE `is_processed` = 0  order by `id` LIMIT 0, 10000")
     
         rows = cur.fetchall()
         
@@ -39,10 +39,11 @@ try:
             try:
                 resp = requests.get(url, params=payload)
                 funddata = json.loads(resp.content)
-            except requests.exceptions.RequestException, ex:
-                print "Error %d: %s" % (ex.args[0],ex.args[1])
+            except:
+                #print "Error %d: %s" % (ex.args[0],ex.args[1])
                 print "Fetch information failed for company : %s " % row["nam"]
-                sys.exit(1)   
+                continue
+                #sys.exit(1)   
 
             #populate data into tables  
             if funddata['funding_rounds'] and len(funddata['funding_rounds']) > 0:
@@ -415,7 +416,7 @@ try:
             else:
                 totfund = "None" 
                 
-            if (len(funddata['homepage_url']) > 0):
+            if funddata['homepage_url'] and (len(funddata['homepage_url']) > 0):
                 homepage_url = funddata['homepage_url']
             else:
                 homepage_url = "None"
@@ -460,7 +461,7 @@ try:
             else:
                 overview = "None"  
                 
-            if (len(funddata['category_code']) > 0):
+            if funddata['category_code'] and (len(funddata['category_code']) > 0):
                 category_code = funddata['category_code']
             else:
                 category_code = "None"
