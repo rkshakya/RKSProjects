@@ -2,7 +2,6 @@
 //  FeedTableViewController.swift
 //  ParseStarterProject
 //
-//  Created by Rob Percival on 19/05/2015.
 //  Copyright (c) 2015 Parse. All rights reserved.
 //
 
