@@ -2,43 +2,59 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import MySQLdb
+import time
+import sys
 
 # Quick script to scrape startup data from startups-list.com
 # Author : Ravi Kishor Shakya
 # Pls specify MySQL DB details at appr location below
 
-import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-db = MySQLdb.connect("localhost","root","hjkhjh","jana" )
+db = MySQLdb.connect("localhost","root","hjkjh","jana" )
 cursor = db.cursor()
 
-r  = requests.get("http://porto.startups-list.com")
-data = r.text
+#read cities from file
+cities = open('cities.txt', 'r')
+for city in cities:
+    print city
+    
+    ofile = open(city + ".txt", "w")
 
-soup = BeautifulSoup(data, 'html.parser')
+    r  = requests.get("http://"  + city.strip() +".startups-list.com")
+    time.sleep(20)
+    data = r.text
 
-results = soup.find_all("div", "card")
-for element in results:
-    print(element['data-href'])
-    print(element['data-name'])
-    media = ""
-    for link in element.div.find_all('a'):
-        media = media + "," + link.get('href')
-    print media    
-    res = element.find("a",{"class": "main_link"})
-    print res.p.strong.contents[0].string
-    print res.p.contents[2].string
-    sql = "INSERT INTO startups(website, \
-       name, social_media, oneliner, description) \
-       VALUES ('%s', '%s', '%s', '%s', '%s' )" % \
-       (element['data-href'], element['data-name'], media, res.p.strong.contents[0].string.strip(' \t\n\r'), res.p.contents[2].string.strip(' \t\n\r'))
-    try:
-        cursor.execute(sql)
-        db.commit()
-    except:
-        db.rollback()   
+    soup = BeautifulSoup(data, 'html.parser')
+
+    results = soup.find_all("div", "card")
+    for element in results:
+        ofile.write(element['data-href'])
+        ofile.write(element['data-name'])
+        media = ""
+        for link in element.div.find_all('a'):
+            media = media + "," + link.get('href')
+        ofile.write(media)    
+        res = element.find("a",{"class": "main_link"})
+
+        osql = "INSERT INTO startups(city, website, \
+           name, social_media, oneliner, description) \
+           VALUES ('%s', '%s', '%s', '%s', '%s', '%s' )" % (MySQLdb.escape_string(city),MySQLdb.escape_string(element['data-href']), MySQLdb.escape_string(element['data-name']), MySQLdb.escape_string(media), MySQLdb.escape_string(res.p.strong.contents[0].string.strip(' \t\n\r')), MySQLdb.escape_string(res.p.contents[2].string.strip(' \t\n\r')))
+        
+        try:
+            ofile.write(osql)
+            ofile.write(res.p.strong.contents[0].string.strip(' \t\n\r'))
+            ofile.write(res.p.contents[2].string.strip(' \t\n\r'))
+            cursor.execute(osql)
+            db.commit()
+            ofile.write('POPULATED')
+        except:
+            db.rollback()   
+            ofile.write('FAILED')
+    ofile.close()       
+
+cities.close()
 
 db.close()        
     
