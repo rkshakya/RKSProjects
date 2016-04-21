@@ -62,18 +62,6 @@ class EstarSpider(InitSpider):
             item['stock'] = " ".join (map(unicode.strip, good.select('td[7]/text()').extract() ))
             item['msrp'] = " ".join (map(unicode.strip, good.select('td[8]/text()').extract() ))
             item['price'] = " ".join (map(unicode.strip, good.select('td[9]/text()').extract() ))
-            print 'IMAGEURL ',item['imageURL']
-            print item['itemid']
-            print item['title']
-            print item['date']
-            print item['sku']
-            print item['typ']
-            print item['condition']
-            print item['stock']
-            print item['msrp']
-            print item['price']
-            print item['quantity']
-           
             
             r  = requests.get("https://asdasf.com/ajax/getProductDetails?id=" + str(item['itemid']))
             item['link'] = "https://asdasf.com/ajax/getProductDetails?id=" + str(item['itemid'])
