@@ -1,16 +1,25 @@
 import random
 
-store = StoreClient('hfjsdhfd')
+def createRandomSortedList(num, start = 1, end = 100): 
+    arr = [] 
+    tmp = random.randint(start, end) 
+      
+    for x in range(num): 
+          
+        while tmp in arr: 
+            tmp = random.randint(start, end) 
+              
+        arr.append(tmp) 
+          
+    arr.sort() 
+      
+    return arr 
+
+store = StoreClient('ghfhfh')
 store.increment_by('count', 1)
 value = store.get('count') 
 
-if store.get('li') is None:
-	randomList = []
-	for i in range(0, 60):
-		randomList.append(random.randint(0, 100))
-	store.set('li', randomList)	
-
-li = store.get('li')
+li = createRandomSortedList(60)
 
 print(value)
 print(li)
